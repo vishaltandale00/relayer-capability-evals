@@ -1,0 +1,277 @@
+diff --git a/packages/notebook/src/executionbundle.ts b/packages/notebook/src/executionbundle.ts
+new file mode 100644
+index 0000000000..e9ff735d6e
+--- /dev/null
++++ b/packages/notebook/src/executionbundle.ts
+@@ -0,0 +1,220 @@
++export type ExecutionBundleState = 'completed' | 'error' | 'skipped';
++export type ExecutionBundleImportStatus =
++  | 'verified'
++  | 'partial'
++  | 'missing-inputs'
++  | 'tampered';
++export type ExecutionBundleComparisonStatus =
++  | 'rerun-match'
++  | 'rerun-different'
++  | 'missing-inputs'
++  | 'tampered';
++
++export interface IExecutionEvidence {
++  cellId: string;
++  source: string;
++  executionCount: number | null;
++  state: ExecutionBundleState;
++  outputs: unknown[];
++}
++
++export interface IReferencedExecutionFile {
++  path: string;
++  bytes: Uint8Array;
++}
++
++export interface IExecutionBundle {
++  schemaVersion: 1;
++  environment: Record<string, unknown>;
++  executions: IExecutionEvidence[];
++  referencedFiles: Array<{ path: string; content: string; hash: string }>;
++  integrity: { algorithm: 'SHA-256'; hash: string };
++}
++
++const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
++
++function normalize(value: unknown): unknown {
++  if (Array.isArray(value)) {
++    return value.map(normalize);
++  }
++  if (value !== null && typeof value === 'object') {
++    const record = value as Record<string, unknown>;
++    const normalized: Record<string, unknown> = {};
++    for (const key of Object.keys(record).sort()) {
++      normalized[key] = normalize(record[key]);
++    }
++    return normalized;
++  }
++  return value;
++}
++
++function canonical(value: unknown): string {
++  return JSON.stringify(normalize(value));
++}
++
++async function digest(value: string | Uint8Array): Promise<string> {
++  const bytes = typeof value === 'string' ? new TextEncoder().encode(value) : value;
++  return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), item =>
++    item.toString(16).padStart(2, '0')
++  ).join('');
++}
++
++function base64(bytes: Uint8Array): string {
++  let value = '';
++  for (const byte of bytes) {
++    value += String.fromCharCode(byte);
++  }
++  return btoa(value);
++}
++
++function freeze<T>(value: T): T {
++  const pending: unknown[] = [value];
++  while (pending.length > 0) {
++    const current = pending.pop();
++    if (current !== null && typeof current === 'object' && !Object.isFrozen(current)) {
++      pending.push(...Object.values(current));
++      Object.freeze(current);
++    }
++  }
++  return value;
++}
++
++function evidence(value: IExecutionEvidence): IExecutionEvidence {
++  const { cellId, source, executionCount, state, outputs } = value;
++  return clone({ cellId, source, executionCount, state, outputs });
++}
++
++async function unsignedHash(value: Omit<IExecutionBundle, 'integrity'>): Promise<string> {
++  return digest(canonical(value));
++}
++
++export async function exportExecutionBundle(input: {
++  environment: Record<string, unknown>;
++  executions: IExecutionEvidence[];
++  referencedFiles: IReferencedExecutionFile[];
++}): Promise<IExecutionBundle> {
++  const referencedFiles: Array<{ path: string; content: string; hash: string }> = [];
++  for (const file of input.referencedFiles) {
++    referencedFiles.push({
++      path: file.path,
++      content: base64(file.bytes),
++      hash: await digest(file.bytes)
++    });
++  }
++  const unsigned = {
++    schemaVersion: 1 as const,
++    environment: clone(input.environment),
++    executions: input.executions.map(evidence),
++    referencedFiles
++  };
++  return {
++    ...unsigned,
++    integrity: { algorithm: 'SHA-256', hash: await unsignedHash(unsigned) }
++  };
++}
++
++async function currentFiles(files: IReferencedExecutionFile[]): Promise<Map<string, string>> {
++  return new Map(
++    await Promise.all(files.map(async file => [file.path, await digest(file.bytes)] as const))
++  );
++}
++
++function imported(
++  status: ExecutionBundleImportStatus,
++  bundle: IExecutionBundle,
++  missingInputs: string[] = []
++) {
++  return {
++    status,
++    readOnly: true as const,
++    bundle: freeze(clone(bundle)),
++    missingInputs
++  };
++}
++
++export async function importExecutionBundle(
++  serialized: string,
++  availableFiles: IReferencedExecutionFile[]
++) {
++  let bundle: IExecutionBundle;
++  try {
++    bundle = JSON.parse(serialized) as IExecutionBundle;
++  } catch {
++    return imported('tampered', {} as IExecutionBundle);
++  }
++  if (!bundle || typeof bundle !== 'object' || Array.isArray(bundle)) {
++    return imported('tampered', {} as IExecutionBundle);
++  }
++  const { integrity, ...unsigned } = bundle;
++  if (
++    bundle.schemaVersion !== 1 ||
++    integrity?.algorithm !== 'SHA-256' ||
++    integrity.hash !== (await unsignedHash(unsigned))
++  ) {
++    return imported('tampered', bundle);
++  }
++  const actual = await currentFiles(availableFiles);
++  const missingInputs = bundle.referencedFiles
++    .filter(file => actual.get(file.path) !== file.hash)
++    .map(file => file.path);
++  if (missingInputs.length > 0) {
++    return imported('missing-inputs', bundle, missingInputs);
++  }
++  return imported(
++    bundle.executions.some(item => item.state !== 'completed') ? 'partial' : 'verified',
++    bundle
++  );
++}
++
++export async function compareExecutionBundle(
++  bundle: IExecutionBundle,
++  rerun: { environment: Record<string, unknown>; executions: IExecutionEvidence[] },
++  availableFiles: IReferencedExecutionFile[]
++) {
++  const checked = await importExecutionBundle(JSON.stringify(bundle), availableFiles);
++  if (checked.status === 'tampered' || checked.status === 'missing-inputs') {
++    return { status: checked.status, differences: checked.missingInputs };
++  }
++  const differences: string[] = [];
++  if (canonical(bundle.environment) !== canonical(rerun.environment)) {
++    differences.push('environment');
++  }
++  const rerunEvidence = rerun.executions.map(item => evidence(item));
++  if (canonical(bundle.executions) !== canonical(rerunEvidence)) {
++    differences.push('executions');
++  }
++  return {
++    status: differences.length ? 'rerun-different' : 'rerun-match',
++    differences
++  };
++}
++
++export function executionBundleStatus(
++  status: ExecutionBundleImportStatus | ExecutionBundleComparisonStatus,
++  host: HTMLElement
++) {
++  const labels: Record<string, string> = {
++    verified: 'Verified',
++    partial: 'Partial execution',
++    'missing-inputs': 'Missing inputs',
++    tampered: 'Tampered',
++    'rerun-match': 'Rerun matches',
++    'rerun-different': 'Rerun differs'
++  };
++  const tones: Record<string, 'positive' | 'warning' | 'negative' | 'neutral'> = {
++    verified: 'positive',
++    partial: 'warning',
++    'missing-inputs': 'negative',
++    tampered: 'negative',
++    'rerun-match': 'positive',
++    'rerun-different': 'warning'
++  };
++  const label = labels[status];
++  const tone = tones[status] ?? 'neutral';
++  const node = document.createElement('span');
++  node.textContent = label;
++  node.dataset.tone = tone;
++  node.setAttribute('aria-readonly', 'true');
++  host.appendChild(node);
++  return { label, tone, readOnly: true as const, node };
++}
+diff --git a/packages/notebook/src/index.ts b/packages/notebook/src/index.ts
+index 63b200ea23..c6a88f8806 100644
+--- a/packages/notebook/src/index.ts
++++ b/packages/notebook/src/index.ts
+@@ -10,6 +10,7 @@ export * from './cellexecutor';
+ export * from './celllist';
+ export * from './default-toolbar';
+ export * from './executionindicator';
++export * from './executionbundle';
+ export * from './history';
+ export * from './model';
+ export * from './modelfactory';
+diff --git a/packages/notebook/test/executionbundle.spec.ts b/packages/notebook/test/executionbundle.spec.ts
+new file mode 100644
+index 0000000000..27303b9257
+--- /dev/null
++++ b/packages/notebook/test/executionbundle.spec.ts
+@@ -0,0 +1,33 @@
++import {
++  compareExecutionBundle,
++  executionBundleStatus,
++  exportExecutionBundle,
++  importExecutionBundle
++} from '../src';
++import { webcrypto } from 'node:crypto';
++
++Object.defineProperty(globalThis, 'crypto', { configurable: true, value: webcrypto });
++
++describe('execution bundles', () => {
++  it('round trips immutable evidence and compares a rerun', async () => {
++    const files = [{ path: 'input.csv', bytes: new TextEncoder().encode('x\n1\n') }];
++    const executions = [
++      { cellId: 'a', source: '1 + 1', executionCount: 1, state: 'completed' as const, outputs: [2] }
++    ];
++    const bundle = await exportExecutionBundle({ environment: { kernel: 'python3' }, executions, referencedFiles: files });
++    const result = await importExecutionBundle(JSON.stringify(bundle), files);
++    expect(result.status).toBe('verified');
++    expect(Object.isFrozen(result.bundle.executions[0].outputs)).toBe(true);
++    await expect(compareExecutionBundle(result.bundle, { environment: { kernel: 'python3' }, executions }, files)).resolves.toMatchObject({ status: 'rerun-match' });
++    const host = document.createElement('div');
++    const status = executionBundleStatus('verified', host);
++    expect(status).toMatchObject({ label: 'Verified', readOnly: true });
++    expect(status.node.outerHTML).toBe(
++      '<span data-tone="positive" aria-readonly="true">Verified</span>'
++    );
++    expect(host.contains(status.node)).toBe(true);
++    await expect(importExecutionBundle('null', files)).resolves.toMatchObject({
++      status: 'tampered'
++    });
++  });
++});
