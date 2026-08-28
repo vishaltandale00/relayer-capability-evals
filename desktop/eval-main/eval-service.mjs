@@ -34,6 +34,11 @@ import {
   frontierAutonomousCaseIds,
   calibrationAutonomousCases,
   calibrationAutonomousCaseIds,
+  EXCALIDRAW_SCENE_HISTORY_CASE_ID,
+  EXCALIDRAW_UPSTREAM_COMMIT,
+  excalidrawSceneHistoryCase,
+  materializeExcalidrawSceneHistoryFixture,
+  gradeExcalidrawSceneHistoryWorkspace,
   materializeCalibrationFixture,
   gradeCalibrationWorkspace,
   tournamentOperationsCase,
@@ -99,6 +104,11 @@ export const evalCases = Object.freeze([
     requiredChecks: Object.freeze(["node-navigation"]),
   }),
   h3ProjectEvalCase,
+  Object.freeze({
+    ...excalidrawSceneHistoryCase.definition,
+    caseSnapshot: excalidrawSceneHistoryCase.catalogSnapshot,
+    caseSnapshotDigest: excalidrawSceneHistoryCase.snapshotDigest,
+  }),
   ...h3AutonomousCases.map((entry) => Object.freeze({
     ...entry.definition,
     caseSnapshot: entry.catalogSnapshot,
@@ -164,6 +174,7 @@ const projectCaseIds = new Set([...h3CaseIds, ...nodeRedisAutonomousCaseIds, ...
 const httpcoreCaseIds = new Set([HTTPCORE_CANCELLATION_CASE_ID]);
 const projectCaseIds = new Set([...h3CaseIds, ...httpcoreCaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
 const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...emergencyEvacuationCaseIds]);
+const projectCaseIds = new Set([EXCALIDRAW_SCENE_HISTORY_CASE_ID, ...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({ id: "deterministic-graph-contract", name: "Deterministic graph contract" }),
@@ -297,6 +308,20 @@ function mandatoryGateReceipt(gate, checks, usesEmergencyVerifier = false) {
     "resource-cleanup": ["httpcore-cleanup"],
     "focused-regression-safety": ["httpcore-regression-safety"],
     "committed-delivery": ["httpcore-meaningful-commit", "httpcore-clean"],
+    "scene-history-behavior": [
+      "scene-history-public-ui",
+      "scene-history-named-immutable-versions",
+      "scene-history-historical-branching",
+      "scene-history-deterministic-merge",
+      "scene-history-conflict-taxonomy",
+      "scene-history-relationship-integrity",
+      "scene-history-groups-and-assets",
+      "scene-history-undo-boundary",
+      "scene-history-export-boundary",
+      "scene-history-historical-compatibility",
+    ],
+    "scene-history-regression": ["scene-history-build", "scene-history-upstream-tests"],
+    "scene-history-delivery": ["scene-history-commit", "scene-history-clean"],
   }[gate.id];
   return mandatoryGateReceiptForPatterns(gate, checks, patterns);
 }
@@ -694,6 +719,8 @@ export class EvalService {
     emergencyEvacuationFixtureMaterializer = materializeEmergencyEvacuationFixture,
     emergencyEvacuationWorkspaceGrader = gradeEmergencyEvacuationWorkspace,
     emergencyEvacuationNodeExecutableResolver = resolveEmergencyEvacuationNodeExecutable,
+    excalidrawFixtureMaterializer = materializeExcalidrawSceneHistoryFixture,
+    excalidrawWorkspaceGrader = gradeExcalidrawSceneHistoryWorkspace,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -731,6 +758,8 @@ export class EvalService {
     this.emergencyEvacuationFixtureMaterializer = emergencyEvacuationFixtureMaterializer;
     this.emergencyEvacuationWorkspaceGrader = emergencyEvacuationWorkspaceGrader;
     this.emergencyEvacuationNodeExecutableResolver = emergencyEvacuationNodeExecutableResolver;
+    this.excalidrawFixtureMaterializer = excalidrawFixtureMaterializer;
+    this.excalidrawWorkspaceGrader = excalidrawWorkspaceGrader;
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -1682,6 +1711,7 @@ export class EvalService {
     const isReservationCapacity = reservationCapacityCaseIds.has(definition.id);
     const isApiContractLaboratory = apiContractSimulationLaboratoryCaseIds.has(definition.id);
     const isEmergencyEvacuation = emergencyEvacuationCaseIds.has(definition.id);
+    const isExcalidraw = definition.id === EXCALIDRAW_SCENE_HISTORY_CASE_ID;
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
@@ -1689,6 +1719,10 @@ export class EvalService {
         platform: this.platform,
       })
       : isTournament ? await this.tournamentFixtureMaterializer({
+      : isExcalidraw ? await this.excalidrawFixtureMaterializer({
+        cacheDirectory: join(dirname(this.stateFile), "fixtures", `excalidraw-${EXCALIDRAW_UPSTREAM_COMMIT}`),
+        workspaceDirectory,
+      }) : isCalibration ? await this.calibrationFixtureMaterializer({
         caseId: definition.id,
         workspaceDirectory,
         platform: this.platform,
@@ -1762,6 +1796,8 @@ export class EvalService {
                 : isCalibration
               : isHTTPCore
                 ? await this.httpcoreWorkspaceGrader({ workspaceDirectory, pythonExecutable: fixture.pythonExecutable })
+              : isExcalidraw
+                ? await this.excalidrawWorkspaceGrader({ workspaceDirectory })
               : isCalibration
                 ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
                 : isReservationCapacity

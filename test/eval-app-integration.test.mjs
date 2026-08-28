@@ -22,6 +22,13 @@ import {
   HTTPCORE_UPSTREAM_COMMIT,
   HTTPCORE_UPSTREAM_TREE,
   httpcoreCancellationCase,
+  EXCALIDRAW_PACKAGE_MANAGER,
+  EXCALIDRAW_REPOSITORY_URL,
+  EXCALIDRAW_SCENE_HISTORY_CASE_ID,
+  EXCALIDRAW_SEEDED_COMMIT,
+  EXCALIDRAW_SEEDED_TREE,
+  EXCALIDRAW_UPSTREAM_COMMIT,
+  EXCALIDRAW_UPSTREAM_TREE,
   taskSystemFixtureFactory,
 } from "@relayer/eval-runner";
 import { afterEach, describe, expect, it } from "vitest";
@@ -196,6 +203,27 @@ describe("Relayer Eval application service", () => {
         "meaningful-commit",
         "clean",
       ].map((name) => ({ name: `workspace:httpcore-${name}`, passed: true, detail: `${name} passed.` })),
+      excalidrawFixtureMaterializer: async ({ workspaceDirectory }) => {
+        await mkdir(workspaceDirectory, { recursive: true });
+        return {
+          schemaVersion: 1,
+          fixtureId: EXCALIDRAW_SCENE_HISTORY_CASE_ID,
+          workspaceDirectory,
+          repositoryUrl: EXCALIDRAW_REPOSITORY_URL,
+          sourceRevision: `git-tree:${EXCALIDRAW_SEEDED_TREE}`,
+          upstreamCommit: EXCALIDRAW_UPSTREAM_COMMIT,
+          upstreamTree: EXCALIDRAW_UPSTREAM_TREE,
+          seededCommit: EXCALIDRAW_SEEDED_COMMIT,
+          seededTree: EXCALIDRAW_SEEDED_TREE,
+          packageManager: EXCALIDRAW_PACKAGE_MANAGER,
+          installedWithFrozenLockfile: true,
+        };
+      },
+      excalidrawWorkspaceGrader: async () => [
+        "public-ui", "named-immutable-versions", "historical-branching", "deterministic-merge", "conflict-taxonomy",
+        "relationship-integrity", "groups-and-assets", "undo-boundary", "export-boundary", "historical-compatibility",
+        "build", "upstream-tests", "commit", "clean",
+      ].map((name) => ({ name: `workspace:scene-history-${name}`, passed: true, detail: `${name} passed.` })),
       acceptedTopologyGrader: (topology, { requireGrandchild = false } = {}) => {
         acceptedTopologyGrades.push({
           turnId: topology.turnId,
@@ -355,6 +383,25 @@ describe("Relayer Eval application service", () => {
     expect(new Set(h3Threads.map((threadDetail) => threadDetail.thread.projectId)).size).toBe(1);
     expect(h3Threads.every((threadDetail) => threadDetail.interactions.length === 2)).toBe(true);
     expect(h3Threads.map((threadDetail) => threadDetail.thread.permissionProfileId)).toEqual(["auto", "auto", "auto"]);
+
+    const excalidrawCreated = await evalService.createRun({
+      testCaseIds: [EXCALIDRAW_SCENE_HISTORY_CASE_ID],
+      harnessConfigurationNames: ["fixture-task-system"],
+      judgeConfigurationName: "deterministic-graph-contract",
+    });
+    const excalidrawCompleted = await waitForCompletedRun(evalService, excalidrawCreated.id);
+    expect(excalidrawCompleted.status).toBe("passed");
+    expect(excalidrawCompleted.executions).toHaveLength(1);
+    expect(excalidrawCompleted.executions[0]).toMatchObject({
+      status: "passed",
+      error: null,
+      fixture: { fixtureId: EXCALIDRAW_SCENE_HISTORY_CASE_ID, seededCommit: EXCALIDRAW_SEEDED_COMMIT },
+    });
+    expect(excalidrawCompleted.executions[0].outcomeGrade.mandatoryGates).toEqual(expect.arrayContaining([
+      expect.objectContaining({ gateId: "scene-history-behavior", passed: true }),
+      expect.objectContaining({ gateId: "scene-history-regression", passed: true }),
+      expect.objectContaining({ gateId: "scene-history-delivery", passed: true }),
+    ]));
 
     const autonomousCreated = await evalService.createRun({
       testCaseIds: [H3_AUTONOMOUS_FIX_CASE_ID, H3_AUTONOMOUS_INVESTIGATION_CASE_ID],

@@ -14,6 +14,7 @@ export * from "./project-cases/tournament-operations-case.js";
 export * from "./project-cases/reservation-capacity-case.js";
 export * from "./project-cases/api-contract-simulation-laboratory.js";
 export * from "./project-cases/emergency-evacuation-case.js";
+export * from "./project-cases/excalidraw-scene-history.js";
 export * from "./run-plan.js";
 export * from "./runtime-basic.js";
 export * from "./simulated-user/contracts.js";

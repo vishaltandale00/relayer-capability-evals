@@ -206,6 +206,55 @@ Deep calibration cases sit behind one manifest-driven fixture module. They form 
 Artifact-verifiable harness-capability candidates use the same immutable case-snapshot and generic case × harness matrix contracts with a stronger verifier boundary. The API Contract Simulation Laboratory owns a generated, content-addressed greenfield fixture, a substantial visible task, a sealed reference, and a code-owned verifier. Before qualification, Eval recreates the frozen seed and applies only the committed candidate diff. The verifier then starts the declared dependency-free Node process in its pinned, preflighted environment with Node permissions confining filesystem access to the pristine workspace and denying child processes, and observes its loopback HTTP interface; it never imports candidate internals, matches source text, or compares a candidate patch with the sealed reference. Contract import, routing, request validation, response validation, latency, ordered failures, bounded redirects, bounded streaming, revision changes, compatibility, causally observed traces, replay, runtime and artifact scope, protected fixture bytes, commit presence, and cleanliness remain independently recorded predicates. The untouched fixture is red, independently structured functional and class-based solutions are admitted, and shortcut mutants are rejected in deterministic inference-free tests. Candidate status remains explicit until human review records the exact reviewed digest and unresolved findings.
 The HTTPCore cancellation case establishes the stronger real-repository verifier boundary. Its catalog identity binds a public repository commit and tree, a hash-locked CPython environment, a visible task, a sealed upstream-evidence artifact, and a sealed verifier digest. Materialization produces a clean private checkout and a sibling environment; qualification reapplies only committed candidate bytes to a pristine verifier checkout. The evaluator controls cancellation only through HTTPCore's public network-backend seam, contacts only real per-predicate loopback servers, records each predicate independently, and never inspects candidate source or compares it with a reference patch. A verifier remains candidate-only until the untouched fixture is red for the intended behavior, two materially different fixes are green, and shortcut mutants are rejected while the focused upstream regression suite remains observable. This is behavioral verifier admission, not a security sandbox for arbitrarily hostile candidate code; host execution isolation is a separate authority boundary, and the admission receipt preserves that limitation.
 Artifact-verifiable capability cases use the same generic case × harness execution and immutable five-artifact snapshot, but own stronger code-backed materialize/grade capabilities. The Emergency Evacuation Route Planner materializes a frozen local Git project, authenticates its declared content and environment digests, enforces Node 22 without third-party dependencies, applies the candidate's committed diff to a pristine verifier workspace, and invokes only the visible operator-facing JSON CLI. Eval resolves a standalone Node 22 executable outside its application bundle and passes that authenticated path into the grader. Before invocation the grader rejects symlinks anywhere in the workspace and requires regular package and CLI files. macOS Seatbelt then denies network, child processes, inherited host environment, and reads outside the committed workspace, evaluator input, and narrow standalone runtime while allowing workspace-local writes. Evaluator-owned scenario permutations independently emit interface, route-legality, capacity/accessibility, timing/dependency, priority/alternative, conservation, and delivery predicates; malformed output from one scenario does not suppress the others. The verifier neither imports candidate internals nor matches source text or a reference patch. Its admission portfolio keeps the untouched fixture red, accepts exhaustive and priority-first implementations, and rejects directed-edge, accessibility, closure, capacity, dependency-topology, deadline, priority, alternative, conservation, invalid-input, and frozen-answer shortcuts, including attempts to execute uncommitted external code. Emergency mandatory-gate semantics require the exact verifier digest, and incomplete or failed mandatory evidence prevents execution qualification. These substantive predicates remain independent from graph-presentation judgment and preserve candidate status until adversarial human review.
+Artifact-verifiable cases use a stronger evaluator-owned admission boundary. A case
+and verifier version remain `candidate` until the immutable portfolio demonstrates
+an intentionally red untouched fixture, at least two materially different green
+solutions, relevant shortcut mutants that fail, and boundary/property coverage at
+the real public seam. Qualification predicates are recorded independently and are
+separate from quality diagnostics and graph-presentation grades. Verification
+observes behavior, durable state, or artifact output; it cannot match source text,
+mirror a reference patch, or enforce delivery constraints absent from the visible
+task. Qualification applies candidate changes to a pristine verifier workspace.
+Fixtures, references, materializers, verifier code, environment identity, and
+contracts are content-addressed, and an adversarial review records the exact source
+digest, attempts both false acceptance and false rejection, and preserves unresolved
+findings. A change to any admitted input invalidates the admission evidence.
+
+The Excalidraw branching scene-history case specializes that boundary around a
+public opaque controller and accessible UI for named version creation, checkout,
+historical branching, merge, conflict resolution, and history export. Version names
+are non-empty after NFC normalization, case-sensitive, and unique; versions have
+stable IDs, immutable snapshots, and explicit parents. Historical saves add a child
+without rewriting descendants or siblings. A merge names an explicit common-ancestor
+base and two unordered parents, and deterministically compares each element ID and
+JSON field path, treating arrays atomically. One-sided and identical edits merge
+automatically. Same-field divergence, modify/delete, divergent same-ID additions,
+and byte-different same-ID assets create stable independently inspectable conflicts;
+no merge version is created until all conflicts are explicitly resolved. Parent
+order cannot change the semantic result or conflict identities.
+
+Merged element order is fractional index followed by element ID. Revision-only
+fields (`version`, `versionNonce`, and `updated`) do not cause semantic conflicts.
+Bindings, groups, frames, containers, and assets remain integrity-coupled and cannot
+be silently dropped or repaired. Each version contains elements, files, and
+export-safe app state but excludes transient selection and tool state. Checkout and
+a completed merge each enter the ordinary Excalidraw undo stack as one step; undo
+changes only the displayed scene, never the immutable history graph. Ordinary
+`.excalidraw` export remains current-scene-only, while a separate versioned history
+export carries the complete graph, snapshots, and assets. History schema v1 imports
+ordinary Excalidraw v1/v2 documents through upstream restoration, preserves unknown
+element properties, and rejects unsupported future history schemas. The frozen
+fixture binds its permissively licensed upstream commit and tree, lockfile and any
+approved evaluator-owned compatibility seed, bounded install/build/test commands,
+and expected runtime before admission.
+
+The public DTO boundary is versioned with the case contract. Versions expose ID,
+name, and parent IDs; scene reads return snapshots; merge returns either a merged
+version and scene or a stable merge ID with structured conflicts; resolution maps
+every conflict ID to a parent choice or explicit value; exports return serialized
+JSON. The labelled Scene history region exposes named controls for save, checkout,
+merge, conflict resolution, and history export so accessibility is observable
+without coupling the evaluator to component internals.
 
 The runner input is a test-run ID, selected test-case IDs, selected harness-configuration names, and one judge configuration. At the CLI boundary, configuration names resolve to validated snapshots. The runner expands their Cartesian product into executions identified by `(testRunId, testCaseId, harnessConfigurationName)` and passes each resolved `HarnessConfiguration` into case execution. Every execution artifact stores that exact snapshot and its canonical SHA-256 digest. Two configurations may select the same implementation; that is ordinary run selection, not a harness-specific case or matrix.
 

@@ -2189,6 +2189,42 @@ settings:
 <p>The evaluator authenticates one frozen content-addressed Node 22 fixture with no third-party dependencies. It captures only committed candidate changes and applies them to a pristine verifier workspace. Eval authenticates a standalone Node 22 executable outside its application bundle. Before invoking the CLI, qualification rejects workspace symlinks and confines the process without network, child-process, inherited host-environment, or uncommitted external-read authority. The declared CLI receives frozen and evaluator-owned closure, accessibility, readiness, shelter-conservation, exact-deadline, reordered-scarcity, dependency-topology, alternative-count, reversed-edge, and reordered-input variants. The verifier independently replays every street transition and resource or timing boundary. Every predicate and scenario remains attributable when another fails. Qualification checks deterministic output and malformed or structurally invalid input failure without importing candidate internals or comparing source text with a preferred patch.</p>
 <p>Emergency mandatory-gate interpretation requires the exact case and verifier digest. Missing or failed mandatory evidence prevents the execution from passing.</p>
 <p>The case remains <code>candidate</code> until its admission evidence is current for the exact verifier digest. The untouched fixture must be red for behavioral reasons, while two materially different reasonable planners must be green. Adversarial shortcut mutants must fail the relevant predicates. A reviewer must try both to fool the verifier and to find reasonable implementations it rejects. Task-outcome qualification and graph-presentation judgment remain separate; presentation cannot compensate for an invalid evacuation plan.</p>
+<h3>13.2.2 Verifier admission contract</h3>
+<p>A case is a <code>candidate</code>, not an admitted task-outcome evaluation, until its evaluator-owned verifier has passed adversarial admission. Admission applies to the immutable case snapshot and verifier version together. Changing any fixture, contract, materializer, verifier, reference input, or environment identity invalidates the prior admission evidence.</p>
+<ol>
+<li>Define every observable product promise, failure boundary, compatibility boundary, and authority boundary before writing the verifier.</li>
+<li>Map each checkpoint to the smallest deterministic check that observes the real public seam.</li>
+<li>Test behavior, durable state, or artifact output. Do not match source text or require resemblance to one reference patch.</li>
+<li>Demonstrate that the untouched materialized fixture is red for the intended checkpoint failures.</li>
+<li>Demonstrate that at least two materially different reasonable implementations are green.</li>
+<li>Build adversarial mutants for likely shortcuts and demonstrate that each relevant checkpoint rejects them.</li>
+<li>Exercise boundary and property matrices instead of relying on one privileged example.</li>
+<li>Keep mandatory qualification predicates separate from non-blocking quality diagnostics.</li>
+<li>State delivery constraints in the visible task. A verifier must not enforce an undisclosed exact-file allowlist.</li>
+<li>Apply candidate changes to a pristine verifier workspace before qualification.</li>
+<li>Record predicates independently so one failure does not hide the remaining evidence.</li>
+<li>Keep fixtures, references, verifier code, environment identity, and contracts immutable and content-addressed.</li>
+<li>Require an adversarial reviewer to try both to fool the verifier and to find reasonable solutions it rejects. Record the reviewed source digest and unresolved findings.</li>
+</ol>
+<p>Verifier admission proves only deterministic task-outcome qualification for that exact content-addressed snapshot. It does not replace graph-presentation grading, human review, live-provider evidence, or release evidence. Paid inference remains opt-in and outside the default deterministic suite.</p>
+<h3>13.2.3 Excalidraw branching scene-history case v1</h3>
+<p>The Excalidraw case is a hard real-repository feature task. Its frozen, permissively licensed upstream fixture records the repository URL, commit, tree, dependency-lock identity, evaluator-owned compatibility seed when required, bounded install/build/test commands, and expected runtime. Those inputs must reproduce without credentials or mutable external services. The sealed verifier must also observe a credible public product seam; otherwise the case remains a candidate.</p>
+<p>The delivered feature exposes an accessible user interface and a public opaque scene-history controller. Together they support named-version creation, checkout, historical branching, merge, conflict resolution, and history export. The labelled Scene history region exposes controls named Save version, Checkout version, Merge versions, Resolve conflicts, and Export history. The controller exposes behavior and durable results, not internal implementation structure.</p>
+<p>The public result contract is explicit so reasonable implementations share one observable seam. Version results contain <code>id</code>, <code>name</code>, and <code>parentIds</code>. Checkout and current-scene reads return snapshots. Merge returns either <code>{ status: "merged", version, scene }</code> or <code>{ status: "conflicts", mergeId, conflicts }</code>. Each conflict contains stable <code>id</code>, <code>kind</code>, <code>path</code>, <code>base</code>, <code>left</code>, and <code>right</code> values. Resolution maps every conflict ID to <code>left</code>, <code>right</code>, or an explicit replacement. Export methods return serialized JSON.</p>
+<ul>
+<li>Version names are non-empty after Unicode NFC normalization, case-sensitive, and unique. Versions are immutable, have stable IDs, and record explicit parent IDs.</li>
+<li>Saving from historical state names that version as the explicit parent. Existing descendants and sibling branches are never rewritten.</li>
+<li>A merge names an explicit common-ancestor base and two unordered parents. Swapping the parents does not change the merged semantic result or conflict identities.</li>
+<li>The deterministic three-way merge operates by element ID and JSON field path. Arrays are atomic values. One-sided changes and byte-identical changes merge automatically.</li>
+<li>Same-field divergence, modify/delete, divergent additions with the same element ID, and byte-different assets with the same asset ID produce stable, independently inspectable conflicts. No merge version exists until every conflict has an explicit resolution.</li>
+<li>Element order is deterministic by Excalidraw fractional index and then element ID. Revision-only fields, including <code>version</code>, <code>versionNonce</code>, and <code>updated</code>, do not create semantic conflicts.</li>
+<li>Bindings, groups, frames, containers, and assets are integrity-coupled. Merge must preserve their relationships and must not silently drop or repair invalid references.</li>
+<li>A version contains elements, files, and export-safe document app state. Transient selection and tool state are excluded.</li>
+<li>Checkout and a completed merge each apply to the displayed scene as exactly one ordinary Excalidraw undo step. Undo changes the displayed scene and never mutates the immutable version graph.</li>
+<li>Ordinary <code>.excalidraw</code> export remains current-scene-only. A separate versioned history export contains the complete version graph, snapshots, and assets.</li>
+<li>History schema v1 imports ordinary Excalidraw v1 and v2 documents through upstream restoration and preserves unknown element properties. Unsupported future history-schema versions fail closed.</li>
+</ul>
+<p>The sealed verifier qualifies these promises through the opaque controller, accessible UI, exported artifacts, and restored durable state. Independent predicates cover named versions, branching, merge determinism, each conflict class, integrity, undo, export, and historical compatibility. The verifier must satisfy Section 13.2.2 without inspecting source text or comparing against a reference patch.</p>
 <h3>13.3 Runner execution</h3>
 <p>Local commands are standardized target interfaces:</p>
 <pre><code class="language-sh">npm run eval -- --case empty-project.task-system.two-turn --configuration codex-basic
