@@ -17,11 +17,11 @@ This repository preserves the first ten verifier-backed capability-eval cases de
 | API contract simulation laboratory | admitted | `cases/api-contract-lab` | Original PR #287, head `f505cd6fe41cb0ccbe50694f46bf8805fdb7c4d4` |
 | Node Redis command-queue race | admitted | `cases/node-redis-queue-race` | Original PR #286, head `de6ee5c1116e4f7eca14c4c998a11c229228cb88` |
 | HTTPCore cancellation-poisoned pool | admitted | `cases/httpcore-cancellation-pool` | Original PR #288, head `63a55ad06fa84bbb8bd51b18b6eaade070003a18` |
-| Emergency evacuation planner | candidate | `candidates/emergency-evacuation` | Focused 29/29, full check and build passed; rejected by authority review before commit |
-| Excalidraw branching scene history | candidate | `candidates/excalidraw-scene-history` | Approved v1 semantics encoded; real pinned-workspace admission was interrupted |
-| JupyterLab execution bundles | candidate | `candidates/jupyterlab-execution-bundles` | Pristine-delta hardening in progress; final admission interrupted |
-| SaaS operating-model workbook | candidate | `candidates/saas-operating-model` | Focused verifier green; final build/admission interrupted by disk and usage limits |
-| Production delivery planner workbook | candidate | `candidates/production-delivery-planner` | Expanded global-consistency mutant portfolio was still running when interrupted |
+| Emergency evacuation planner | candidate | `candidates/emergency-evacuation` | Checkpoint `7c1425f2`; focused 29/29, full check and build passed; rejected by authority review before admission |
+| Excalidraw branching scene history | candidate | `candidates/excalidraw-scene-history` | Checkpoint `2ab794e9`; approved v1 semantics encoded; real pinned-workspace admission was interrupted |
+| JupyterLab execution bundles | candidate | `candidates/jupyterlab-execution-bundles` | Checkpoint `080bb265`; pristine-delta hardening in progress; final admission interrupted |
+| SaaS operating-model workbook | candidate | `candidates/saas-operating-model` | Checkpoint `6dbbae56`; focused verifier green; final build/admission interrupted by disk and usage limits |
+| Production delivery planner workbook | candidate | `candidates/production-delivery-planner` | Checkpoint `63636859`; expanded global-consistency mutant portfolio was still running when interrupted |
 
 Original PR numbers refer to [`vishaltandale00/relayer-graphcomplete`](https://github.com/vishaltandale00/relayer-graphcomplete).
 
