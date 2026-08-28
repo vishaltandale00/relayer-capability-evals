@@ -9,6 +9,10 @@ import {
   H3_AUTONOMOUS_FIX_CASE_ID,
   H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
   NODE_REDIS_COMMAND_QUEUE_RACE_CASE_ID,
+  HTTPCORE_CANCELLATION_CASE_ID,
+  HTTPCORE_REPOSITORY_URL,
+  HTTPCORE_UPSTREAM_COMMIT,
+  HTTPCORE_UPSTREAM_TREE,
   HTTPX_PROXY_AUTH_REPORT_CASE_ID,
   OFETCH_RETRY_METHODS_CASE_ID,
   RESERVATION_CAPACITY_CASE_ID,
@@ -93,6 +97,9 @@ describe("EvalService simulated-user result persistence", () => {
     });
     const materializer = vi.fn((options) => materializeTournamentOperationsFixture(options));
     const grader = vi.fn(async () => [...new Set(Object.values(TOURNAMENT_VERIFIER_GATE_CHECKS).flat())].map((name) => ({ name: `workspace:${name}`, passed: true, detail: `${name} passed.` })));
+  it("fails closed when the HTTPCore materializer environment does not match the immutable case", async () => {
+    const { stateFile, configurationPath } = await testPaths();
+    globalThis.fetch = fakeAcceptedProduct();
     const service = await new EvalService({
       stateFile,
       productSession: productSession(),
@@ -122,6 +129,28 @@ describe("EvalService simulated-user result persistence", () => {
     expect(() => validateFixtureAgainstCaseSnapshot(execution, fixture)).toThrow("<missing-environment>");
     expect(() => validateFixtureAgainstCaseSnapshot(execution, { ...fixture, environmentDigest: "sha256:other" })).toThrow("sha256:other");
     expect(() => validateFixtureAgainstCaseSnapshot(execution, { ...fixture, environmentDigest: "sha256:expected" })).not.toThrow();
+      httpcoreFixtureMaterializer: async ({ workspaceDirectory, environmentDirectory }) => {
+        await mkdir(workspaceDirectory, { recursive: true });
+        await mkdir(environmentDirectory, { recursive: true });
+        return {
+          workspaceDirectory,
+          environmentDirectory,
+          pythonExecutable: join(environmentDirectory, "bin", "python"),
+          repositoryUrl: HTTPCORE_REPOSITORY_URL,
+          upstreamCommit: HTTPCORE_UPSTREAM_COMMIT,
+          seededTree: HTTPCORE_UPSTREAM_TREE,
+          sourceRevision: `git-tree:${HTTPCORE_UPSTREAM_TREE}`,
+          environmentDigest: "sha256:wrong-environment",
+        };
+      },
+    }).open();
+    const completed = await waitForCompletedRun(service, (await service.createRun({
+      testCaseIds: [HTTPCORE_CANCELLATION_CASE_ID],
+      harnessConfigurationNames: ["fixture-task-system"],
+      judgeConfigurationName: "deterministic-graph-contract",
+    })).id);
+    expect(completed.status).toBe("error");
+    expect(completed.executions[0].error).toContain("Materialized fixture environment does not match");
   });
 
   it("normalizes each selected recursive review by its own schema in a mixed-history projection", () => {
@@ -326,6 +355,7 @@ describe("EvalService simulated-user result persistence", () => {
       H3_AUTONOMOUS_FIX_CASE_ID,
       H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
       NODE_REDIS_COMMAND_QUEUE_RACE_CASE_ID,
+      HTTPCORE_CANCELLATION_CASE_ID,
       OFETCH_RETRY_METHODS_CASE_ID,
       TRUE_MYTH_INSPECT_BOTH_CASE_ID,
       SQL_FORMATTER_ANSI_ALIAS_CASE_ID,

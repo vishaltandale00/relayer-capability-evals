@@ -17,6 +17,11 @@ import {
   NODE_REDIS_UPSTREAM_COMMIT,
   NODE_REDIS_UPSTREAM_TREE,
   nodeRedisCommandQueueRaceCase,
+  HTTPCORE_CANCELLATION_CASE_ID,
+  HTTPCORE_REPOSITORY_URL,
+  HTTPCORE_UPSTREAM_COMMIT,
+  HTTPCORE_UPSTREAM_TREE,
+  httpcoreCancellationCase,
   taskSystemFixtureFactory,
 } from "@relayer/eval-runner";
 import { afterEach, describe, expect, it } from "vitest";
@@ -161,6 +166,36 @@ describe("Relayer Eval application service", () => {
           "implementation-clean",
         ].map((name) => ({ name: `workspace:node-redis:${name}`, passed: true, detail: `${name} passed.` }));
       },
+      httpcoreFixtureMaterializer: async ({ workspaceDirectory, environmentDirectory }) => {
+        await mkdir(workspaceDirectory, { recursive: true });
+        await mkdir(environmentDirectory, { recursive: true });
+        return {
+          schemaVersion: 1,
+          fixtureId: HTTPCORE_CANCELLATION_CASE_ID,
+          workspaceDirectory,
+          environmentDirectory,
+          pythonExecutable: join(environmentDirectory, "bin", "python"),
+          repositoryUrl: HTTPCORE_REPOSITORY_URL,
+          upstreamCommit: HTTPCORE_UPSTREAM_COMMIT,
+          seededTree: HTTPCORE_UPSTREAM_TREE,
+          sourceRevision: `git-tree:${HTTPCORE_UPSTREAM_TREE}`,
+          pythonVersion: "3.12.2",
+          requirementsDigest: "sha256:1574363aaad673aee0654c936447f11fa3ed09bcf582d5e75c3e743509c1a99b",
+          environmentDigest: httpcoreCancellationCase.snapshot.artifacts.workspace.environmentDigest,
+          uvVersion: "0.12.0",
+          installedWithFrozenLockfile: true,
+        };
+      },
+      httpcoreWorkspaceGrader: async () => [
+        "deterministic-cancellation",
+        "connection-slot-release",
+        "subsequent-request-success",
+        "repeated-cancellation",
+        "cleanup",
+        "regression-safety",
+        "meaningful-commit",
+        "clean",
+      ].map((name) => ({ name: `workspace:httpcore-${name}`, passed: true, detail: `${name} passed.` })),
       acceptedTopologyGrader: (topology, { requireGrandchild = false } = {}) => {
         acceptedTopologyGrades.push({
           turnId: topology.turnId,
@@ -360,6 +395,25 @@ describe("Relayer Eval application service", () => {
       ["reply-mode-regression", true],
       ["node-redis-scoped-clean-commit", true],
     ]);
+    const httpcoreCreated = await evalService.createRun({
+      testCaseIds: [HTTPCORE_CANCELLATION_CASE_ID],
+      harnessConfigurationNames: ["fixture-task-system"],
+      judgeConfigurationName: "deterministic-graph-contract",
+    });
+    const httpcoreCompleted = await waitForCompletedRun(evalService, httpcoreCreated.id);
+    expect(httpcoreCompleted.status).toBe("passed");
+    expect(httpcoreCompleted.executions[0]).toMatchObject({
+      testCaseId: HTTPCORE_CANCELLATION_CASE_ID,
+      outcomeGrade: {
+        qualified: null,
+        mandatoryGates: [
+          { gateId: "cancellation-recovery", passed: true },
+          { gateId: "resource-cleanup", passed: true },
+          { gateId: "focused-regression-safety", passed: true },
+          { gateId: "committed-delivery", passed: true },
+        ],
+      },
+    });
   }, 20_000);
 });
 

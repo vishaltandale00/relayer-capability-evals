@@ -218,6 +218,7 @@ RELAYER_EVAL_AUTORUN_PERSONAL_PRESENTATION=1 \
 The autorun holds the case, judge, model selection, and harness settings fixed,
 then executes only the checked-in V0 and V1 configurations. It remains disabled
 by default and outside `npm run check`.
+The separate `autonomous.httpcore.cancellation-poisoned-pool` candidate is the first verifier-admitted real-repository capability case. It pins HTTPCore 1.0.2 source and a hash-locked CPython environment, cancels deterministically at an evaluator-owned public network-backend hook, and uses loopback-only behavioral checks. Its sealed admission receipt keeps the untouched fixture red, accepts two distinct repair shapes, and rejects candidate root/package hook forgery, repeated-cancellation, over-capacity, skipped-cleanup, and cancellation-resistant cleanup mutants without source-text or reference-patch matching. Run the complete portfolio explicitly with `npm run eval:httpcore-admission`.
 
 The public Relayer and internal Relayer Eval builds use distinct application identifiers, entry points, data profiles, and dashboard assets. They share the graph runtime, harness host, app server, product records, API contracts, and production workspace. See [ADR 0003](docs/decisions/0003-shared-product-eval-workspace.md).
 
