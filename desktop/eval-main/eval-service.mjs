@@ -1,8 +1,8 @@
 import { createHash, randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
 import { createReadStream, createWriteStream } from "node:fs";
-import { cp, link, mkdir, open, readFile, readdir, rename, rm, writeFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { cp, link, lstat, mkdir, open, readFile, readdir, realpath, rename, rm, writeFile } from "node:fs/promises";
+import { dirname, isAbsolute, join, relative } from "node:path";
 import { Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { promisify } from "node:util";
@@ -33,6 +33,11 @@ import {
   calibrationAutonomousCaseIds,
   materializeCalibrationFixture,
   gradeCalibrationWorkspace,
+  emergencyEvacuationCase,
+  emergencyEvacuationCaseIds,
+  evaluateEmergencyEvacuationMandatoryGate,
+  materializeEmergencyEvacuationFixture,
+  gradeEmergencyEvacuationWorkspace,
   materializeFrontierProjectFixture,
   materializeH3ProjectFixture,
   projectDeterministicChecksToOutcome,
@@ -82,6 +87,11 @@ export const evalCases = Object.freeze([
     caseSnapshot: entry.catalogSnapshot,
     caseSnapshotDigest: entry.snapshotDigest,
   })),
+  Object.freeze({
+    ...emergencyEvacuationCase.definition,
+    caseSnapshot: emergencyEvacuationCase.catalogSnapshot,
+    caseSnapshotDigest: emergencyEvacuationCase.snapshotDigest,
+  }),
 ]);
 
 const h3CaseIds = new Set([
@@ -89,7 +99,7 @@ const h3CaseIds = new Set([
   H3_AUTONOMOUS_FIX_CASE_ID,
   H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
 ]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
+const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...emergencyEvacuationCaseIds]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({ id: "deterministic-graph-contract", name: "Deterministic graph contract" }),
@@ -105,11 +115,33 @@ const ANNOTATION_EXPORT_EXECUTION_STATUSES = new Set(["passed", "failed", "impor
 const ANNOTATION_EXPORT_TURN_STATUSES = new Set(["accepted", "failed", "stopped"]);
 const execFileAsync = promisify(execFile);
 
+export async function resolveEmergencyEvacuationNodeExecutable({ command = process.env.RELAYER_EVAL_NODE_BINARY || "node" } = {}) {
+  const { stdout } = await execFileAsync(command, ["--input-type=module", "--eval", "console.log(JSON.stringify({ executable: process.execPath, release: process.release.name, version: process.versions.node }))"], {
+    encoding: "utf8",
+    maxBuffer: 64 * 1024,
+    timeout: 10_000,
+  });
+  const identity = JSON.parse(stdout.trim());
+  if (identity?.release !== "node" || !/^22\./.test(identity?.version || "") || !isAbsolute(identity?.executable || "")) {
+    throw new Error(`Emergency evacuation qualification requires a standalone Node 22 executable; ${command} reported ${identity?.release || "unknown"} ${identity?.version || "unknown"}.`);
+  }
+  const executable = await realpath(identity.executable);
+  if (!(await lstat(executable)).isFile()) throw new Error("Emergency evacuation qualification resolved Node 22 to a non-file path.");
+  if (process.versions.electron) {
+    const applicationContents = dirname(dirname(process.execPath));
+    const withinApplication = relative(applicationContents, executable);
+    if (withinApplication === "" || (!withinApplication.startsWith("..") && !isAbsolute(withinApplication))) {
+      throw new Error("Emergency evacuation qualification requires Node 22 outside the packaged Eval application.");
+    }
+  }
+  return executable;
+}
+
 function copy(value) {
   return structuredClone(value);
 }
 
-function outcomeGradeFromChecks(checks, caseSnapshot = null) {
+export function outcomeGradeFromChecks(checks, caseSnapshot = null) {
   const criteria = caseSnapshot?.artifacts?.outcomeRubric?.criteria || [];
   const criterionGrades = criteria.map((criterion) => ({
       criterionId: criterion.id,
@@ -123,7 +155,11 @@ function outcomeGradeFromChecks(checks, caseSnapshot = null) {
     const grade = projectDeterministicChecksToOutcome(checks);
     return { ...grade, criteria: criterionGrades };
   }
-  const mandatoryGates = declarations.map((gate) => mandatoryGateReceipt(gate, checks));
+  const canonicalEmergencyVerifier = emergencyEvacuationCase.snapshot.artifacts.verifier;
+  const usesEmergencyVerifier = caseSnapshot.id === emergencyEvacuationCase.snapshot.id
+    && caseSnapshot.artifacts.verifier.verifierId === canonicalEmergencyVerifier.verifierId
+    && caseSnapshot.artifacts.verifier.contentDigest === canonicalEmergencyVerifier.contentDigest;
+  const mandatoryGates = declarations.map((gate) => mandatoryGateReceipt(gate, checks, usesEmergencyVerifier));
   return {
     ...buildTaskOutcomeGrade({
     status: criterionGrades.length > 0 ? "partial" : "completed",
@@ -137,7 +173,32 @@ function outcomeGradeFromChecks(checks, caseSnapshot = null) {
   };
 }
 
-function mandatoryGateReceipt(gate, checks) {
+function mandatoryGateReceipt(gate, checks, usesEmergencyVerifier = false) {
+  const emergencyResult = usesEmergencyVerifier ? evaluateEmergencyEvacuationMandatoryGate(gate.id, checks) : null;
+  if (emergencyResult) {
+    if (!emergencyResult.complete) {
+      return {
+        schemaVersion: 1,
+        gateId: gate.id,
+        name: gate.label,
+        mandatory: true,
+        status: "failed",
+        passed: null,
+        detail: `Verifier ${gate.id} did not emit every required check.`,
+        evidenceRefs: emergencyResult.matched.map((check) => `deterministic-check:${check.name}`),
+      };
+    }
+    return {
+      schemaVersion: 1,
+      gateId: gate.id,
+      name: gate.label,
+      mandatory: true,
+      status: "completed",
+      passed: emergencyResult.passed,
+      detail: emergencyResult.matched.map((check) => `${check.name}: ${check.detail}`).join("\n"),
+      evidenceRefs: emergencyResult.matched.map((check) => `deterministic-check:${check.name}`),
+    };
+  }
   const patterns = {
     "functional-behavior": ["behavior-lower-boundary", "behavior-upper-boundary", "behavior-decimal-number", "behavior-integer-numeric-string", "behavior-decimal-numeric-string", "behavior-custom-fallback"],
     "regression-safety": ["implementation-build", "implementation-typecheck", "implementation-focused-tests"],
@@ -333,7 +394,7 @@ function completeExecutionLifecycle(execution, status = "complete") {
   };
 }
 
-function validateFixtureAgainstCaseSnapshot(execution, fixture) {
+export function validateFixtureAgainstCaseSnapshot(execution, fixture) {
   const workspace = execution.caseSnapshot?.artifacts?.workspace;
   if (!workspace) return;
   const actualRevision = fixture.sourceRevision ?? (fixture.seededTree ? `git-tree:${fixture.seededTree}` : null);
@@ -342,6 +403,12 @@ function validateFixtureAgainstCaseSnapshot(execution, fixture) {
       `Materialized fixture identity does not match case ${execution.testCaseId}: `
       + `${fixture.repositoryUrl || "<missing>"}/${actualRevision || "<missing>"}.`,
     );
+  }
+  const requiresAuthenticatedDigests = emergencyEvacuationCaseIds.has(execution.testCaseId);
+  if ((requiresAuthenticatedDigests && (!fixture.contentDigest || !fixture.environmentDigest))
+    || (fixture.contentDigest !== undefined && workspace.contentDigest !== fixture.contentDigest)
+    || (fixture.environmentDigest !== undefined && workspace.environmentDigest !== fixture.environmentDigest)) {
+    throw new Error(`Materialized fixture digests do not match case ${execution.testCaseId}.`);
   }
 }
 
@@ -492,6 +559,9 @@ export class EvalService {
     frontierWorkspaceGrader = gradeFrontierProjectWorkspace,
     calibrationFixtureMaterializer = materializeCalibrationFixture,
     calibrationWorkspaceGrader = gradeCalibrationWorkspace,
+    emergencyEvacuationFixtureMaterializer = materializeEmergencyEvacuationFixture,
+    emergencyEvacuationWorkspaceGrader = gradeEmergencyEvacuationWorkspace,
+    emergencyEvacuationNodeExecutableResolver = resolveEmergencyEvacuationNodeExecutable,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -512,6 +582,9 @@ export class EvalService {
     this.frontierWorkspaceGrader = frontierWorkspaceGrader;
     this.calibrationFixtureMaterializer = calibrationFixtureMaterializer;
     this.calibrationWorkspaceGrader = calibrationWorkspaceGrader;
+    this.emergencyEvacuationFixtureMaterializer = emergencyEvacuationFixtureMaterializer;
+    this.emergencyEvacuationWorkspaceGrader = emergencyEvacuationWorkspaceGrader;
+    this.emergencyEvacuationNodeExecutableResolver = emergencyEvacuationNodeExecutableResolver;
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -1383,6 +1456,8 @@ export class EvalService {
         ? checks.filter((check) => check.name.includes(":workspace:"))
         : checks;
       execution.outcomeGrade = outcomeGradeFromChecks(outcomeChecks, execution.caseSnapshot);
+      const mandatoryOutcomePassed = !Array.isArray(execution.outcomeGrade?.mandatoryGates)
+        || execution.outcomeGrade.mandatoryGates.every((gate) => gate.status === "completed" && gate.passed === true);
       let simulatedUserCompleted = true;
       if (simulatedUserJudgeIds.has(execution.judgeConfiguration.name)) {
         const eligibleTurns = interactions
@@ -1407,7 +1482,7 @@ export class EvalService {
         execution.turns,
         simulatedUserJudgeIds.has(execution.judgeConfiguration.name),
       );
-      execution.passed = deterministicPassed && simulatedUserCompleted;
+      execution.passed = deterministicPassed && mandatoryOutcomePassed && simulatedUserCompleted;
       execution.status = execution.passed ? "passed" : "failed";
       completeExecutionLifecycle(execution);
     } catch (error) {
@@ -1442,6 +1517,7 @@ export class EvalService {
     const workspaceDirectory = join(executionDirectory, "workspace");
     const isH3 = h3CaseIds.has(definition.id);
     const isCalibration = calibrationAutonomousCaseIds.has(definition.id);
+    const isEmergencyEvacuation = emergencyEvacuationCaseIds.has(definition.id);
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
@@ -1450,6 +1526,9 @@ export class EvalService {
       })
       : isCalibration ? await this.calibrationFixtureMaterializer({
         caseId: definition.id,
+        workspaceDirectory,
+        platform: this.platform,
+      }) : isEmergencyEvacuation ? await this.emergencyEvacuationFixtureMaterializer({
         workspaceDirectory,
         platform: this.platform,
       }) : await this.frontierProjectFixtureMaterializer({
@@ -1494,6 +1573,8 @@ export class EvalService {
               ? await this.workspaceGrader({ workspaceDirectory, grade: threadDefinition.workspaceGrade })
               : isCalibration
                 ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
+                : isEmergencyEvacuation
+                  ? await this.emergencyEvacuationWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit, nodeExecutable: await this.emergencyEvacuationNodeExecutableResolver() })
                 : await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory }));
           }
         },

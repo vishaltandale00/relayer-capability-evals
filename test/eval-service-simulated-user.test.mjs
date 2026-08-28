@@ -11,14 +11,20 @@ import {
   SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
   TRUE_MYTH_INSPECT_BOTH_CASE_ID,
   calibrationAutonomousCaseIds,
+  EMERGENCY_EVACUATION_CASE_ID,
+  emergencyEvacuationCase,
+  materializeEmergencyEvacuationFixture,
 } from "@relayer/eval-runner";
 
 import {
   EvalService,
   judgeArtifactEvidenceForExecution,
   judgeArtifactForExecution,
+  outcomeGradeFromChecks,
   presentationGradeFromTurns,
+  resolveEmergencyEvacuationNodeExecutable,
   resolveH3PermissionProfile,
+  validateFixtureAgainstCaseSnapshot,
 } from "../desktop/eval-main/eval-service.mjs";
 
 const repositoryRoot = resolve(import.meta.dirname, "..");
@@ -32,6 +38,32 @@ afterEach(async () => {
 });
 
 describe("EvalService simulated-user result persistence", () => {
+  it("resolves an authenticated standalone Node 22 executable for emergency qualification", async () => {
+    await expect(resolveEmergencyEvacuationNodeExecutable({ command: process.execPath })).resolves.toBe(process.execPath);
+  });
+
+  it("requires authenticated emergency fixture digests", () => {
+    const execution = { testCaseId: EMERGENCY_EVACUATION_CASE_ID, caseSnapshot: emergencyEvacuationCase.catalogSnapshot };
+    const workspace = emergencyEvacuationCase.snapshot.artifacts.workspace;
+    const fixture = { repositoryUrl: workspace.source, sourceRevision: workspace.revision, contentDigest: workspace.contentDigest, environmentDigest: workspace.environmentDigest };
+    expect(() => validateFixtureAgainstCaseSnapshot(execution, fixture)).not.toThrow();
+    expect(() => validateFixtureAgainstCaseSnapshot(execution, { ...fixture, contentDigest: undefined })).toThrow("digests do not match");
+    expect(() => validateFixtureAgainstCaseSnapshot(execution, { ...fixture, environmentDigest: "sha256:wrong" })).toThrow("digests do not match");
+  });
+
+  it("dispatches emergency mandatory-gate semantics only for the exact verifier digest", () => {
+    const checks = [
+      "workspace:public-interface:invocation",
+      "workspace:public-interface:determinism",
+      "workspace:public-interface:invalid-input",
+    ].map((name) => ({ name, passed: true, detail: "passed" }));
+    const canonical = outcomeGradeFromChecks(checks, emergencyEvacuationCase.catalogSnapshot);
+    expect(canonical.mandatoryGates.find(({ gateId }) => gateId === "public-interface")).toMatchObject({ status: "completed", passed: true });
+    const stale = structuredClone(emergencyEvacuationCase.catalogSnapshot);
+    stale.artifacts.verifier.contentDigest = `sha256:${"0".repeat(64)}`;
+    const staleGrade = outcomeGradeFromChecks(checks, stale);
+    expect(staleGrade.mandatoryGates.find(({ gateId }) => gateId === "public-interface")).toMatchObject({ status: "failed", passed: null });
+  });
   it("normalizes each selected recursive review by its own schema in a mixed-history projection", () => {
     const legacy = {
       status: "completed",
@@ -176,6 +208,7 @@ describe("EvalService simulated-user result persistence", () => {
       SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
       HTTPX_PROXY_AUTH_REPORT_CASE_ID,
       ...calibrationAutonomousCaseIds,
+      EMERGENCY_EVACUATION_CASE_ID,
     ]);
     const created = await service.createRun(simulatedUserSelection());
     const completed = await waitForCompletedRun(service, created.id);
@@ -260,6 +293,91 @@ describe("EvalService simulated-user result persistence", () => {
     expect(reloaded.catalog().judges.map(({ id }) => id)).toEqual(["deterministic-graph-contract"]);
     expect(await readFile(bundleFile, "utf8")).toBe(bundleBeforeReload);
 
+  });
+
+  it("routes the emergency evacuation case through its own materializer, grader, and mandatory gates", async () => {
+    const { stateFile, configurationPath } = await testPaths();
+    const interaction = {
+      id: "evacuation-interaction",
+      sequence: 1,
+      graphNodeId: 1,
+      permissionProfileId: "auto",
+      effectiveExecutionDigest: `sha256:${"a".repeat(64)}`,
+      effectivePermissionReceipt: { permissionProfileId: "auto", unconfinedHostAccess: false },
+      completionStatus: "accepted",
+      completionOutput: acceptedOutput(),
+      completionError: null,
+      text: "Build the evacuation planner.",
+    };
+    globalThis.fetch = vi.fn(async (url, options = {}) => {
+      const path = new URL(url).pathname;
+      if (path === "/api/projects" && options.method === "POST") return jsonResponse({ id: "evacuation-project" });
+      if (path === "/api/threads" && options.method === "POST") return jsonResponse({ id: "evacuation-thread", rootInteractionId: interaction.id });
+      if (path === "/api/threads/evacuation-thread") return jsonResponse({ id: "evacuation-thread", interactions: [interaction] });
+      return jsonResponse({ error: `Unexpected evacuation request: ${options.method || "GET"} ${path}` }, 404);
+    });
+    const materializer = vi.fn(materializeEmergencyEvacuationFixture);
+    const checkNames = [
+      "workspace:public-interface:invocation",
+      "workspace:public-interface:determinism",
+      "workspace:public-interface:invalid-input",
+      "workspace:route-legality",
+      "workspace:capacity-accessibility",
+      "workspace:timing-dependencies",
+      "workspace:priority-alternatives:priority",
+      "workspace:priority-alternatives:alternatives",
+      "workspace:conservation-delivery:conservation",
+      "workspace:conservation-delivery:built-ins-only",
+      "workspace:conservation-delivery:commit",
+      "workspace:conservation-delivery:clean",
+    ];
+    const grader = vi.fn(async () => checkNames.map((name) => ({ name, passed: true, detail: `${name} passed.` })));
+    const nodeResolver = vi.fn(async () => process.execPath);
+    const service = await new EvalService({
+      stateFile,
+      productSession: productSession(),
+      configurationPaths: [configurationPath],
+      emergencyEvacuationFixtureMaterializer: materializer,
+      emergencyEvacuationWorkspaceGrader: grader,
+      emergencyEvacuationNodeExecutableResolver: nodeResolver,
+      acceptedTopologyBuilder: async () => ({}),
+      acceptedTopologyGrader: () => [],
+      platform: "darwin",
+    }).open();
+    const created = await service.createRun({
+      testCaseIds: [EMERGENCY_EVACUATION_CASE_ID],
+      harnessConfigurationNames: ["fixture-task-system"],
+      judgeConfigurationName: "deterministic-graph-contract",
+    });
+    const completed = await waitForCompletedRun(service, created.id);
+
+    expect(completed.status).toBe("passed");
+    expect(materializer).toHaveBeenCalledOnce();
+    expect(grader).toHaveBeenCalledOnce();
+    expect(nodeResolver).toHaveBeenCalledOnce();
+    expect(grader).toHaveBeenCalledWith(expect.objectContaining({ nodeExecutable: process.execPath }));
+    expect(completed.executions[0].caseSnapshotDigest).toMatch(/^sha256:/);
+    expect(completed.executions[0].outcomeGrade.mandatoryGates.map(({ gateId, passed }) => [gateId, passed])).toEqual([
+      ["public-interface", true],
+      ["route-legality", true],
+      ["capacity-accessibility", true],
+      ["timing-dependencies", true],
+      ["priority-alternatives", true],
+      ["conservation-delivery", true],
+    ]);
+
+    grader.mockResolvedValueOnce(checkNames.filter((name) => name !== "workspace:public-interface:invalid-input").map((name) => ({ name, passed: true, detail: `${name} passed.` })));
+    const incomplete = await waitForCompletedRun(service, (await service.createRun({
+      testCaseIds: [EMERGENCY_EVACUATION_CASE_ID],
+      harnessConfigurationNames: ["fixture-task-system"],
+      judgeConfigurationName: "deterministic-graph-contract",
+    })).id);
+    expect(incomplete.status).toBe("failed");
+    expect(incomplete.executions[0].outcomeGrade.mandatoryGates).toContainEqual(expect.objectContaining({
+      gateId: "public-interface",
+      status: "failed",
+      passed: null,
+    }));
   });
 
   it("persists explicit partial and thrown-failure artifacts without losing deterministic evidence", async () => {
