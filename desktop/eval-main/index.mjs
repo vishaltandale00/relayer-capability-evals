@@ -1,13 +1,17 @@
 import { app, BrowserWindow, dialog, ipcMain } from "electron";
 import { randomBytes } from "node:crypto";
 import { userInfo } from "node:os";
-import { delimiter, join, resolve } from "node:path";
+import { delimiter, isAbsolute, join, resolve } from "node:path";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { pathToFileURL } from "node:url";
 import { nativeBinaryName } from "../shared/target.mjs";
 
-import { taskSystemFixtureFactory } from "@relayer/eval-runner";
+import {
+  PRODUCTION_DELIVERY_PLANNER_ENVIRONMENT_DIGEST,
+  productionDeliveryPlannerRuntimeContract,
+  taskSystemFixtureFactory,
+} from "@relayer/eval-runner";
 import { evalHarnessConfigurationPaths } from "./configuration-paths.mjs";
 import { EvalService } from "./eval-service.mjs";
 import { loadAtomicAnnotationSnapshots } from "./annotation-snapshot-loader.mjs";
@@ -50,6 +54,24 @@ const permissionCatalogPath = app.isPackaged
 const productRendererDirectory = app.isPackaged ? join(process.resourcesPath, "renderer") : join(desktopDirectory, "renderer");
 const evalRendererDirectory = app.isPackaged ? join(process.resourcesPath, "eval-renderer") : join(desktopDirectory, "eval-renderer");
 const configurationPaths = evalHarnessConfigurationPaths({ harnessDirectory, isPackaged: app.isPackaged });
+const spreadsheetNodeExecutable = process.env.RELAYER_SPREADSHEET_NODE?.trim();
+const spreadsheetNodeModulesPath = process.env.RELAYER_SPREADSHEET_NODE_MODULES?.trim();
+if ((spreadsheetNodeExecutable || spreadsheetNodeModulesPath)
+  && (!spreadsheetNodeExecutable || !spreadsheetNodeModulesPath
+    || !isAbsolute(spreadsheetNodeExecutable) || !isAbsolute(spreadsheetNodeModulesPath))) {
+  throw new Error("RELAYER_SPREADSHEET_NODE and RELAYER_SPREADSHEET_NODE_MODULES must both be absolute paths when the spreadsheet runtime is configured.");
+}
+const spreadsheetRuntime = spreadsheetNodeExecutable && spreadsheetNodeModulesPath
+  ? {
+    nodeExecutable: spreadsheetNodeExecutable,
+    nodeModulesPath: spreadsheetNodeModulesPath,
+    environmentDigest: PRODUCTION_DELIVERY_PLANNER_ENVIRONMENT_DIGEST,
+    nodeVersion: productionDeliveryPlannerRuntimeContract.node,
+    artifactToolVersion: productionDeliveryPlannerRuntimeContract.artifactTool,
+    nodeExecutableDigest: productionDeliveryPlannerRuntimeContract.nodeExecutableDigest,
+    artifactToolEntrypointDigest: productionDeliveryPlannerRuntimeContract.artifactToolEntrypointDigest,
+  }
+  : null;
 if (!app.isPackaged) {
   const pythonClientPath = join(repositoryRoot, "python", "relayer-graph", "src");
   process.env.PYTHONPATH = [pythonClientPath, process.env.PYTHONPATH].filter(Boolean).join(delimiter);
@@ -495,6 +517,7 @@ async function start() {
     productSession,
     configurationPaths,
     simulatedUserJudgeRunner,
+    spreadsheetRuntime,
     candidateTraceExporter: (productInteractionId, targetDirectory, correlation) => (
       graphRuntime.exportCandidateTrace(productInteractionId, targetDirectory, correlation)
     ),

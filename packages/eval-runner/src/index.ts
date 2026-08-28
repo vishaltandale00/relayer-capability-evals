@@ -18,6 +18,8 @@ export * from "./project-cases/emergency-evacuation-case.js";
 export * from "./project-cases/excalidraw-scene-history.js";
 export * from "./project-cases/saas-operating-model.js";
 export * from "./project-cases/spreadsheet-artifact-inspector.js";
+export * from "./project-cases/production-delivery-planner.js";
+export * from "./project-cases/spreadsheet-runtime.js";
 export * from "./run-plan.js";
 export * from "./runtime-basic.js";
 export * from "./simulated-user/contracts.js";

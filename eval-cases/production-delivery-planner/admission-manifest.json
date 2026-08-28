@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "caseId": "capability.spreadsheet.production-delivery-planner",
+  "authoringStatus": "candidate",
+  "caseSnapshotDigest": "sha256:9e49e105216b3e1b1e1125d01d537a720f2b3441fe9fd08fb4cb1381d960d516",
+  "fixtureContentDigest": "sha256:a683924b8d5c43a2c93c8ef29f6a954b6cb24a882b85e6688bb6a144ad94affd",
+  "environmentDigest": "sha256:d4bf08c7f5f95888d5a831d3856b430e7e89eba2ead44c46e2879596117430f7",
+  "verifierDigest": "sha256:4f877a5002e8e59efbf588eef59c8313a59fcbd39dead656e252eb7875a790e8",
+  "taskDigest": "sha256:04ec9698584385b1e467f709c2ca50e01037d14bb840111a70e91e90bcbe05b5",
+  "sourceDigests": {
+    "case": "sha256:7a21a5caf63e848ab0708364eede71a52dee56c54544077f588938e88ba5025b",
+    "runtime": "sha256:ab43cafe67c1e339b346440ac9e425986935e7b2c2800e0b9ef511e05a7fa8c0",
+    "portfolioBuilder": "sha256:99e645ea68b262b77b887ea473f5907fd9a7be72ada62f2f390be6e550e55789"
+  },
+  "redBaseline": "missing production-delivery-plan.xlsx",
+  "greens": [
+    "green-primary",
+    "green-alternate"
+  ],
+  "mutants": {
+    "mutant-hardcoded": "workspace:changed-input-order-quantity",
+    "mutant-capacity": "workspace:weekly-capacity",
+    "mutant-components": "workspace:component-dependencies",
+    "mutant-inventory": "workspace:component-dependencies",
+    "mutant-missing-order": "workspace:complete-order-coverage",
+    "mutant-late-delivery": "workspace:fulfillment-dates",
+    "mutant-receipt": "workspace:purchase-lead-times",
+    "mutant-cost": "workspace:cost-arithmetic",
+    "mutant-stale-dashboard": "workspace:cross-sheet-consistency",
+    "mutant-dashboard": "workspace:workbook-rendering"
+  }
+}

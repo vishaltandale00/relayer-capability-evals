@@ -1,0 +1,9 @@
+# Production and Delivery Planner verifier
+
+This candidate case is qualified only through the actual delivered `production-delivery-plan.xlsx`. The verifier imports and recalculates the workbook with the sealed spreadsheet runtime, discovers semantic tables by visible headers and stable fixture identifiers, renders every visible worksheet, and mutates source demand, capacity, and supplier lead time in disposable workbook copies.
+
+Mandatory predicates remain independent: runtime and workbook integrity, complete source lineage, twelve-week horizon, formula lineage, order coverage and conservation, finished-good and component conservation, BOM dependencies, capacity, procurement lead times and expedite pricing, fulfillment dates, infeasible exceptions, cost arithmetic, cross-sheet and dashboard reconciliation, three changed-input responses, and committed clean delivery. A failure never suppresses the remaining predicate receipts.
+
+The admission portfolio contains an untouched red baseline, two formula-driven green workbooks with different sheet order, offsets, row order, styling, and dashboard placement, plus targeted hardcoded-output, capacity, component, missing-order, date, cost, and dashboard mutants. Candidate grading never reads an admission workbook or compares workbook bytes, formulas, sheet names, table names, or cell coordinates to a reference artifact.
+
+The runtime is local-only and fail-closed. Eval receives explicit absolute Node and `node_modules` paths, validates exact Node and `@oai/artifact-tool` versions from the sealed environment contract, isolates execution in a temporary directory, and never falls back to ambient spreadsheet software.
