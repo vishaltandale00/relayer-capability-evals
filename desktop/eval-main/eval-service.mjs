@@ -38,6 +38,11 @@ import {
   materializeTournamentOperationsFixture,
   gradeTournamentOperationsWorkspace,
   TOURNAMENT_VERIFIER_GATE_CHECKS,
+  reservationCapacityCases,
+  reservationCapacityCaseIds,
+  reservationCapacityGateCheckPatterns,
+  materializeReservationCapacityFixture,
+  gradeReservationCapacityWorkspace,
   materializeFrontierProjectFixture,
   materializeH3ProjectFixture,
   projectDeterministicChecksToOutcome,
@@ -93,6 +98,11 @@ export const evalCases = Object.freeze([
     caseSnapshot: tournamentOperationsCase.catalogSnapshot,
     caseSnapshotDigest: tournamentOperationsCase.snapshotDigest,
   }),
+  ...reservationCapacityCases.map((entry) => Object.freeze({
+    ...entry.definition,
+    caseSnapshot: entry.catalogSnapshot,
+    caseSnapshotDigest: entry.snapshotDigest,
+  })),
 ]);
 
 const h3CaseIds = new Set([
@@ -109,6 +119,12 @@ export function projectCaseKind(caseId) {
   if (frontierAutonomousCaseIds.has(caseId)) return "frontier";
   return null;
 }
+const projectCaseIds = new Set([
+  ...h3CaseIds,
+  ...frontierAutonomousCaseIds,
+  ...calibrationAutonomousCaseIds,
+  ...reservationCapacityCaseIds,
+]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({ id: "deterministic-graph-contract", name: "Deterministic graph contract" }),
@@ -167,6 +183,10 @@ function outcomeGradeFromChecks(checks, caseSnapshot = null) {
 }
 
 function mandatoryGateReceipt(gate, checks) {
+  if (gate.id.startsWith("reservation-")) {
+    const patterns = reservationCapacityGateCheckPatterns[gate.id];
+    return mandatoryGateReceiptForPatterns(gate, checks, patterns);
+  }
   const patterns = {
     "functional-behavior": ["behavior-lower-boundary", "behavior-upper-boundary", "behavior-decimal-number", "behavior-integer-numeric-string", "behavior-decimal-numeric-string", "behavior-custom-fallback"],
     "regression-safety": ["implementation-build", "implementation-typecheck", "implementation-focused-tests"],
@@ -177,6 +197,10 @@ function mandatoryGateReceipt(gate, checks) {
     "scoped-delivery": ["required-delivery-files", "delivery-commit", "delivery-clean"],
     ...TOURNAMENT_VERIFIER_GATE_CHECKS,
   }[gate.id];
+  return mandatoryGateReceiptForPatterns(gate, checks, patterns);
+}
+
+function mandatoryGateReceiptForPatterns(gate, checks, patterns) {
   const matched = Array.isArray(patterns)
     ? checks.filter((check) => patterns.some((pattern) => check.name.includes(pattern)))
     : [];
@@ -363,7 +387,7 @@ function completeExecutionLifecycle(execution, status = "complete") {
   };
 }
 
-function validateFixtureAgainstCaseSnapshot(execution, fixture) {
+async function validateFixtureAgainstCaseSnapshot(execution, fixture) {
   const workspace = execution.caseSnapshot?.artifacts?.workspace;
   if (!workspace) return;
   const actualRevision = fixture.sourceRevision ?? (fixture.seededTree ? `git-tree:${fixture.seededTree}` : null);
@@ -372,6 +396,27 @@ function validateFixtureAgainstCaseSnapshot(execution, fixture) {
       `Materialized fixture identity does not match case ${execution.testCaseId}: `
       + `${fixture.repositoryUrl || "<missing>"}/${actualRevision || "<missing>"}.`,
     );
+  }
+  if (fixture.sourceContentDigest !== undefined && workspace.contentDigest !== fixture.sourceContentDigest) {
+    throw new Error(`Materialized fixture content digest does not match case ${execution.testCaseId}.`);
+  }
+  if (fixture.environmentDigest !== undefined && workspace.environmentDigest !== fixture.environmentDigest) {
+    throw new Error(`Materialized fixture environment digest does not match case ${execution.testCaseId}.`);
+  }
+  if ((fixture.sourceContentDigest !== undefined || fixture.environmentDigest !== undefined)
+    && fixture.seededCommit && fixture.seededTree && fixture.workspaceDirectory) {
+    const { stdout } = await execFileAsync("git", ["rev-parse", `${fixture.seededCommit}^{tree}`], {
+      cwd: fixture.workspaceDirectory,
+      encoding: "utf8",
+    });
+    if (stdout.trim() !== fixture.seededTree) {
+      throw new Error(`Materialized fixture tree receipt does not match case ${execution.testCaseId}.`);
+    }
+    if (typeof fixture.sourceRevision === "string"
+      && fixture.sourceRevision.startsWith("git-tree:")
+      && fixture.sourceRevision !== `git-tree:${fixture.seededTree}`) {
+      throw new Error(`Materialized fixture source revision does not match case ${execution.testCaseId}.`);
+    }
   }
 }
 
@@ -524,6 +569,8 @@ export class EvalService {
     calibrationWorkspaceGrader = gradeCalibrationWorkspace,
     tournamentFixtureMaterializer = materializeTournamentOperationsFixture,
     tournamentWorkspaceGrader = gradeTournamentOperationsWorkspace,
+    reservationCapacityFixtureMaterializer = materializeReservationCapacityFixture,
+    reservationCapacityWorkspaceGrader = gradeReservationCapacityWorkspace,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -548,6 +595,8 @@ export class EvalService {
     this.calibrationWorkspaceGrader = calibrationWorkspaceGrader;
     this.tournamentFixtureMaterializer = tournamentFixtureMaterializer;
     this.tournamentWorkspaceGrader = tournamentWorkspaceGrader;
+    this.reservationCapacityFixtureMaterializer = reservationCapacityFixtureMaterializer;
+    this.reservationCapacityWorkspaceGrader = reservationCapacityWorkspaceGrader;
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -1484,6 +1533,9 @@ export class EvalService {
     const isH3 = caseKind === "h3";
     const isCalibration = caseKind === "calibration";
     const isTournament = caseKind === "tournament";
+    const isH3 = h3CaseIds.has(definition.id);
+    const isCalibration = calibrationAutonomousCaseIds.has(definition.id);
+    const isReservationCapacity = reservationCapacityCaseIds.has(definition.id);
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
@@ -1498,13 +1550,17 @@ export class EvalService {
         caseId: definition.id,
         workspaceDirectory,
         platform: this.platform,
+      }) : isReservationCapacity ? await this.reservationCapacityFixtureMaterializer({
+        caseId: definition.id,
+        workspaceDirectory,
+        platform: this.platform,
       }) : await this.frontierProjectFixtureMaterializer({
         caseId: definition.id,
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `${definition.id}-${definition.fixture.upstreamCommit}`),
         workspaceDirectory,
         platform: this.platform,
       });
-    validateFixtureAgainstCaseSnapshot(execution, fixture);
+    await validateFixtureAgainstCaseSnapshot(execution, fixture);
     const project = await this.#productRequest("/api/projects", {
       method: "POST",
       body: {
@@ -1542,6 +1598,8 @@ export class EvalService {
                 ? await this.tournamentWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
                 : isCalibration
                 ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
+                : isReservationCapacity
+                  ? await this.reservationCapacityWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
                 : await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory }));
           }
         },
