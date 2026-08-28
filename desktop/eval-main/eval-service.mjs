@@ -31,6 +31,11 @@ import {
   frontierAutonomousCaseIds,
   calibrationAutonomousCases,
   calibrationAutonomousCaseIds,
+  EXCALIDRAW_SCENE_HISTORY_CASE_ID,
+  EXCALIDRAW_UPSTREAM_COMMIT,
+  excalidrawSceneHistoryCase,
+  materializeExcalidrawSceneHistoryFixture,
+  gradeExcalidrawSceneHistoryWorkspace,
   materializeCalibrationFixture,
   gradeCalibrationWorkspace,
   materializeFrontierProjectFixture,
@@ -67,6 +72,11 @@ export const evalCases = Object.freeze([
     requiredChecks: Object.freeze(["node-navigation"]),
   }),
   h3ProjectEvalCase,
+  Object.freeze({
+    ...excalidrawSceneHistoryCase.definition,
+    caseSnapshot: excalidrawSceneHistoryCase.catalogSnapshot,
+    caseSnapshotDigest: excalidrawSceneHistoryCase.snapshotDigest,
+  }),
   ...h3AutonomousCases.map((entry) => Object.freeze({
     ...entry.definition,
     caseSnapshot: entry.catalogSnapshot,
@@ -89,7 +99,7 @@ const h3CaseIds = new Set([
   H3_AUTONOMOUS_FIX_CASE_ID,
   H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
 ]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
+const projectCaseIds = new Set([EXCALIDRAW_SCENE_HISTORY_CASE_ID, ...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({ id: "deterministic-graph-contract", name: "Deterministic graph contract" }),
@@ -146,6 +156,20 @@ function mandatoryGateReceipt(gate, checks) {
     "independent-reproduction": ["diagnosis-reproduces-seeded-failure"],
     "hidden-behavior": ["validation-build", "hidden-behavior"],
     "scoped-delivery": ["required-delivery-files", "delivery-commit", "delivery-clean"],
+    "scene-history-behavior": [
+      "scene-history-public-ui",
+      "scene-history-named-immutable-versions",
+      "scene-history-historical-branching",
+      "scene-history-deterministic-merge",
+      "scene-history-conflict-taxonomy",
+      "scene-history-relationship-integrity",
+      "scene-history-groups-and-assets",
+      "scene-history-undo-boundary",
+      "scene-history-export-boundary",
+      "scene-history-historical-compatibility",
+    ],
+    "scene-history-regression": ["scene-history-build", "scene-history-upstream-tests"],
+    "scene-history-delivery": ["scene-history-commit", "scene-history-clean"],
   }[gate.id];
   const matched = Array.isArray(patterns)
     ? checks.filter((check) => patterns.some((pattern) => check.name.includes(pattern)))
@@ -492,6 +516,8 @@ export class EvalService {
     frontierWorkspaceGrader = gradeFrontierProjectWorkspace,
     calibrationFixtureMaterializer = materializeCalibrationFixture,
     calibrationWorkspaceGrader = gradeCalibrationWorkspace,
+    excalidrawFixtureMaterializer = materializeExcalidrawSceneHistoryFixture,
+    excalidrawWorkspaceGrader = gradeExcalidrawSceneHistoryWorkspace,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -512,6 +538,8 @@ export class EvalService {
     this.frontierWorkspaceGrader = frontierWorkspaceGrader;
     this.calibrationFixtureMaterializer = calibrationFixtureMaterializer;
     this.calibrationWorkspaceGrader = calibrationWorkspaceGrader;
+    this.excalidrawFixtureMaterializer = excalidrawFixtureMaterializer;
+    this.excalidrawWorkspaceGrader = excalidrawWorkspaceGrader;
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -1442,13 +1470,17 @@ export class EvalService {
     const workspaceDirectory = join(executionDirectory, "workspace");
     const isH3 = h3CaseIds.has(definition.id);
     const isCalibration = calibrationAutonomousCaseIds.has(definition.id);
+    const isExcalidraw = definition.id === EXCALIDRAW_SCENE_HISTORY_CASE_ID;
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
         workspaceDirectory,
         platform: this.platform,
       })
-      : isCalibration ? await this.calibrationFixtureMaterializer({
+      : isExcalidraw ? await this.excalidrawFixtureMaterializer({
+        cacheDirectory: join(dirname(this.stateFile), "fixtures", `excalidraw-${EXCALIDRAW_UPSTREAM_COMMIT}`),
+        workspaceDirectory,
+      }) : isCalibration ? await this.calibrationFixtureMaterializer({
         caseId: definition.id,
         workspaceDirectory,
         platform: this.platform,
@@ -1492,6 +1524,8 @@ export class EvalService {
           if (threadDefinition.mutationPolicy === "read-only" || promptIndex === threadDefinition.prompts.length - 1) {
             workspaceChecks.set(String(interactionId), isH3
               ? await this.workspaceGrader({ workspaceDirectory, grade: threadDefinition.workspaceGrade })
+              : isExcalidraw
+                ? await this.excalidrawWorkspaceGrader({ workspaceDirectory })
               : isCalibration
                 ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
                 : await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory }));

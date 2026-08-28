@@ -196,6 +196,56 @@ historical judgments and screenshots are never overwritten.
 
 Deep calibration cases sit behind one manifest-driven fixture module. They form a graph-presentation calibration corpus for recursive-judge tuning and human labels, not the full verifiable-work benchmark. The module owns generated baseline files, immutable source identity, materialization, evaluator-only reference expectations, and lightweight deterministic completion checks through a small materialize/grade interface. Seven coding cases expose behavioral contracts that are red in the seeded workspace. Five noncoding cases begin without curated research content and deterministically check only artifact presence, source-ledger shape, and task-specific consistency; semantic outcome criteria remain partial until scoped review. Completion checks confirm that inspectable work exists but do not qualify its substantive quality. This prevents structural checks from masquerading as implementation, historical, creative, travel, technology, or sports expertise.
 
+Artifact-verifiable cases use a stronger evaluator-owned admission boundary. A case
+and verifier version remain `candidate` until the immutable portfolio demonstrates
+an intentionally red untouched fixture, at least two materially different green
+solutions, relevant shortcut mutants that fail, and boundary/property coverage at
+the real public seam. Qualification predicates are recorded independently and are
+separate from quality diagnostics and graph-presentation grades. Verification
+observes behavior, durable state, or artifact output; it cannot match source text,
+mirror a reference patch, or enforce delivery constraints absent from the visible
+task. Qualification applies candidate changes to a pristine verifier workspace.
+Fixtures, references, materializers, verifier code, environment identity, and
+contracts are content-addressed, and an adversarial review records the exact source
+digest, attempts both false acceptance and false rejection, and preserves unresolved
+findings. A change to any admitted input invalidates the admission evidence.
+
+The Excalidraw branching scene-history case specializes that boundary around a
+public opaque controller and accessible UI for named version creation, checkout,
+historical branching, merge, conflict resolution, and history export. Version names
+are non-empty after NFC normalization, case-sensitive, and unique; versions have
+stable IDs, immutable snapshots, and explicit parents. Historical saves add a child
+without rewriting descendants or siblings. A merge names an explicit common-ancestor
+base and two unordered parents, and deterministically compares each element ID and
+JSON field path, treating arrays atomically. One-sided and identical edits merge
+automatically. Same-field divergence, modify/delete, divergent same-ID additions,
+and byte-different same-ID assets create stable independently inspectable conflicts;
+no merge version is created until all conflicts are explicitly resolved. Parent
+order cannot change the semantic result or conflict identities.
+
+Merged element order is fractional index followed by element ID. Revision-only
+fields (`version`, `versionNonce`, and `updated`) do not cause semantic conflicts.
+Bindings, groups, frames, containers, and assets remain integrity-coupled and cannot
+be silently dropped or repaired. Each version contains elements, files, and
+export-safe app state but excludes transient selection and tool state. Checkout and
+a completed merge each enter the ordinary Excalidraw undo stack as one step; undo
+changes only the displayed scene, never the immutable history graph. Ordinary
+`.excalidraw` export remains current-scene-only, while a separate versioned history
+export carries the complete graph, snapshots, and assets. History schema v1 imports
+ordinary Excalidraw v1/v2 documents through upstream restoration, preserves unknown
+element properties, and rejects unsupported future history schemas. The frozen
+fixture binds its permissively licensed upstream commit and tree, lockfile and any
+approved evaluator-owned compatibility seed, bounded install/build/test commands,
+and expected runtime before admission.
+
+The public DTO boundary is versioned with the case contract. Versions expose ID,
+name, and parent IDs; scene reads return snapshots; merge returns either a merged
+version and scene or a stable merge ID with structured conflicts; resolution maps
+every conflict ID to a parent choice or explicit value; exports return serialized
+JSON. The labelled Scene history region exposes named controls for save, checkout,
+merge, conflict resolution, and history export so accessibility is observable
+without coupling the evaluator to component internals.
+
 The runner input is a test-run ID, selected test-case IDs, selected harness-configuration names, and one judge configuration. At the CLI boundary, configuration names resolve to validated snapshots. The runner expands their Cartesian product into executions identified by `(testRunId, testCaseId, harnessConfigurationName)` and passes each resolved `HarnessConfiguration` into case execution. Every execution artifact stores that exact snapshot and its canonical SHA-256 digest. Two configurations may select the same implementation; that is ordinary run selection, not a harness-specific case or matrix.
 
 The ordinary test suite never invokes inference. `runtime-basic` remains a harness-agnostic lower-level integration case. Its pre-app-server movable-node HTML is intentionally minimal; execution review through the product app-server and shared production graph/chat workspace belongs to the Eval application.
