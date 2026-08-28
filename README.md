@@ -1,10 +1,10 @@
 # Relayer GraphComplete
 
 > This repository is the public, versioned home of the Issue #278 capability-eval
-> pilot. Exact verifier-qualified case snapshots and candidate checkpoints are
-> preserved on separate branches; see [EVAL_SUITE.md](EVAL_SUITE.md) for status,
-> provenance, and reproduction guidance. The cases are intentionally not combined
-> on `main` until their shared runner seams have been integrated and re-admitted.
+> pilot. All ten case checkpoints are merged on `main`; their original exact heads
+> remain on separate `cases/*` and `candidates/*` branches. See
+> [EVAL_SUITE.md](EVAL_SUITE.md) for status, provenance, verification results, and
+> the remaining re-admission work.
 
 Relayer GraphComplete is an open-source, graph-native agent workspace with a harness- and provider-agnostic product contract. Each thread pins a supported execution configuration behind the same GraphComplete boundary.
 

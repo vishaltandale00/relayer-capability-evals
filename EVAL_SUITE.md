@@ -4,19 +4,19 @@ This repository preserves the first ten verifier-backed capability-eval cases de
 
 ## Evidence model
 
-- `admitted` means the untouched baseline is red, two materially different implementations are green, adversarial mutants are rejected, the focused production seam passes, and an exact reviewed source snapshot is recorded.
+- `admitted at source head` means the untouched baseline is red, two materially different implementations are green, adversarial mutants are rejected, the focused production seam passes, and an exact reviewed source snapshot is recorded. Integration changes invalidate source-byte attestations until the combined `main` snapshot is re-admitted.
 - `candidate` means useful implementation work exists but the verifier or admission evidence is incomplete. Candidate branches must not be treated as passing evals.
-- Each branch is an exact case checkpoint. The cases deliberately remain separate until shared router, catalog, service, and test seams are integrated and the combined snapshot is re-admitted.
+- Each branch remains an exact case checkpoint. All ten are now merged on `main` through one explicit case registry and project-case dispatcher. The combined snapshot builds, but it is not yet a ten-case admission receipt.
 
 ## Case inventory
 
 | Case | Status | Branch | Source evidence |
 | --- | --- | --- | --- |
-| Tournament operations | admitted | `cases/tournament-operations` | Original PR #284, head `4f958255300d073def45d597e6dbcffdf4ed4501` |
-| Reservation and capacity | admitted | `cases/reservation-capacity` | Original PR #285, head `ee2d81cbc85c1dc9dbf0240433e9217fdfa5ab68` |
-| API contract simulation laboratory | admitted | `cases/api-contract-lab` | Original PR #287, head `f505cd6fe41cb0ccbe50694f46bf8805fdb7c4d4` |
-| Node Redis command-queue race | admitted | `cases/node-redis-queue-race` | Original PR #286, head `de6ee5c1116e4f7eca14c4c998a11c229228cb88` |
-| HTTPCore cancellation-poisoned pool | admitted | `cases/httpcore-cancellation-pool` | Original PR #288, head `63a55ad06fa84bbb8bd51b18b6eaade070003a18` |
+| Tournament operations | admitted at source head; re-admission pending | `cases/tournament-operations` | Original PR #284, head `4f958255300d073def45d597e6dbcffdf4ed4501` |
+| Reservation and capacity | admitted at source head; re-admission pending | `cases/reservation-capacity` | Original PR #285, head `ee2d81cbc85c1dc9dbf0240433e9217fdfa5ab68` |
+| API contract simulation laboratory | admitted at source head; re-admission pending | `cases/api-contract-lab` | Original PR #287, head `f505cd6fe41cb0ccbe50694f46bf8805fdb7c4d4` |
+| Node Redis command-queue race | admitted at source head; re-admission pending | `cases/node-redis-queue-race` | Original PR #286, head `de6ee5c1116e4f7eca14c4c998a11c229228cb88` |
+| HTTPCore cancellation-poisoned pool | admitted at source head; re-admission pending | `cases/httpcore-cancellation-pool` | Original PR #288, head `63a55ad06fa84bbb8bd51b18b6eaade070003a18` |
 | Emergency evacuation planner | candidate | `candidates/emergency-evacuation` | Checkpoint `7c1425f2`; focused 29/29, full check and build passed; rejected by authority review before admission |
 | Excalidraw branching scene history | candidate | `candidates/excalidraw-scene-history` | Checkpoint `2ab794e9`; approved v1 semantics encoded; real pinned-workspace admission was interrupted |
 | JupyterLab execution bundles | candidate | `candidates/jupyterlab-execution-bundles` | Checkpoint `080bb265`; pristine-delta hardening in progress; final admission interrupted |
@@ -27,12 +27,12 @@ Original PR numbers refer to [`vishaltandale00/relayer-graphcomplete`](https://g
 
 ## Reproducing a case
 
-Check out the named branch and follow the case-local `README.md` or verifier documentation under `eval-cases/`. Do not infer suite-level compatibility from a single case branch: the five admitted branches independently touch shared runner seams and need an explicit integration pass before a combined run is meaningful.
+Use `main` to exercise the integrated catalog, or check out a named source branch to reproduce its historical admission receipt. Do not infer combined admission from a source-branch receipt: shared service bytes and sealed digests changed during integration.
 
 ## Integration frontier
 
-1. Rebase or merge the five admitted cases through the shared catalog, service, and routing seams.
-2. Resolve conflicts without weakening any case-local verifier.
-3. Add one versioned suite manifest that pins case IDs, fixture/runtime identities, verifier digests, and admission receipts.
-4. Run every admitted case from the combined snapshot and publish the exact results.
-5. Harden and re-review candidate cases individually before promoting them to `admitted`.
+1. Add one machine-readable suite manifest that pins case IDs, fixture/runtime identities, verifier digests, and admission receipts.
+2. Re-run every source-admitted case from the combined snapshot and refresh only evidence that passes unchanged semantics.
+3. Run Node-22-only cases under their pinned runtime; do not weaken runtime checks for the ambient Node version.
+4. Harden and re-review candidate cases individually before promotion.
+5. Publish one exact combined-suite receipt after every included case reaches its declared gate.

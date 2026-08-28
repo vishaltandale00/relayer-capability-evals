@@ -1,20 +1,20 @@
 import { createHash, randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
 import { createReadStream, createWriteStream } from "node:fs";
-import { cp, link, lstat, mkdir, open, readFile, readdir, realpath, rename, rm, writeFile } from "node:fs/promises";
-import { dirname, isAbsolute, join, relative } from "node:path";
 import {
   cp,
   link,
+  lstat,
   mkdir,
   open,
   readFile,
   readdir,
+  realpath,
   rename,
   rm,
   writeFile,
 } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join, relative } from "node:path";
 import { Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { promisify } from "node:util";
@@ -39,24 +39,20 @@ import {
   H3_UPSTREAM_COMMIT,
   h3ProjectEvalCase,
   h3AutonomousCases,
-  HTTPCORE_CANCELLATION_CASE_ID,
-  HTTPCORE_UPSTREAM_COMMIT,
-  httpcoreCancellationCases,
   JUPYTERLAB_EXECUTION_BUNDLES_CASE_ID,
   JUPYTERLAB_UPSTREAM_COMMIT,
   jupyterLabExecutionBundlesCases,
   jupyterLabExecutionBundlesCaseIds,
-  frontierAutonomousCases,
-  frontierAutonomousCaseIds,
-  calibrationAutonomousCases,
-  calibrationAutonomousCaseIds,
+  HTTPCORE_CANCELLATION_CASE_ID,
+  HTTPCORE_UPSTREAM_COMMIT,
+  httpcoreCancellationCases,
+  materializeHTTPCoreCancellationFixture,
+  gradeHTTPCoreCancellationWorkspace,
   EXCALIDRAW_SCENE_HISTORY_CASE_ID,
   EXCALIDRAW_UPSTREAM_COMMIT,
   excalidrawSceneHistoryCase,
   materializeExcalidrawSceneHistoryFixture,
   gradeExcalidrawSceneHistoryWorkspace,
-  materializeCalibrationFixture,
-  gradeCalibrationWorkspace,
   tournamentOperationsCase,
   tournamentOperationsCaseIds,
   materializeTournamentOperationsFixture,
@@ -72,45 +68,51 @@ import {
   materializeApiContractSimulationLaboratoryFixture,
   gradeApiContractSimulationLaboratoryWorkspace,
   API_CONTRACT_SIMULATION_LABORATORY_GATE_CHECK_PATTERNS,
-  preflightApiContractSimulationLaboratoryEnvironment,
   emergencyEvacuationCase,
   emergencyEvacuationCaseIds,
   evaluateEmergencyEvacuationMandatoryGate,
   materializeEmergencyEvacuationFixture,
   gradeEmergencyEvacuationWorkspace,
-  gradeSaasOperatingModelWorkspace,
-  productionDeliveryPlannerCases,
-  productionDeliveryPlannerCaseIds,
-  createProductionDeliveryPlannerRuntime,
-  materializeCalibrationFixture,
-  gradeCalibrationWorkspace,
-  materializeProductionDeliveryPlannerFixture,
-  gradeProductionDeliveryPlannerWorkspace,
-  materializeFrontierProjectFixture,
-  materializeSaasOperatingModelFixture,
-  materializeH3ProjectFixture,
-  gradeNodeRedisWorkspace,
-  materializeNodeRedisProjectFixture,
   nodeRedisAutonomousCases,
   nodeRedisAutonomousCaseIds,
   NODE_REDIS_UPSTREAM_COMMIT,
-  materializeHTTPCoreCancellationFixture,
-  gradeHTTPCoreCancellationWorkspace,
-  materializeJupyterLabExecutionBundlesFixture,
-  gradeJupyterLabExecutionBundlesWorkspace,
+  materializeNodeRedisProjectFixture,
+  gradeNodeRedisWorkspace,
   saasOperatingModelCase,
   saasOperatingModelCaseIds,
+  materializeSaasOperatingModelFixture,
+  gradeSaasOperatingModelWorkspace,
   ArtifactToolWorkbookInspector,
   spreadsheetRuntimeFromEnvironment,
+  productionDeliveryPlannerCases,
+  productionDeliveryPlannerCaseIds,
+  createProductionDeliveryPlannerRuntime,
+  materializeProductionDeliveryPlannerFixture,
+  gradeProductionDeliveryPlannerWorkspace,
+  frontierAutonomousCases,
+  frontierAutonomousCaseIds,
+  calibrationAutonomousCases,
+  calibrationAutonomousCaseIds,
+  materializeCalibrationFixture,
+  gradeCalibrationWorkspace,
+  materializeFrontierProjectFixture,
+  materializeH3ProjectFixture,
+  materializeJupyterLabExecutionBundlesFixture,
+  gradeJupyterLabExecutionBundlesWorkspace,
   projectDeterministicChecksToOutcome,
   selectStandalonePermissionProfile,
 } from "@relayer/eval-runner";
 import { loadHarnessConfigurations } from "@relayer/harness-host";
-import { firstAvailableSelection, harnessUsesConfigurationModel } from "../renderer/src/model-picker-model.js";
 import {
   buildAcceptedReviewTopology,
   gradeAcceptedReviewTopology,
 } from "./simulated-user-judge.mjs";
+
+const catalogEntry = (entry) => Object.freeze({
+  ...entry.definition,
+  caseSnapshot: entry.catalogSnapshot,
+  caseSnapshotDigest: entry.snapshotDigest,
+});
 
 export const evalCases = Object.freeze([
   Object.freeze({
@@ -137,50 +139,6 @@ export const evalCases = Object.freeze([
     requiredChecks: Object.freeze(["node-navigation"]),
   }),
   h3ProjectEvalCase,
-  Object.freeze({
-    ...excalidrawSceneHistoryCase.definition,
-    caseSnapshot: excalidrawSceneHistoryCase.catalogSnapshot,
-    caseSnapshotDigest: excalidrawSceneHistoryCase.snapshotDigest,
-  }),
-  ...h3AutonomousCases.map((entry) => Object.freeze({
-    ...entry.definition,
-    caseSnapshot: entry.catalogSnapshot,
-    caseSnapshotDigest: entry.snapshotDigest,
-  })),
-  ...nodeRedisAutonomousCases.map((entry) => Object.freeze({
-  ...httpcoreCancellationCases.map((entry) => Object.freeze({
-    ...entry.definition,
-    caseSnapshot: entry.catalogSnapshot,
-    caseSnapshotDigest: entry.snapshotDigest,
-  })),
-  ...frontierAutonomousCases.map((entry) => Object.freeze({
-    ...entry.definition,
-    caseSnapshot: entry.catalogSnapshot,
-    caseSnapshotDigest: entry.snapshotDigest,
-  })),
-  ...calibrationAutonomousCases.map((entry) => Object.freeze({
-    ...entry.definition,
-    caseSnapshot: entry.catalogSnapshot,
-    caseSnapshotDigest: entry.snapshotDigest,
-  })),
-  Object.freeze({
-    ...tournamentOperationsCase.definition,
-    caseSnapshot: tournamentOperationsCase.catalogSnapshot,
-    caseSnapshotDigest: tournamentOperationsCase.snapshotDigest,
-  }),
-  ...reservationCapacityCases.map((entry) => Object.freeze({
-  ...productionDeliveryPlannerCases.map((entry) => Object.freeze({
-    ...entry.definition,
-    caseSnapshot: entry.catalogSnapshot,
-    caseSnapshotDigest: entry.snapshotDigest,
-  })),
-    ...apiContractSimulationLaboratoryCase.definition,
-    caseSnapshot: apiContractSimulationLaboratoryCase.catalogSnapshot,
-    caseSnapshotDigest: apiContractSimulationLaboratoryCase.snapshotDigest,
-    ...emergencyEvacuationCase.definition,
-    caseSnapshot: emergencyEvacuationCase.catalogSnapshot,
-    caseSnapshotDigest: emergencyEvacuationCase.snapshotDigest,
-  }),
   ...h3AutonomousCases.map((entry) =>
     Object.freeze({
       ...entry.definition,
@@ -195,6 +153,8 @@ export const evalCases = Object.freeze([
       caseSnapshotDigest: entry.snapshotDigest,
     }),
   ),
+  ...nodeRedisAutonomousCases.map(catalogEntry),
+  ...httpcoreCancellationCases.map(catalogEntry),
   ...frontierAutonomousCases.map((entry) =>
     Object.freeze({
       ...entry.definition,
@@ -209,10 +169,33 @@ export const evalCases = Object.freeze([
       caseSnapshotDigest: entry.snapshotDigest,
     }),
   ),
+  Object.freeze({
+    ...excalidrawSceneHistoryCase.definition,
+    caseSnapshot: excalidrawSceneHistoryCase.catalogSnapshot,
+    caseSnapshotDigest: excalidrawSceneHistoryCase.snapshotDigest,
+  }),
+  Object.freeze({
+    ...tournamentOperationsCase.definition,
+    caseSnapshot: tournamentOperationsCase.catalogSnapshot,
+    caseSnapshotDigest: tournamentOperationsCase.snapshotDigest,
+  }),
+  ...reservationCapacityCases.map(catalogEntry),
+  Object.freeze({
+    ...apiContractSimulationLaboratoryCase.definition,
+    caseSnapshot: apiContractSimulationLaboratoryCase.catalogSnapshot,
+    caseSnapshotDigest: apiContractSimulationLaboratoryCase.snapshotDigest,
+  }),
+  Object.freeze({
+    ...emergencyEvacuationCase.definition,
+    caseSnapshot: emergencyEvacuationCase.catalogSnapshot,
+    caseSnapshotDigest: emergencyEvacuationCase.snapshotDigest,
+  }),
+  Object.freeze({
     ...saasOperatingModelCase.definition,
     caseSnapshot: saasOperatingModelCase.catalogSnapshot,
     caseSnapshotDigest: saasOperatingModelCase.snapshotDigest,
   }),
+  ...productionDeliveryPlannerCases.map(catalogEntry),
 ]);
 
 const h3CaseIds = new Set([
@@ -220,36 +203,38 @@ const h3CaseIds = new Set([
   H3_AUTONOMOUS_FIX_CASE_ID,
   H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
 ]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...tournamentOperationsCaseIds]);
+const projectCaseIds = new Set([
+  ...h3CaseIds,
+  ...jupyterLabExecutionBundlesCaseIds,
+  ...nodeRedisAutonomousCaseIds,
+  HTTPCORE_CANCELLATION_CASE_ID,
+  ...frontierAutonomousCaseIds,
+  ...calibrationAutonomousCaseIds,
+  EXCALIDRAW_SCENE_HISTORY_CASE_ID,
+  ...tournamentOperationsCaseIds,
+  ...reservationCapacityCaseIds,
+  ...apiContractSimulationLaboratoryCaseIds,
+  ...emergencyEvacuationCaseIds,
+  ...saasOperatingModelCaseIds,
+  ...productionDeliveryPlannerCaseIds,
+]);
 
 export function projectCaseKind(caseId) {
   if (h3CaseIds.has(caseId)) return "h3";
+  if (jupyterLabExecutionBundlesCaseIds.has(caseId)) return "jupyterlab";
+  if (nodeRedisAutonomousCaseIds.has(caseId)) return "node-redis";
+  if (caseId === HTTPCORE_CANCELLATION_CASE_ID) return "httpcore";
+  if (caseId === EXCALIDRAW_SCENE_HISTORY_CASE_ID) return "excalidraw";
   if (tournamentOperationsCaseIds.has(caseId)) return "tournament";
+  if (reservationCapacityCaseIds.has(caseId)) return "reservation-capacity";
+  if (apiContractSimulationLaboratoryCaseIds.has(caseId)) return "api-contract-lab";
+  if (emergencyEvacuationCaseIds.has(caseId)) return "emergency-evacuation";
+  if (saasOperatingModelCaseIds.has(caseId)) return "saas-operating-model";
+  if (productionDeliveryPlannerCaseIds.has(caseId)) return "production-delivery-planner";
   if (calibrationAutonomousCaseIds.has(caseId)) return "calibration";
   if (frontierAutonomousCaseIds.has(caseId)) return "frontier";
   return null;
 }
-const projectCaseIds = new Set([
-  ...h3CaseIds,
-  ...frontierAutonomousCaseIds,
-  ...calibrationAutonomousCaseIds,
-  ...reservationCapacityCaseIds,
-]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...apiContractSimulationLaboratoryCaseIds]);
-const projectCaseIds = new Set([...h3CaseIds, ...nodeRedisAutonomousCaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
-const httpcoreCaseIds = new Set([HTTPCORE_CANCELLATION_CASE_ID]);
-const projectCaseIds = new Set([...h3CaseIds, ...httpcoreCaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...emergencyEvacuationCaseIds]);
-const projectCaseIds = new Set([EXCALIDRAW_SCENE_HISTORY_CASE_ID, ...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
-const projectCaseIds = new Set([
-  ...h3CaseIds,
-  ...jupyterLabExecutionBundlesCaseIds,
-  ...frontierAutonomousCaseIds,
-  ...calibrationAutonomousCaseIds,
-]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...saasOperatingModelCaseIds]);
-  ...productionDeliveryPlannerCaseIds,
-]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({
@@ -285,44 +270,11 @@ const ANNOTATION_EXPORT_TURN_STATUSES = new Set([
 ]);
 const execFileAsync = promisify(execFile);
 
-export async function resolveEmergencyEvacuationNodeExecutable({ command = process.env.RELAYER_EVAL_NODE_BINARY || "node" } = {}) {
-  const { stdout } = await execFileAsync(command, ["--input-type=module", "--eval", "console.log(JSON.stringify({ executable: process.execPath, release: process.release.name, version: process.versions.node }))"], {
-    encoding: "utf8",
-    maxBuffer: 64 * 1024,
-    timeout: 10_000,
-  });
-  const identity = JSON.parse(stdout.trim());
-  if (identity?.release !== "node" || !/^22\./.test(identity?.version || "") || !isAbsolute(identity?.executable || "")) {
-    throw new Error(`Emergency evacuation qualification requires a standalone Node 22 executable; ${command} reported ${identity?.release || "unknown"} ${identity?.version || "unknown"}.`);
-  }
-  const executable = await realpath(identity.executable);
-  if (!(await lstat(executable)).isFile()) throw new Error("Emergency evacuation qualification resolved Node 22 to a non-file path.");
-  if (process.versions.electron) {
-    const applicationContents = dirname(dirname(process.execPath));
-    const withinApplication = relative(applicationContents, executable);
-    if (withinApplication === "" || (!withinApplication.startsWith("..") && !isAbsolute(withinApplication))) {
-      throw new Error("Emergency evacuation qualification requires Node 22 outside the packaged Eval application.");
-    }
-  }
-  return executable;
-}
-
 function copy(value) {
   return structuredClone(value);
 }
 
-export function evalModelSelectionRequest(selectedModel, productModelSelection = true) {
-  return selectedModel === null || !productModelSelection ? {} : {
-    modelSelection: {
-      familyId: selectedModel.familyId,
-      providerId: selectedModel.providerId,
-      modelId: selectedModel.modelId,
-    },
-  };
-}
-
 function outcomeGradeFromChecks(checks, caseSnapshot = null) {
-export function outcomeGradeFromChecks(checks, caseSnapshot = null) {
   const criteria = caseSnapshot?.artifacts?.outcomeRubric?.criteria || [];
   const criterionGrades = criteria.map((criterion) => ({
     criterionId: criterion.id,
@@ -337,11 +289,6 @@ export function outcomeGradeFromChecks(checks, caseSnapshot = null) {
     const grade = projectDeterministicChecksToOutcome(checks);
     return { ...grade, criteria: criterionGrades };
   }
-  const canonicalEmergencyVerifier = emergencyEvacuationCase.snapshot.artifacts.verifier;
-  const usesEmergencyVerifier = caseSnapshot.id === emergencyEvacuationCase.snapshot.id
-    && caseSnapshot.artifacts.verifier.verifierId === canonicalEmergencyVerifier.verifierId
-    && caseSnapshot.artifacts.verifier.contentDigest === canonicalEmergencyVerifier.contentDigest;
-  const mandatoryGates = declarations.map((gate) => mandatoryGateReceipt(gate, checks, usesEmergencyVerifier));
   const mandatoryGates = declarations.map((gate) =>
     mandatoryGateReceipt(gate, checks),
   );
@@ -362,43 +309,29 @@ export function outcomeGradeFromChecks(checks, caseSnapshot = null) {
 
 function mandatoryGateReceipt(gate, checks) {
   if (gate.id.startsWith("reservation-")) {
-    const patterns = reservationCapacityGateCheckPatterns[gate.id];
-    return mandatoryGateReceiptForPatterns(gate, checks, patterns);
-function mandatoryGateReceipt(gate, checks, usesEmergencyVerifier = false) {
-  const emergencyResult = usesEmergencyVerifier ? evaluateEmergencyEvacuationMandatoryGate(gate.id, checks) : null;
+    return mandatoryGateReceiptForPatterns(
+      gate,
+      checks,
+      reservationCapacityGateCheckPatterns[gate.id],
+    );
+  }
+  const emergencyResult = evaluateEmergencyEvacuationMandatoryGate(gate.id, checks);
   if (emergencyResult) {
-    if (!emergencyResult.complete) {
-      return {
-        schemaVersion: 1,
-        gateId: gate.id,
-        name: gate.label,
-        mandatory: true,
-        status: "failed",
-        passed: null,
-        detail: `Verifier ${gate.id} did not emit every required check.`,
-        evidenceRefs: emergencyResult.matched.map((check) => `deterministic-check:${check.name}`),
-      };
-    }
+    const complete = emergencyResult.complete;
     return {
       schemaVersion: 1,
       gateId: gate.id,
       name: gate.label,
       mandatory: true,
-      status: "completed",
-      passed: emergencyResult.passed,
-      detail: emergencyResult.matched.map((check) => `${check.name}: ${check.detail}`).join("\n"),
+      status: complete ? "completed" : "failed",
+      passed: complete ? emergencyResult.passed : null,
+      detail: complete
+        ? emergencyResult.matched.map((check) => `${check.name}: ${check.detail}`).join("\n")
+        : `Verifier ${gate.id} did not emit every required check.`,
       evidenceRefs: emergencyResult.matched.map((check) => `deterministic-check:${check.name}`),
     };
   }
   const patterns = {
-    "functional-behavior": ["behavior-lower-boundary", "behavior-upper-boundary", "behavior-decimal-number", "behavior-integer-numeric-string", "behavior-decimal-numeric-string", "behavior-custom-fallback"],
-    "regression-safety": ["implementation-build", "implementation-typecheck", "implementation-focused-tests"],
-    "scoped-clean-commit": ["focused-files", "meaningful-commit", "implementation-clean"],
-    "queue-cleanup": ["fault-injection-observed", "failed-command-rejected-once", "queue-clean-before-reconnect"],
-    "reconnect-integrity": ["reconnect-reply-order", "offline-queue-replayed-in-order", "reconnect-queue-drained", "single-failure-callbacks-settle"],
-    "repeated-failure-safety": ["repeated-faults-observed", "fault-command-matrix-observed", "repeated-failures-rejected-independently", "repeated-reconnects-start-clean", "ordered-replies-after-recovery", "no-command-reply-misassociation", "callbacks-settle-without-hang"],
-    "reply-mode-regression": ["client-reply-modes-preserved"],
-    "node-redis-scoped-clean-commit": ["candidate-regression-passes", "focused-source-and-tests", "dependency-safe-scope", "meaningful-commit", "implementation-clean"],
     "functional-behavior": [
       "behavior-lower-boundary",
       "behavior-upper-boundary",
@@ -440,32 +373,25 @@ function mandatoryGateReceipt(gate, checks, usesEmergencyVerifier = false) {
     "pristine-verification": ["pristine-verification-integrity"],
     "committed-clean-workspace": ["meaningful-commit", "implementation-clean"],
     "hidden-behavior": ["validation-build", "hidden-behavior"],
-    "scoped-delivery": ["required-delivery-files", "delivery-commit", "delivery-clean"],
-    ...TOURNAMENT_VERIFIER_GATE_CHECKS,
-    ...API_CONTRACT_SIMULATION_LABORATORY_GATE_CHECK_PATTERNS,
-    "cancellation-recovery": ["deterministic-cancellation", "connection-slot-release", "subsequent-request-success", "repeated-cancellation"],
-    "resource-cleanup": ["httpcore-cleanup"],
-    "focused-regression-safety": ["httpcore-regression-safety"],
-    "committed-delivery": ["httpcore-meaningful-commit", "httpcore-clean"],
-    "scene-history-behavior": [
-      "scene-history-public-ui",
-      "scene-history-named-immutable-versions",
-      "scene-history-historical-branching",
-      "scene-history-deterministic-merge",
-      "scene-history-conflict-taxonomy",
-      "scene-history-relationship-integrity",
-      "scene-history-groups-and-assets",
-      "scene-history-undo-boundary",
-      "scene-history-export-boundary",
-      "scene-history-historical-compatibility",
-    ],
-    "scene-history-regression": ["scene-history-build", "scene-history-upstream-tests"],
-    "scene-history-delivery": ["scene-history-commit", "scene-history-clean"],
     "scoped-delivery": [
       "required-delivery-files",
       "delivery-commit",
       "delivery-clean",
     ],
+    ...TOURNAMENT_VERIFIER_GATE_CHECKS,
+    ...API_CONTRACT_SIMULATION_LABORATORY_GATE_CHECK_PATTERNS,
+    "queue-cleanup": ["fault-injection-observed", "failed-command-rejected-once", "queue-clean-before-reconnect"],
+    "reconnect-integrity": ["reconnect-reply-order", "offline-queue-replayed-in-order", "reconnect-queue-drained", "single-failure-callbacks-settle"],
+    "repeated-failure-safety": ["repeated-faults-observed", "fault-command-matrix-observed", "repeated-failures-rejected-independently", "repeated-reconnects-start-clean", "ordered-replies-after-recovery", "no-command-reply-misassociation", "callbacks-settle-without-hang"],
+    "reply-mode-regression": ["client-reply-modes-preserved"],
+    "node-redis-scoped-clean-commit": ["candidate-regression-passes", "focused-source-and-tests", "dependency-safe-scope", "meaningful-commit", "implementation-clean"],
+    "cancellation-recovery": ["deterministic-cancellation", "connection-slot-release", "subsequent-request-success", "repeated-cancellation"],
+    "resource-cleanup": ["httpcore-cleanup"],
+    "focused-regression-safety": ["httpcore-regression-safety"],
+    "committed-delivery": ["httpcore-meaningful-commit", "httpcore-clean"],
+    "scene-history-behavior": ["scene-history-public-ui", "scene-history-named-immutable-versions", "scene-history-historical-branching", "scene-history-deterministic-merge", "scene-history-conflict-taxonomy", "scene-history-relationship-integrity", "scene-history-groups-and-assets", "scene-history-undo-boundary", "scene-history-export-boundary", "scene-history-historical-compatibility"],
+    "scene-history-regression": ["scene-history-build", "scene-history-upstream-tests"],
+    "scene-history-delivery": ["scene-history-commit", "scene-history-clean"],
     "source-coverage": ["source-coverage:subscriptions-rows", "source-coverage:invoices-rows", "source-coverage:payments-rows", "source-coverage:payroll-rows", "source-coverage:expenses-rows", "source-coverage:cash-rows"],
     "historical-reconciliation": ["historical-reconciliation:keys", "historical-reconciliation:independent-values"],
     "forecast-scenarios": ["forecast-scenarios:keys", "forecast-scenarios:materially-different", "forecast-scenarios:distinct-drivers", "forecast-scenarios:independent-values"],
@@ -766,19 +692,9 @@ function completeExecutionLifecycle(execution, status = "complete") {
   };
 }
 
-async function validateFixtureAgainstCaseSnapshot(execution, fixture) {
-export function validateFixtureAgainstCaseSnapshot(execution, fixture) {
+function validateFixtureAgainstCaseSnapshot(execution, fixture) {
   const workspace = execution.caseSnapshot?.artifacts?.workspace;
   if (!workspace) return;
-  const actualRevision = fixture.sourceRevision ?? (fixture.seededTree ? `git-tree:${fixture.seededTree}` : null);
-  const requiresExactEnvironment = nodeRedisAutonomousCaseIds.has(execution.testCaseId);
-  if (workspace.source !== fixture.repositoryUrl
-    || workspace.revision !== actualRevision
-    || (requiresExactEnvironment && workspace.environmentDigest !== fixture.environmentDigest)) {
-    throw new Error(
-      `Materialized fixture identity does not match case ${execution.testCaseId}: `
-      + `${fixture.repositoryUrl || "<missing>"}/${actualRevision || "<missing>"}/`
-      + `${fixture.environmentDigest || "<missing-environment>"}.`,
   const actualRevision =
     fixture.sourceRevision ??
     (fixture.seededTree ? `git-tree:${fixture.seededTree}` : null);
@@ -790,39 +706,6 @@ export function validateFixtureAgainstCaseSnapshot(execution, fixture) {
       `Materialized fixture identity does not match case ${execution.testCaseId}: ` +
         `${fixture.repositoryUrl || "<missing>"}/${actualRevision || "<missing>"}.`,
     );
-  }
-  if (fixture.sourceContentDigest !== undefined && workspace.contentDigest !== fixture.sourceContentDigest) {
-    throw new Error(`Materialized fixture content digest does not match case ${execution.testCaseId}.`);
-  }
-  if (fixture.environmentDigest !== undefined && workspace.environmentDigest !== fixture.environmentDigest) {
-    throw new Error(`Materialized fixture environment digest does not match case ${execution.testCaseId}.`);
-  }
-  if ((fixture.sourceContentDigest !== undefined || fixture.environmentDigest !== undefined)
-    && fixture.seededCommit && fixture.seededTree && fixture.workspaceDirectory) {
-    const { stdout } = await execFileAsync("git", ["rev-parse", `${fixture.seededCommit}^{tree}`], {
-      cwd: fixture.workspaceDirectory,
-      encoding: "utf8",
-    });
-    if (stdout.trim() !== fixture.seededTree) {
-      throw new Error(`Materialized fixture tree receipt does not match case ${execution.testCaseId}.`);
-    }
-    if (typeof fixture.sourceRevision === "string"
-      && fixture.sourceRevision.startsWith("git-tree:")
-      && fixture.sourceRevision !== `git-tree:${fixture.seededTree}`) {
-      throw new Error(`Materialized fixture source revision does not match case ${execution.testCaseId}.`);
-    }
-  if (workspace.materializerId === "httpcore-git-python-v1" && workspace.environmentDigest !== fixture.environmentDigest) {
-    throw new Error(`Materialized fixture environment does not match case ${execution.testCaseId}.`);
-  const requiresAuthenticatedDigests = emergencyEvacuationCaseIds.has(execution.testCaseId);
-  if ((requiresAuthenticatedDigests && (!fixture.contentDigest || !fixture.environmentDigest))
-    || (fixture.contentDigest !== undefined && workspace.contentDigest !== fixture.contentDigest)
-    || (fixture.environmentDigest !== undefined && workspace.environmentDigest !== fixture.environmentDigest)) {
-    throw new Error(`Materialized fixture digests do not match case ${execution.testCaseId}.`);
-  if (fixture.contentDigest !== undefined && workspace.contentDigest !== fixture.contentDigest) {
-    throw new Error(`Materialized fixture content digest does not match case ${execution.testCaseId}: ${fixture.contentDigest}.`);
-  }
-  if (fixture.environmentDigest !== undefined && workspace.environmentDigest !== fixture.environmentDigest) {
-    throw new Error(`Materialized fixture environment digest does not match case ${execution.testCaseId}: ${fixture.environmentDigest}.`);
   }
 }
 
@@ -1061,28 +944,26 @@ export class EvalService {
     simulatedUserJudgeRunner = null,
     projectFixtureMaterializer = materializeH3ProjectFixture,
     workspaceGrader = gradeH3Workspace,
-    httpcoreFixtureMaterializer = materializeHTTPCoreCancellationFixture,
-    httpcoreWorkspaceGrader = gradeHTTPCoreCancellationWorkspace,
     frontierProjectFixtureMaterializer = materializeFrontierProjectFixture,
     frontierWorkspaceGrader = gradeFrontierProjectWorkspace,
-    nodeRedisProjectFixtureMaterializer = materializeNodeRedisProjectFixture,
-    nodeRedisWorkspaceGrader = gradeNodeRedisWorkspace,
     calibrationFixtureMaterializer = materializeCalibrationFixture,
     calibrationWorkspaceGrader = gradeCalibrationWorkspace,
+    jupyterLabFixtureMaterializer = materializeJupyterLabExecutionBundlesFixture,
+    jupyterLabWorkspaceGrader = gradeJupyterLabExecutionBundlesWorkspace,
+    nodeRedisProjectFixtureMaterializer = materializeNodeRedisProjectFixture,
+    nodeRedisWorkspaceGrader = gradeNodeRedisWorkspace,
+    httpcoreFixtureMaterializer = materializeHTTPCoreCancellationFixture,
+    httpcoreWorkspaceGrader = gradeHTTPCoreCancellationWorkspace,
+    excalidrawFixtureMaterializer = materializeExcalidrawSceneHistoryFixture,
+    excalidrawWorkspaceGrader = gradeExcalidrawSceneHistoryWorkspace,
     tournamentFixtureMaterializer = materializeTournamentOperationsFixture,
     tournamentWorkspaceGrader = gradeTournamentOperationsWorkspace,
     reservationCapacityFixtureMaterializer = materializeReservationCapacityFixture,
     reservationCapacityWorkspaceGrader = gradeReservationCapacityWorkspace,
     apiContractLaboratoryFixtureMaterializer = materializeApiContractSimulationLaboratoryFixture,
     apiContractLaboratoryWorkspaceGrader = gradeApiContractSimulationLaboratoryWorkspace,
-    apiContractLaboratoryEnvironmentPreflight = preflightApiContractSimulationLaboratoryEnvironment,
     emergencyEvacuationFixtureMaterializer = materializeEmergencyEvacuationFixture,
     emergencyEvacuationWorkspaceGrader = gradeEmergencyEvacuationWorkspace,
-    emergencyEvacuationNodeExecutableResolver = resolveEmergencyEvacuationNodeExecutable,
-    excalidrawFixtureMaterializer = materializeExcalidrawSceneHistoryFixture,
-    excalidrawWorkspaceGrader = gradeExcalidrawSceneHistoryWorkspace,
-    jupyterLabFixtureMaterializer = materializeJupyterLabExecutionBundlesFixture,
-    jupyterLabWorkspaceGrader = gradeJupyterLabExecutionBundlesWorkspace,
     saasFixtureMaterializer = materializeSaasOperatingModelFixture,
     saasWorkspaceGrader = gradeSaasOperatingModelWorkspace,
     productionDeliveryPlannerFixtureMaterializer = materializeProductionDeliveryPlannerFixture,
@@ -1091,9 +972,7 @@ export class EvalService {
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
-    candidateTraceAttributionLoader = null,
     candidateTraceRequired = false,
-    ensureModelCatalog = async () => {},
     conversationImportEnabled = false,
     conversationImportMaxBytes = MAX_CONVERSATION_IMPORT_BYTES,
     annotationSnapshotLoader = null,
@@ -1106,43 +985,38 @@ export class EvalService {
     this.simulatedUserJudgeRunner = simulatedUserJudgeRunner;
     this.projectFixtureMaterializer = projectFixtureMaterializer;
     this.workspaceGrader = workspaceGrader;
-    this.httpcoreFixtureMaterializer = httpcoreFixtureMaterializer;
-    this.httpcoreWorkspaceGrader = httpcoreWorkspaceGrader;
-    this.frontierProjectFixtureMaterializer = frontierProjectFixtureMaterializer;
     this.frontierProjectFixtureMaterializer =
       frontierProjectFixtureMaterializer;
     this.frontierWorkspaceGrader = frontierWorkspaceGrader;
-    this.nodeRedisProjectFixtureMaterializer = nodeRedisProjectFixtureMaterializer;
-    this.nodeRedisWorkspaceGrader = nodeRedisWorkspaceGrader;
     this.calibrationFixtureMaterializer = calibrationFixtureMaterializer;
     this.calibrationWorkspaceGrader = calibrationWorkspaceGrader;
+    this.jupyterLabFixtureMaterializer = jupyterLabFixtureMaterializer;
+    this.jupyterLabWorkspaceGrader = jupyterLabWorkspaceGrader;
+    this.nodeRedisProjectFixtureMaterializer = nodeRedisProjectFixtureMaterializer;
+    this.nodeRedisWorkspaceGrader = nodeRedisWorkspaceGrader;
+    this.httpcoreFixtureMaterializer = httpcoreFixtureMaterializer;
+    this.httpcoreWorkspaceGrader = httpcoreWorkspaceGrader;
+    this.excalidrawFixtureMaterializer = excalidrawFixtureMaterializer;
+    this.excalidrawWorkspaceGrader = excalidrawWorkspaceGrader;
     this.tournamentFixtureMaterializer = tournamentFixtureMaterializer;
     this.tournamentWorkspaceGrader = tournamentWorkspaceGrader;
     this.reservationCapacityFixtureMaterializer = reservationCapacityFixtureMaterializer;
     this.reservationCapacityWorkspaceGrader = reservationCapacityWorkspaceGrader;
     this.apiContractLaboratoryFixtureMaterializer = apiContractLaboratoryFixtureMaterializer;
     this.apiContractLaboratoryWorkspaceGrader = apiContractLaboratoryWorkspaceGrader;
-    this.apiContractLaboratoryEnvironmentPreflight = apiContractLaboratoryEnvironmentPreflight;
-    this.apiContractLaboratoryAvailability = { available: false, reason: "API laboratory qualification has not completed." };
     this.emergencyEvacuationFixtureMaterializer = emergencyEvacuationFixtureMaterializer;
     this.emergencyEvacuationWorkspaceGrader = emergencyEvacuationWorkspaceGrader;
-    this.emergencyEvacuationNodeExecutableResolver = emergencyEvacuationNodeExecutableResolver;
-    this.excalidrawFixtureMaterializer = excalidrawFixtureMaterializer;
-    this.excalidrawWorkspaceGrader = excalidrawWorkspaceGrader;
-    this.jupyterLabFixtureMaterializer = jupyterLabFixtureMaterializer;
-    this.jupyterLabWorkspaceGrader = jupyterLabWorkspaceGrader;
     this.saasFixtureMaterializer = saasFixtureMaterializer;
     this.saasWorkspaceGrader = saasWorkspaceGrader;
-    this.spreadsheetRuntime = spreadsheetRuntime;
     this.productionDeliveryPlannerFixtureMaterializer = productionDeliveryPlannerFixtureMaterializer;
     this.productionDeliveryPlannerWorkspaceGrader = productionDeliveryPlannerWorkspaceGrader;
-    this.spreadsheetRuntime = spreadsheetRuntime === null ? null : createProductionDeliveryPlannerRuntime(spreadsheetRuntime);
+    this.spreadsheetRuntime = spreadsheetRuntime === null
+      ? null
+      : createProductionDeliveryPlannerRuntime(spreadsheetRuntime);
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
-    this.candidateTraceAttributionLoader = candidateTraceAttributionLoader;
     this.candidateTraceRequired = candidateTraceRequired;
-    this.ensureModelCatalog = ensureModelCatalog;
     this.conversationImportEnabled = conversationImportEnabled;
     this.conversationImportMaxBytes = conversationImportMaxBytes;
     this.annotationSnapshotLoader = annotationSnapshotLoader;
@@ -1154,11 +1028,6 @@ export class EvalService {
   }
 
   async open() {
-    this.configurations = await loadHarnessConfigurations(this.configurationPaths);
-    this.apiContractLaboratoryAvailability = this.platform === "darwin"
-      ? await this.apiContractLaboratoryEnvironmentPreflight()
-      : { available: false, reason: "The API contract simulation laboratory requires its pinned local Mac qualification environment." };
-    await rm(join(dirname(this.stateFile), "import-staging"), { recursive: true, force: true });
     this.configurations = await loadHarnessConfigurations(
       this.configurationPaths,
     );
@@ -1234,15 +1103,6 @@ export class EvalService {
 
   catalog() {
     return {
-      cases: copy(evalCases.filter((testCase) => testCase.id !== apiContractSimulationLaboratoryCase.definition.id || this.apiContractLaboratoryAvailability.available)),
-      harnessConfigurations: [...this.configurations.values()].map((configuration) => ({
-        name: configuration.name,
-        implementation: configuration.implementation,
-        settings: copy(configuration.settings),
-      })),
-      judges: copy(evalJudges.filter((judge) => (
-        judge.id === deterministicJudgeId || this.simulatedUserJudgeRunner !== null
-      ))),
       cases: copy(evalCases),
       harnessConfigurations: [...this.configurations.values()].map(
         (configuration) => ({
@@ -1457,11 +1317,6 @@ export class EvalService {
     ) {
       throw new Error("Pinned project cases are local Mac only.");
     }
-    if (testCaseIds.includes(apiContractSimulationLaboratoryCase.definition.id) && !this.apiContractLaboratoryAvailability.available) {
-      throw new Error(`API contract simulation laboratory is unavailable: ${this.apiContractLaboratoryAvailability.reason}`);
-    }
-    if (simulatedUserJudgeIds.has(judgeConfigurationName) && this.simulatedUserJudgeRunner === null) {
-      throw new Error("Simulated-user judge is not available in this EvalService.");
     if (
       simulatedUserJudgeIds.has(judgeConfigurationName) &&
       this.simulatedUserJudgeRunner === null
@@ -2189,35 +2044,6 @@ export class EvalService {
           prompt: interaction.text,
           turnIndex,
           threadTurnIndex,
-          workspaceChecks: workspaceChecks.get(String(interaction.id)) || [],
-          artifact: workspaceArtifacts?.get(String(interaction.id)) || null,
-        }))
-      ));
-      execution.turns = interactions.map(({ thread, threadDefinition, permissionResolution, interaction, threadTurnIndex, artifact }, turnIndex) => ({
-        threadId: thread.id,
-        threadDefinitionId: threadDefinition?.id || null,
-        interactionId: interaction.id,
-        graphNodeId: interaction.graphNodeId,
-        rootLayerId: interaction.completionOutput?.rootLayer?.layer?.id ?? null,
-        permissionProfileId: interaction.permissionProfileId,
-        requestedPermissionProfileId: permissionResolution?.requestedProfileId ?? interaction.permissionProfileId,
-        permissionProfileOverride: permissionResolution?.overridden
-          ? copy(permissionResolution)
-          : null,
-        effectiveExecutionDigest: interaction.effectiveExecutionDigest,
-        personalPresentationVersionId: execution.candidateTraceCaptures?.[String(interaction.id)]?.personalPresentationVersionId ?? null,
-        modelSelection: copy(interaction.modelSelection || null),
-        effectivePermissionReceipt: copy(interaction.effectivePermissionReceipt),
-        status: interaction.completionStatus,
-        prompt: interaction.text,
-        turnIndex,
-        threadTurnIndex,
-        deterministicChecks: [],
-        deterministicPassed: false,
-        judgeResults: [],
-        candidateTrace: copy(execution.candidateTraceCaptures?.[String(interaction.id)] || disabledCandidateTrace()),
-        ...(artifact === null ? {} : { artifact: copy(artifact) }),
-      }));
           deterministicChecks: [],
           deterministicPassed: false,
           judgeResults: [],
@@ -2354,9 +2180,6 @@ export class EvalService {
       const outcomeChecks = execution.caseSnapshot
         ? checks.filter((check) => check.name.includes(":workspace:"))
         : checks;
-      execution.outcomeGrade = outcomeGradeFromChecks(outcomeChecks, execution.caseSnapshot);
-      const mandatoryOutcomePassed = !Array.isArray(execution.outcomeGrade?.mandatoryGates)
-        || execution.outcomeGrade.mandatoryGates.every((gate) => gate.status === "completed" && gate.passed === true);
       execution.outcomeGrade = outcomeGradeFromChecks(
         outcomeChecks,
         execution.caseSnapshot,
@@ -2393,7 +2216,7 @@ export class EvalService {
         execution.turns,
         simulatedUserJudgeIds.has(execution.judgeConfiguration.name),
       );
-      execution.passed = deterministicPassed && mandatoryOutcomePassed && simulatedUserCompleted;
+      execution.passed = deterministicPassed && simulatedUserCompleted;
       execution.status = execution.passed ? "passed" : "failed";
       completeExecutionLifecycle(execution);
     } catch (error) {
@@ -2434,114 +2257,29 @@ export class EvalService {
     );
     const workspaceDirectory = join(executionDirectory, "workspace");
     const caseKind = projectCaseKind(definition.id);
-    const isH3 = caseKind === "h3";
-    const isCalibration = caseKind === "calibration";
-    const isTournament = caseKind === "tournament";
-    const isH3 = h3CaseIds.has(definition.id);
-    const isNodeRedis = nodeRedisAutonomousCaseIds.has(definition.id);
-    const isHTTPCore = httpcoreCaseIds.has(definition.id);
-    const isCalibration = calibrationAutonomousCaseIds.has(definition.id);
-    const isReservationCapacity = reservationCapacityCaseIds.has(definition.id);
-    const isApiContractLaboratory = apiContractSimulationLaboratoryCaseIds.has(definition.id);
-    const isEmergencyEvacuation = emergencyEvacuationCaseIds.has(definition.id);
-    const isExcalidraw = definition.id === EXCALIDRAW_SCENE_HISTORY_CASE_ID;
-    const isSaas = saasOperatingModelCaseIds.has(definition.id);
-    const isProductionDeliveryPlanner = productionDeliveryPlannerCaseIds.has(definition.id);
-    const fixture = isH3
-      ? await this.projectFixtureMaterializer({
-        cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
-        workspaceDirectory,
-        platform: this.platform,
-      })
-      : isTournament ? await this.tournamentFixtureMaterializer({
-      : isExcalidraw ? await this.excalidrawFixtureMaterializer({
-        cacheDirectory: join(dirname(this.stateFile), "fixtures", `excalidraw-${EXCALIDRAW_UPSTREAM_COMMIT}`),
-        workspaceDirectory,
-      }) : isCalibration ? await this.calibrationFixtureMaterializer({
-        caseId: definition.id,
-        workspaceDirectory,
-        platform: this.platform,
-      }) : isCalibration ? await this.calibrationFixtureMaterializer({
-        caseId: definition.id,
-        workspaceDirectory,
-        platform: this.platform,
-      }) : isReservationCapacity ? await this.reservationCapacityFixtureMaterializer({
-      : isApiContractLaboratory ? await this.apiContractLaboratoryFixtureMaterializer({
-      : isNodeRedis ? await this.nodeRedisProjectFixtureMaterializer({
-        cacheDirectory: join(dirname(this.stateFile), "fixtures", `node-redis-${NODE_REDIS_UPSTREAM_COMMIT}`),
-        workspaceDirectory,
-      : isHTTPCore ? await this.httpcoreFixtureMaterializer({
-        cacheDirectory: join(dirname(this.stateFile), "fixtures", `httpcore-${HTTPCORE_UPSTREAM_COMMIT}`),
-        workspaceDirectory,
-        environmentDirectory: join(executionDirectory, "environment"),
-        platform: this.platform,
-      }) : isCalibration ? await this.calibrationFixtureMaterializer({
-        caseId: definition.id,
-        workspaceDirectory,
-        platform: this.platform,
-      }) : isEmergencyEvacuation ? await this.emergencyEvacuationFixtureMaterializer({
-        workspaceDirectory,
-        platform: this.platform,
-      }) : isSaas ? await this.saasFixtureMaterializer({
-        workspaceDirectory,
-        platform: this.platform,
-        runtime: this.spreadsheetRuntime ?? spreadsheetRuntimeFromEnvironment(),
-        runCommand: async (command, args, { cwd, env }) => {
-          try {
-            const result = await execFileAsync(command, args, { cwd, env: env ? { ...process.env, ...env } : process.env });
-            return { exitCode: 0, stdout: result.stdout, stderr: result.stderr };
-          } catch (error) {
-            return { exitCode: error?.code ?? 1, stdout: error?.stdout ?? "", stderr: error?.stderr ?? String(error) };
-          }
-        },
-      }) : isProductionDeliveryPlanner ? await this.productionDeliveryPlannerFixtureMaterializer({
-        workspaceDirectory,
-        platform: this.platform,
-      }) : await this.frontierProjectFixtureMaterializer({
-        caseId: definition.id,
-        cacheDirectory: join(dirname(this.stateFile), "fixtures", `${definition.id}-${definition.fixture.upstreamCommit}`),
-        workspaceDirectory,
-        platform: this.platform,
-      });
+    const runCommand = async (command, args, { cwd, env } = {}) => {
+      try {
+        const result = await execFileAsync(command, args, { cwd, env: env ? { ...process.env, ...env } : process.env });
+        return { exitCode: 0, stdout: result.stdout, stderr: result.stderr };
+      } catch (error) {
+        return { exitCode: error?.code ?? 1, stdout: error?.stdout ?? "", stderr: error?.stderr ?? String(error) };
+      }
+    };
+    let fixture;
+    if (caseKind === "h3") fixture = await this.projectFixtureMaterializer({ cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`), workspaceDirectory, platform: this.platform });
+    else if (caseKind === "jupyterlab") fixture = await this.jupyterLabFixtureMaterializer({ cacheDirectory: join(dirname(this.stateFile), "fixtures", `jupyterlab-${JUPYTERLAB_UPSTREAM_COMMIT}`), workspaceDirectory, platform: this.platform });
+    else if (caseKind === "node-redis") fixture = await this.nodeRedisProjectFixtureMaterializer({ cacheDirectory: join(dirname(this.stateFile), "fixtures", `node-redis-${NODE_REDIS_UPSTREAM_COMMIT}`), workspaceDirectory });
+    else if (caseKind === "httpcore") fixture = await this.httpcoreFixtureMaterializer({ cacheDirectory: join(dirname(this.stateFile), "fixtures", `httpcore-${HTTPCORE_UPSTREAM_COMMIT}`), workspaceDirectory, environmentDirectory: join(executionDirectory, "environment"), platform: this.platform });
+    else if (caseKind === "excalidraw") fixture = await this.excalidrawFixtureMaterializer({ cacheDirectory: join(dirname(this.stateFile), "fixtures", `excalidraw-${EXCALIDRAW_UPSTREAM_COMMIT}`), workspaceDirectory });
+    else if (caseKind === "tournament") fixture = await this.tournamentFixtureMaterializer({ caseId: definition.id, workspaceDirectory, platform: this.platform });
+    else if (caseKind === "reservation-capacity") fixture = await this.reservationCapacityFixtureMaterializer({ caseId: definition.id, workspaceDirectory, platform: this.platform });
+    else if (caseKind === "api-contract-lab") fixture = await this.apiContractLaboratoryFixtureMaterializer({ workspaceDirectory, platform: this.platform });
+    else if (caseKind === "emergency-evacuation") fixture = await this.emergencyEvacuationFixtureMaterializer({ workspaceDirectory, platform: this.platform });
+    else if (caseKind === "saas-operating-model") fixture = await this.saasFixtureMaterializer({ workspaceDirectory, platform: this.platform, runtime: this.spreadsheetRuntime ?? spreadsheetRuntimeFromEnvironment(), runCommand });
+    else if (caseKind === "production-delivery-planner") fixture = await this.productionDeliveryPlannerFixtureMaterializer({ workspaceDirectory, platform: this.platform });
+    else if (caseKind === "calibration") fixture = await this.calibrationFixtureMaterializer({ caseId: definition.id, workspaceDirectory, platform: this.platform });
+    else fixture = await this.frontierProjectFixtureMaterializer({ caseId: definition.id, cacheDirectory: join(dirname(this.stateFile), "fixtures", `${definition.id}-${definition.fixture.upstreamCommit}`), workspaceDirectory, platform: this.platform });
     await validateFixtureAgainstCaseSnapshot(execution, fixture);
-    const isJupyterLab = definition.id === JUPYTERLAB_EXECUTION_BUNDLES_CASE_ID;
-    const fixture = isH3
-      ? await this.projectFixtureMaterializer({
-          cacheDirectory: join(
-            dirname(this.stateFile),
-            "fixtures",
-            `h3-${H3_UPSTREAM_COMMIT}`,
-          ),
-          workspaceDirectory,
-          platform: this.platform,
-        })
-      : isJupyterLab
-        ? await this.jupyterLabFixtureMaterializer({
-            cacheDirectory: join(
-              dirname(this.stateFile),
-              "fixtures",
-              `jupyterlab-${JUPYTERLAB_UPSTREAM_COMMIT}`,
-            ),
-            workspaceDirectory,
-            platform: this.platform,
-          })
-        : isCalibration
-          ? await this.calibrationFixtureMaterializer({
-              caseId: definition.id,
-              workspaceDirectory,
-              platform: this.platform,
-            })
-          : await this.frontierProjectFixtureMaterializer({
-              caseId: definition.id,
-              cacheDirectory: join(
-                dirname(this.stateFile),
-                "fixtures",
-                `${definition.id}-${definition.fixture.upstreamCommit}`,
-              ),
-              workspaceDirectory,
-              platform: this.platform,
-            });
-    validateFixtureAgainstCaseSnapshot(execution, fixture);
     const project = await this.#productRequest("/api/projects", {
       method: "POST",
       body: {
@@ -2576,50 +2314,6 @@ export class EvalService {
         projectId: project.id,
         permissionProfileId: permissionResolution.effectiveProfileId,
         afterTurn: async (interactionId, promptIndex) => {
-          workspaceArtifacts.set(String(interactionId), await captureTurnArtifactSnapshot(
-            execution,
-            workspaceDirectory,
-            interactionId,
-          ));
-          if (threadDefinition.mutationPolicy === "read-only" || promptIndex === threadDefinition.prompts.length - 1) {
-            workspaceChecks.set(String(interactionId), isH3
-              ? await this.workspaceGrader({ workspaceDirectory, grade: threadDefinition.workspaceGrade })
-              : isTournament
-                ? await this.tournamentWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
-              : isApiContractLaboratory
-                ? await this.apiContractLaboratoryWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit })
-              : isNodeRedis
-                ? await this.nodeRedisWorkspaceGrader({ workspaceDirectory })
-                : isCalibration
-              : isHTTPCore
-                ? await this.httpcoreWorkspaceGrader({ workspaceDirectory, pythonExecutable: fixture.pythonExecutable })
-              : isExcalidraw
-                ? await this.excalidrawWorkspaceGrader({ workspaceDirectory })
-              : isCalibration
-                ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
-                : isReservationCapacity
-                  ? await this.reservationCapacityWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
-                : isEmergencyEvacuation
-                  ? await this.emergencyEvacuationWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit, nodeExecutable: await this.emergencyEvacuationNodeExecutableResolver() })
-                : isSaas
-                  ? await this.saasWorkspaceGrader({
-                    workspaceDirectory,
-                    baseRevision: fixture.seededCommit,
-                    inspector: new ArtifactToolWorkbookInspector(this.spreadsheetRuntime ?? spreadsheetRuntimeFromEnvironment()),
-                    runCommand: async (command, args, { cwd, env }) => {
-                      try {
-                        const result = await execFileAsync(command, args, { cwd, env: env ? { ...process.env, ...env } : process.env });
-                        return { exitCode: 0, stdout: result.stdout, stderr: result.stderr };
-                      } catch (error) {
-                        return { exitCode: error?.code ?? 1, stdout: error?.stdout ?? "", stderr: error?.stderr ?? String(error) };
-                      }
-                    },
-                  })
-                : isProductionDeliveryPlanner
-                  ? this.spreadsheetRuntime === null
-                    ? [{ name: "workspace:runtime-identity", passed: false, detail: "The production planner requires an explicitly injected spreadsheet runtime." }]
-                    : await this.productionDeliveryPlannerWorkspaceGrader({ workspaceDirectory, runtime: this.spreadsheetRuntime, baseRevision: fixture.seededCommit })
-                : await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory }));
           workspaceArtifacts.set(
             String(interactionId),
             await captureTurnArtifactSnapshot(
@@ -2632,26 +2326,23 @@ export class EvalService {
             threadDefinition.mutationPolicy === "read-only" ||
             promptIndex === threadDefinition.prompts.length - 1
           ) {
-            workspaceChecks.set(
-              String(interactionId),
-              isH3
-                ? await this.workspaceGrader({
-                    workspaceDirectory,
-                    grade: threadDefinition.workspaceGrade,
-                  })
-                : isJupyterLab
-                  ? await this.jupyterLabWorkspaceGrader({ workspaceDirectory })
-                  : isCalibration
-                    ? await this.calibrationWorkspaceGrader({
-                        caseId: definition.id,
-                        workspaceDirectory,
-                        baseRevision: fixture.seededCommit,
-                      })
-                    : await this.frontierWorkspaceGrader({
-                        caseId: definition.id,
-                        workspaceDirectory,
-                      }),
-            );
+            let checks;
+            if (caseKind === "h3") checks = await this.workspaceGrader({ workspaceDirectory, grade: threadDefinition.workspaceGrade });
+            else if (caseKind === "jupyterlab") checks = await this.jupyterLabWorkspaceGrader({ workspaceDirectory });
+            else if (caseKind === "node-redis") checks = await this.nodeRedisWorkspaceGrader({ workspaceDirectory });
+            else if (caseKind === "httpcore") checks = await this.httpcoreWorkspaceGrader({ workspaceDirectory, pythonExecutable: fixture.pythonExecutable });
+            else if (caseKind === "excalidraw") checks = await this.excalidrawWorkspaceGrader({ workspaceDirectory });
+            else if (caseKind === "tournament") checks = await this.tournamentWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit });
+            else if (caseKind === "reservation-capacity") checks = await this.reservationCapacityWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit });
+            else if (caseKind === "api-contract-lab") checks = await this.apiContractLaboratoryWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit });
+            else if (caseKind === "emergency-evacuation") checks = await this.emergencyEvacuationWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit, nodeExecutable: process.execPath });
+            else if (caseKind === "saas-operating-model") checks = await this.saasWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit, inspector: new ArtifactToolWorkbookInspector(this.spreadsheetRuntime ?? spreadsheetRuntimeFromEnvironment()), runCommand });
+            else if (caseKind === "production-delivery-planner") checks = this.spreadsheetRuntime === null
+              ? [{ name: "workspace:runtime-identity", passed: false, detail: "The production planner requires an explicitly injected spreadsheet runtime." }]
+              : await this.productionDeliveryPlannerWorkspaceGrader({ workspaceDirectory, runtime: this.spreadsheetRuntime, baseRevision: fixture.seededCommit });
+            else if (caseKind === "calibration") checks = await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit });
+            else checks = await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory });
+            workspaceChecks.set(String(interactionId), checks);
           }
         },
       });
@@ -2668,32 +2359,6 @@ export class EvalService {
     return executedThreads;
   }
 
-  async #createAndRunThread({ execution, title, prompts, projectId = null, permissionProfileId = "auto", afterTurn = async () => {} }) {
-    if (!Array.isArray(prompts) || prompts.length === 0) throw new Error(`Eval thread ${title} has no prompts.`);
-    let selectedModel;
-    let productModelSelection;
-    if (execution.harnessConfiguration.implementation === "claude.basic") {
-      selectedModel = await this.#productRequest(
-        `/api/model-selection/default?harnessId=${encodeURIComponent(execution.harnessConfigurationName)}`,
-      );
-      productModelSelection = true;
-      if (selectedModel === null) {
-        throw new Error("claude-basic has no connected compatible model; connect Claude or Anthropic before running this matrix cell.");
-      }
-    } else {
-      if (execution.harnessConfiguration.implementation === "codex.basic") {
-        await this.ensureModelCatalog(execution.harnessConfigurationName);
-      }
-      const modelSettings = await this.#productRequest("/api/model-settings");
-      selectedModel = firstAvailableSelection(modelSettings, execution.harnessConfigurationName);
-      productModelSelection = !harnessUsesConfigurationModel(
-        modelSettings,
-        execution.harnessConfigurationName,
-      );
-      const modelLessEvalFixture = execution.harnessConfiguration.implementation === "fixture.task-system";
-      if (productModelSelection && selectedModel === null && !modelLessEvalFixture) {
-        throw new Error(`Eval has no available model for ${execution.harnessConfigurationName}.`);
-      }
   async #createAndRunThread({
     execution,
     title,
@@ -2725,7 +2390,7 @@ export class EvalService {
         initialMessage: prompts[0],
         harnessConfigurationName: execution.harnessConfigurationName,
         permissionProfileId,
-        ...evalModelSelectionRequest(selectedModel, productModelSelection),
+        ...(modelSelection === null ? {} : { modelSelection }),
         ...(projectId === null ? {} : { projectId }),
       },
     });
@@ -2737,14 +2402,6 @@ export class EvalService {
     await this.#captureCandidateTrace(execution, rootInteraction);
     await afterTurn(thread.rootInteractionId, 0);
     for (const [offset, prompt] of prompts.slice(1).entries()) {
-      const interaction = await this.#productRequest(`/api/threads/${thread.id}/interactions`, {
-        method: "POST",
-        body: {
-          text: prompt,
-          ...evalModelSelectionRequest(selectedModel, productModelSelection),
-        },
-      });
-      const completedInteraction = await this.#waitForInteraction(thread.id, interaction.id);
       const interaction = await this.#productRequest(
         `/api/threads/${thread.id}/interactions`,
         {
@@ -2907,15 +2564,6 @@ export class EvalService {
       encodeURIComponent(execution.testRunId),
       ...ref.split("/").slice(0, -1),
     );
-    let pinnedPersonalPresentationVersionId;
-    try {
-      const candidate = await this.candidateTraceAttributionLoader?.(interaction.id);
-      if (Number.isSafeInteger(candidate) && candidate > 0) {
-        pinnedPersonalPresentationVersionId = candidate;
-      }
-    } catch {
-      // Export remains authoritative when an optional pre-export lookup is unavailable.
-    }
     try {
       const descriptor = await this.candidateTraceExporter(
         interaction.id,
@@ -2931,24 +2579,15 @@ export class EvalService {
       execution.candidateTraceCaptures ||= {};
       execution.candidateTraceCaptures[String(interaction.id)] = {
         ...copy(descriptor),
-        ...(descriptor.personalPresentationVersionId === undefined
-          && pinnedPersonalPresentationVersionId !== undefined
-          ? { personalPresentationVersionId: pinnedPersonalPresentationVersionId }
-          : {}),
         ref,
         promotable: descriptor.status === "complete",
       };
     } catch (error) {
-      const personalPresentationVersionId = error?.personalPresentationVersionId
-        ?? pinnedPersonalPresentationVersionId;
       execution.candidateTraceCaptures ||= {};
       execution.candidateTraceCaptures[String(interaction.id)] = {
         status: "failed",
         format: "relayer-harness-trace-v1",
         coverage: emptyTraceCoverage(),
-        ...(Number.isSafeInteger(personalPresentationVersionId) && personalPresentationVersionId > 0
-          ? { personalPresentationVersionId }
-          : {}),
         error: error instanceof Error ? error.message : String(error),
         ref: null,
         promotable: false,
