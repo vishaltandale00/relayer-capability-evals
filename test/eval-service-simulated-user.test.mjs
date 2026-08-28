@@ -30,6 +30,7 @@ import {
   EMERGENCY_EVACUATION_CASE_ID,
   emergencyEvacuationCase,
   materializeEmergencyEvacuationFixture,
+  SAAS_OPERATING_MODEL_CASE_ID,
 } from "@relayer/eval-runner";
 
 import {
@@ -435,6 +436,7 @@ describe("EvalService simulated-user result persistence", () => {
       RESERVATION_CAPACITY_CASE_ID,
       "capability.greenfield.api-contract-simulation-laboratory",
       EMERGENCY_EVACUATION_CASE_ID,
+      SAAS_OPERATING_MODEL_CASE_ID,
     ]);
     expect(JSON.stringify(service.catalog().cases.find(({ id }) => id === NODE_REDIS_COMMAND_QUEUE_RACE_CASE_ID))).not.toContain("d8116963d4707ca38165a177259fd65809e3a83b");
     const created = await service.createRun(simulatedUserSelection());

@@ -78,7 +78,9 @@ import {
   evaluateEmergencyEvacuationMandatoryGate,
   materializeEmergencyEvacuationFixture,
   gradeEmergencyEvacuationWorkspace,
+  gradeSaasOperatingModelWorkspace,
   materializeFrontierProjectFixture,
+  materializeSaasOperatingModelFixture,
   materializeH3ProjectFixture,
   gradeNodeRedisWorkspace,
   materializeNodeRedisProjectFixture,
@@ -89,6 +91,10 @@ import {
   gradeHTTPCoreCancellationWorkspace,
   materializeJupyterLabExecutionBundlesFixture,
   gradeJupyterLabExecutionBundlesWorkspace,
+  saasOperatingModelCase,
+  saasOperatingModelCaseIds,
+  ArtifactToolWorkbookInspector,
+  spreadsheetRuntimeFromEnvironment,
   projectDeterministicChecksToOutcome,
   selectStandalonePermissionProfile,
 } from "@relayer/eval-runner";
@@ -195,6 +201,10 @@ export const evalCases = Object.freeze([
       caseSnapshotDigest: entry.snapshotDigest,
     }),
   ),
+    ...saasOperatingModelCase.definition,
+    caseSnapshot: saasOperatingModelCase.catalogSnapshot,
+    caseSnapshotDigest: saasOperatingModelCase.snapshotDigest,
+  }),
 ]);
 
 const h3CaseIds = new Set([
@@ -229,6 +239,7 @@ const projectCaseIds = new Set([
   ...frontierAutonomousCaseIds,
   ...calibrationAutonomousCaseIds,
 ]);
+const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...saasOperatingModelCaseIds]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({
@@ -445,6 +456,13 @@ function mandatoryGateReceipt(gate, checks, usesEmergencyVerifier = false) {
       "delivery-commit",
       "delivery-clean",
     ],
+    "source-coverage": ["source-coverage:subscriptions-rows", "source-coverage:invoices-rows", "source-coverage:payments-rows", "source-coverage:payroll-rows", "source-coverage:expenses-rows", "source-coverage:cash-rows"],
+    "historical-reconciliation": ["historical-reconciliation:keys", "historical-reconciliation:independent-values"],
+    "forecast-scenarios": ["forecast-scenarios:keys", "forecast-scenarios:materially-different", "forecast-scenarios:distinct-drivers", "forecast-scenarios:independent-values"],
+    "cash-runway": ["cash-runway:keys", "cash-runway:independent-values"],
+    "formula-lineage": ["formula-lineage:required-outputs", "formula-lineage:unique-keys", "formula-lineage:cell-references", "formula-lineage:no-external-links", "formula-lineage:no-external-package-parts", "formula-lineage:no-dynamic-external-functions", "formula-lineage:no-formula-errors", "formula-lineage:dashboard-values", "formula-lineage:visible-checks"],
+    "workbook-rendering": ["workbook-rendering:all-sheets", "workbook-rendering:dashboard-chart", "workbook-rendering:dashboard-chart-series", "workbook-rendering:dashboard-chart-binding"],
+    "changed-input-response": ["changed-input-response:invoice"],
   }[gate.id];
   return mandatoryGateReceiptForPatterns(gate, checks, patterns);
 }
@@ -1045,6 +1063,9 @@ export class EvalService {
     excalidrawWorkspaceGrader = gradeExcalidrawSceneHistoryWorkspace,
     jupyterLabFixtureMaterializer = materializeJupyterLabExecutionBundlesFixture,
     jupyterLabWorkspaceGrader = gradeJupyterLabExecutionBundlesWorkspace,
+    saasFixtureMaterializer = materializeSaasOperatingModelFixture,
+    saasWorkspaceGrader = gradeSaasOperatingModelWorkspace,
+    spreadsheetRuntime = null,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -1088,6 +1109,9 @@ export class EvalService {
     this.excalidrawWorkspaceGrader = excalidrawWorkspaceGrader;
     this.jupyterLabFixtureMaterializer = jupyterLabFixtureMaterializer;
     this.jupyterLabWorkspaceGrader = jupyterLabWorkspaceGrader;
+    this.saasFixtureMaterializer = saasFixtureMaterializer;
+    this.saasWorkspaceGrader = saasWorkspaceGrader;
+    this.spreadsheetRuntime = spreadsheetRuntime;
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -2396,6 +2420,7 @@ export class EvalService {
     const isApiContractLaboratory = apiContractSimulationLaboratoryCaseIds.has(definition.id);
     const isEmergencyEvacuation = emergencyEvacuationCaseIds.has(definition.id);
     const isExcalidraw = definition.id === EXCALIDRAW_SCENE_HISTORY_CASE_ID;
+    const isSaas = saasOperatingModelCaseIds.has(definition.id);
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
@@ -2431,6 +2456,18 @@ export class EvalService {
       }) : isEmergencyEvacuation ? await this.emergencyEvacuationFixtureMaterializer({
         workspaceDirectory,
         platform: this.platform,
+      }) : isSaas ? await this.saasFixtureMaterializer({
+        workspaceDirectory,
+        platform: this.platform,
+        runtime: this.spreadsheetRuntime ?? spreadsheetRuntimeFromEnvironment(),
+        runCommand: async (command, args, { cwd, env }) => {
+          try {
+            const result = await execFileAsync(command, args, { cwd, env: env ? { ...process.env, ...env } : process.env });
+            return { exitCode: 0, stdout: result.stdout, stderr: result.stderr };
+          } catch (error) {
+            return { exitCode: error?.code ?? 1, stdout: error?.stdout ?? "", stderr: error?.stderr ?? String(error) };
+          }
+        },
       }) : await this.frontierProjectFixtureMaterializer({
         caseId: definition.id,
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `${definition.id}-${definition.fixture.upstreamCommit}`),
@@ -2535,6 +2572,20 @@ export class EvalService {
                   ? await this.reservationCapacityWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
                 : isEmergencyEvacuation
                   ? await this.emergencyEvacuationWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit, nodeExecutable: await this.emergencyEvacuationNodeExecutableResolver() })
+                : isSaas
+                  ? await this.saasWorkspaceGrader({
+                    workspaceDirectory,
+                    baseRevision: fixture.seededCommit,
+                    inspector: new ArtifactToolWorkbookInspector(this.spreadsheetRuntime ?? spreadsheetRuntimeFromEnvironment()),
+                    runCommand: async (command, args, { cwd, env }) => {
+                      try {
+                        const result = await execFileAsync(command, args, { cwd, env: env ? { ...process.env, ...env } : process.env });
+                        return { exitCode: 0, stdout: result.stdout, stderr: result.stderr };
+                      } catch (error) {
+                        return { exitCode: error?.code ?? 1, stdout: error?.stdout ?? "", stderr: error?.stderr ?? String(error) };
+                      }
+                    },
+                  })
                 : await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory }));
           workspaceArtifacts.set(
             String(interactionId),
