@@ -8,6 +8,8 @@ export * from "./project-cases/h3.js";
 export * from "./project-cases/h3-autonomous-cases.js";
 export * from "./project-cases/frontier-autonomous-cases.js";
 export * from "./project-cases/calibration-autonomous-cases.js";
+export * from "./project-cases/production-delivery-planner.js";
+export * from "./project-cases/spreadsheet-runtime.js";
 export * from "./run-plan.js";
 export * from "./runtime-basic.js";
 export * from "./simulated-user/contracts.js";

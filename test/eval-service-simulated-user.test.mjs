@@ -10,6 +10,8 @@ import {
   OFETCH_RETRY_METHODS_CASE_ID,
   SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
   TRUE_MYTH_INSPECT_BOTH_CASE_ID,
+  PRODUCTION_DELIVERY_PLANNER_CASE_ID,
+  productionDeliveryPlannerCase,
   calibrationAutonomousCaseIds,
 } from "@relayer/eval-runner";
 
@@ -17,6 +19,7 @@ import {
   EvalService,
   judgeArtifactEvidenceForExecution,
   judgeArtifactForExecution,
+  outcomeGradeFromChecks,
   presentationGradeFromTurns,
   resolveH3PermissionProfile,
 } from "../desktop/eval-main/eval-service.mjs";
@@ -32,6 +35,35 @@ afterEach(async () => {
 });
 
 describe("EvalService simulated-user result persistence", () => {
+  it("maps every production planner predicate into independent mandatory gate receipts", () => {
+    const names = [
+      "runtime-identity", "workbook-parse", "source-coverage", "workbook-horizon", "scenario-controls", "formula-lineage", "workbook-rendering",
+      "complete-order-coverage", "order-conservation", "component-dependencies", "finished-goods-conservation", "weekly-capacity",
+      "purchase-lead-times", "fulfillment-dates", "infeasible-exceptions", "cost-arithmetic", "cross-sheet-consistency",
+      "changed-input-order-quantity", "changed-input-capacity-hours", "changed-input-supplier-lead-time",
+      "required-workbook", "delivery-commit", "delivery-clean",
+    ];
+    const checks = names.map((name) => ({ name: `workspace:${name}`, passed: true, detail: `${name} passed.` }));
+    const grade = outcomeGradeFromChecks(checks, productionDeliveryPlannerCase.catalogSnapshot);
+    expect(grade.qualified).toBeNull();
+    expect(grade.status).toBe("partial");
+    expect(grade.mandatoryGates.map(({ gateId }) => gateId)).toEqual([
+      "workbook-integrity", "planning-integrity", "financial-integrity", "responsive-model", "committed-workbook",
+    ]);
+    expect(grade.mandatoryGates.every(({ status, passed }) => status === "completed" && passed === true)).toBe(true);
+
+    const incomplete = outcomeGradeFromChecks(
+      checks.filter(({ name }) => !name.endsWith("weekly-capacity")),
+      productionDeliveryPlannerCase.catalogSnapshot,
+    );
+    expect(incomplete.qualified).toBeNull();
+    expect(incomplete.mandatoryGates.find(({ gateId }) => gateId === "planning-integrity")).toMatchObject({
+      status: "failed",
+      passed: null,
+    });
+    expect(incomplete.mandatoryGates.filter(({ status }) => status === "completed")).toHaveLength(4);
+  });
+
   it("normalizes each selected recursive review by its own schema in a mixed-history projection", () => {
     const legacy = {
       status: "completed",
@@ -176,6 +208,7 @@ describe("EvalService simulated-user result persistence", () => {
       SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
       HTTPX_PROXY_AUTH_REPORT_CASE_ID,
       ...calibrationAutonomousCaseIds,
+      PRODUCTION_DELIVERY_PLANNER_CASE_ID,
     ]);
     const created = await service.createRun(simulatedUserSelection());
     const completed = await waitForCompletedRun(service, created.id);

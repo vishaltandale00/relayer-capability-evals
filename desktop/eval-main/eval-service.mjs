@@ -31,8 +31,13 @@ import {
   frontierAutonomousCaseIds,
   calibrationAutonomousCases,
   calibrationAutonomousCaseIds,
+  productionDeliveryPlannerCases,
+  productionDeliveryPlannerCaseIds,
+  createProductionDeliveryPlannerRuntime,
   materializeCalibrationFixture,
   gradeCalibrationWorkspace,
+  materializeProductionDeliveryPlannerFixture,
+  gradeProductionDeliveryPlannerWorkspace,
   materializeFrontierProjectFixture,
   materializeH3ProjectFixture,
   projectDeterministicChecksToOutcome,
@@ -82,6 +87,11 @@ export const evalCases = Object.freeze([
     caseSnapshot: entry.catalogSnapshot,
     caseSnapshotDigest: entry.snapshotDigest,
   })),
+  ...productionDeliveryPlannerCases.map((entry) => Object.freeze({
+    ...entry.definition,
+    caseSnapshot: entry.catalogSnapshot,
+    caseSnapshotDigest: entry.snapshotDigest,
+  })),
 ]);
 
 const h3CaseIds = new Set([
@@ -89,7 +99,12 @@ const h3CaseIds = new Set([
   H3_AUTONOMOUS_FIX_CASE_ID,
   H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
 ]);
-const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds]);
+const projectCaseIds = new Set([
+  ...h3CaseIds,
+  ...frontierAutonomousCaseIds,
+  ...calibrationAutonomousCaseIds,
+  ...productionDeliveryPlannerCaseIds,
+]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({ id: "deterministic-graph-contract", name: "Deterministic graph contract" }),
@@ -109,7 +124,7 @@ function copy(value) {
   return structuredClone(value);
 }
 
-function outcomeGradeFromChecks(checks, caseSnapshot = null) {
+export function outcomeGradeFromChecks(checks, caseSnapshot = null) {
   const criteria = caseSnapshot?.artifacts?.outcomeRubric?.criteria || [];
   const criterionGrades = criteria.map((criterion) => ({
       criterionId: criterion.id,
@@ -146,6 +161,11 @@ function mandatoryGateReceipt(gate, checks) {
     "independent-reproduction": ["diagnosis-reproduces-seeded-failure"],
     "hidden-behavior": ["validation-build", "hidden-behavior"],
     "scoped-delivery": ["required-delivery-files", "delivery-commit", "delivery-clean"],
+    "workbook-integrity": ["runtime-identity", "workbook-parse", "source-coverage", "workbook-horizon", "scenario-controls", "formula-lineage", "workbook-rendering"],
+    "planning-integrity": ["complete-order-coverage", "order-conservation", "component-dependencies", "finished-goods-conservation", "weekly-capacity", "purchase-lead-times", "fulfillment-dates", "infeasible-exceptions"],
+    "financial-integrity": ["cost-arithmetic", "cross-sheet-consistency"],
+    "responsive-model": ["changed-input-order-quantity", "changed-input-capacity-hours", "changed-input-supplier-lead-time"],
+    "committed-workbook": ["required-workbook", "delivery-commit", "delivery-clean"],
   }[gate.id];
   const matched = Array.isArray(patterns)
     ? checks.filter((check) => patterns.some((pattern) => check.name.includes(pattern)))
@@ -343,6 +363,12 @@ function validateFixtureAgainstCaseSnapshot(execution, fixture) {
       + `${fixture.repositoryUrl || "<missing>"}/${actualRevision || "<missing>"}.`,
     );
   }
+  if (fixture.contentDigest !== undefined && workspace.contentDigest !== fixture.contentDigest) {
+    throw new Error(`Materialized fixture content digest does not match case ${execution.testCaseId}: ${fixture.contentDigest}.`);
+  }
+  if (fixture.environmentDigest !== undefined && workspace.environmentDigest !== fixture.environmentDigest) {
+    throw new Error(`Materialized fixture environment digest does not match case ${execution.testCaseId}: ${fixture.environmentDigest}.`);
+  }
 }
 
 export function judgeArtifactForExecution(execution, turn = null) {
@@ -492,6 +518,9 @@ export class EvalService {
     frontierWorkspaceGrader = gradeFrontierProjectWorkspace,
     calibrationFixtureMaterializer = materializeCalibrationFixture,
     calibrationWorkspaceGrader = gradeCalibrationWorkspace,
+    productionDeliveryPlannerFixtureMaterializer = materializeProductionDeliveryPlannerFixture,
+    productionDeliveryPlannerWorkspaceGrader = gradeProductionDeliveryPlannerWorkspace,
+    spreadsheetRuntime = null,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -512,6 +541,9 @@ export class EvalService {
     this.frontierWorkspaceGrader = frontierWorkspaceGrader;
     this.calibrationFixtureMaterializer = calibrationFixtureMaterializer;
     this.calibrationWorkspaceGrader = calibrationWorkspaceGrader;
+    this.productionDeliveryPlannerFixtureMaterializer = productionDeliveryPlannerFixtureMaterializer;
+    this.productionDeliveryPlannerWorkspaceGrader = productionDeliveryPlannerWorkspaceGrader;
+    this.spreadsheetRuntime = spreadsheetRuntime === null ? null : createProductionDeliveryPlannerRuntime(spreadsheetRuntime);
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -1442,6 +1474,7 @@ export class EvalService {
     const workspaceDirectory = join(executionDirectory, "workspace");
     const isH3 = h3CaseIds.has(definition.id);
     const isCalibration = calibrationAutonomousCaseIds.has(definition.id);
+    const isProductionDeliveryPlanner = productionDeliveryPlannerCaseIds.has(definition.id);
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
@@ -1450,6 +1483,9 @@ export class EvalService {
       })
       : isCalibration ? await this.calibrationFixtureMaterializer({
         caseId: definition.id,
+        workspaceDirectory,
+        platform: this.platform,
+      }) : isProductionDeliveryPlanner ? await this.productionDeliveryPlannerFixtureMaterializer({
         workspaceDirectory,
         platform: this.platform,
       }) : await this.frontierProjectFixtureMaterializer({
@@ -1494,6 +1530,10 @@ export class EvalService {
               ? await this.workspaceGrader({ workspaceDirectory, grade: threadDefinition.workspaceGrade })
               : isCalibration
                 ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
+                : isProductionDeliveryPlanner
+                  ? this.spreadsheetRuntime === null
+                    ? [{ name: "workspace:runtime-identity", passed: false, detail: "The production planner requires an explicitly injected spreadsheet runtime." }]
+                    : await this.productionDeliveryPlannerWorkspaceGrader({ workspaceDirectory, runtime: this.spreadsheetRuntime, baseRevision: fixture.seededCommit })
                 : await this.frontierWorkspaceGrader({ caseId: definition.id, workspaceDirectory }));
           }
         },
