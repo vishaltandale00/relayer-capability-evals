@@ -11,6 +11,7 @@ import {
   SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
   TRUE_MYTH_INSPECT_BOTH_CASE_ID,
   calibrationAutonomousCaseIds,
+  SAAS_OPERATING_MODEL_CASE_ID,
 } from "@relayer/eval-runner";
 
 import {
@@ -176,6 +177,7 @@ describe("EvalService simulated-user result persistence", () => {
       SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
       HTTPX_PROXY_AUTH_REPORT_CASE_ID,
       ...calibrationAutonomousCaseIds,
+      SAAS_OPERATING_MODEL_CASE_ID,
     ]);
     const created = await service.createRun(simulatedUserSelection());
     const completed = await waitForCompletedRun(service, created.id);
