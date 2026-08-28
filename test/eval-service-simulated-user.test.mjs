@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   H3_AUTONOMOUS_FIX_CASE_ID,
   H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
+  JUPYTERLAB_EXECUTION_BUNDLES_CASE_ID,
   HTTPX_PROXY_AUTH_REPORT_CASE_ID,
   OFETCH_RETRY_METHODS_CASE_ID,
   SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
@@ -28,7 +29,8 @@ const originalFetch = globalThis.fetch;
 afterEach(async () => {
   globalThis.fetch = originalFetch;
   vi.restoreAllMocks();
-  for (const directory of directories.splice(0)) await rm(directory, { recursive: true, force: true });
+  for (const directory of directories.splice(0))
+    await rm(directory, { recursive: true, force: true });
 });
 
 describe("EvalService simulated-user result persistence", () => {
@@ -59,10 +61,15 @@ describe("EvalService simulated-user result persistence", () => {
       },
     };
 
-    expect(presentationGradeFromTurns([
-      { status: "accepted", judgeResults: [legacy] },
-      { status: "accepted", judgeResults: [reasoned] },
-    ], true)).toMatchObject({
+    expect(
+      presentationGradeFromTurns(
+        [
+          { status: "accepted", judgeResults: [legacy] },
+          { status: "accepted", judgeResults: [reasoned] },
+        ],
+        true,
+      ),
+    ).toMatchObject({
       status: "completed",
       score: 5,
       rawScore: 5,
@@ -80,8 +87,16 @@ describe("EvalService simulated-user result persistence", () => {
         detail: "x".repeat(3_000),
       })),
       outcomeGrade: {
-        mandatoryGates: [{ passed: false, name: "Critical gate", detail: "Current mandatory failure" }],
-        criteria: [{ criterionId: "quality", rationale: "Semantic review is pending" }],
+        mandatoryGates: [
+          {
+            passed: false,
+            name: "Critical gate",
+            detail: "Current mandatory failure",
+          },
+        ],
+        criteria: [
+          { criterionId: "quality", rationale: "Semantic review is pending" },
+        ],
       },
     });
 
@@ -95,11 +110,15 @@ describe("EvalService simulated-user result persistence", () => {
   });
 
   it("grounds a project judge in the candidate workspace and seeded task base", () => {
-    expect(judgeArtifactForExecution({ fixture: {
-      workspaceDirectory: "/immutable/execution/workspace",
-      upstreamCommit: "upstream",
-      seededCommit: "seeded-task-base",
-    } })).toEqual({
+    expect(
+      judgeArtifactForExecution({
+        fixture: {
+          workspaceDirectory: "/immutable/execution/workspace",
+          upstreamCommit: "upstream",
+          seededCommit: "seeded-task-base",
+        },
+      }),
+    ).toEqual({
       kind: "git_workspace",
       workingDirectory: "/immutable/execution/workspace",
       baseRevision: "seeded-task-base",
@@ -115,15 +134,22 @@ describe("EvalService simulated-user result persistence", () => {
       requests.push({ parsed, options });
       if (parsed.pathname === "/api/model-selection/default") {
         expect(parsed.searchParams.get("harnessId")).toBe("claude-basic");
-        return jsonResponse({ familyId: 7, providerId: "claude-work", modelId: "sonnet" });
+        return jsonResponse({
+          familyId: 7,
+          providerId: "claude-work",
+          modelId: "sonnet",
+        });
       }
-      if (parsed.pathname === "/api/threads" && options.method === "POST") return jsonResponse({ error: "stop after model assertion" }, 500);
+      if (parsed.pathname === "/api/threads" && options.method === "POST")
+        return jsonResponse({ error: "stop after model assertion" }, 500);
       return jsonResponse({ error: "unexpected" }, 404);
     });
     const service = await new EvalService({
       stateFile,
       productSession: productSession(),
-      configurationPaths: [join(repositoryRoot, "harnesses", "claude-basic.yaml")],
+      configurationPaths: [
+        join(repositoryRoot, "harnesses", "claude-basic.yaml"),
+      ],
     }).open();
 
     const created = await service.createRun({
@@ -132,8 +158,15 @@ describe("EvalService simulated-user result persistence", () => {
       judgeConfigurationName: "deterministic-graph-contract",
     });
     await waitForCompletedRun(service, created.id);
-    const threadRequest = requests.find(({ parsed, options }) => parsed.pathname === "/api/threads" && options.method === "POST");
-    expect(JSON.parse(threadRequest.options.body).modelSelection).toEqual({ familyId: 7, providerId: "claude-work", modelId: "sonnet" });
+    const threadRequest = requests.find(
+      ({ parsed, options }) =>
+        parsed.pathname === "/api/threads" && options.method === "POST",
+    );
+    expect(JSON.parse(threadRequest.options.body).modelSelection).toEqual({
+      familyId: 7,
+      providerId: "claude-work",
+      modelId: "sonnet",
+    });
   });
 
   it("runs after deterministic checks and reloads the immutable completed artifact", async () => {
@@ -168,9 +201,15 @@ describe("EvalService simulated-user result persistence", () => {
       "simulated-user",
       "simulated-user-sol-high",
     ]);
-    expect(service.catalog().cases.filter(({ caseSnapshot }) => caseSnapshot).map(({ id }) => id)).toEqual([
+    expect(
+      service
+        .catalog()
+        .cases.filter(({ caseSnapshot }) => caseSnapshot)
+        .map(({ id }) => id),
+    ).toEqual([
       H3_AUTONOMOUS_FIX_CASE_ID,
       H3_AUTONOMOUS_INVESTIGATION_CASE_ID,
+      JUPYTERLAB_EXECUTION_BUNDLES_CASE_ID,
       OFETCH_RETRY_METHODS_CASE_ID,
       TRUE_MYTH_INSPECT_BOTH_CASE_ID,
       SQL_FORMATTER_ANSI_ALIAS_CASE_ID,
@@ -202,7 +241,9 @@ describe("EvalService simulated-user result persistence", () => {
       judgeConfiguration: { name: "simulated-user" },
     });
     expect(calls[0].request.text).toContain("incoming queue");
-    expect(calls[0].artifactDirectory).toContain(join("runs", completed.id, "executions"));
+    expect(calls[0].artifactDirectory).toContain(
+      join("runs", completed.id, "executions"),
+    );
 
     const turn = completed.executions[0].turns[0];
     expect(turn.deterministicPassed).toBe(true);
@@ -229,11 +270,16 @@ describe("EvalService simulated-user result persistence", () => {
         error: null,
       }),
     ]);
-    expect(turn.judgeResults[0].artifactDirectory).toBe(calls[0].artifactDirectory);
+    expect(turn.judgeResults[0].artifactDirectory).toBe(
+      calls[0].artifactDirectory,
+    );
 
     const persisted = await waitForPersistedRun(stateFile, completed.id);
     expect(persisted.schemaVersion).toBe(1);
-    expect(persisted.runs[0].executions[0].turns[0].judgeResults[0].references.coverage).toBe("coverage.json");
+    expect(
+      persisted.runs[0].executions[0].turns[0].judgeResults[0].references
+        .coverage,
+    ).toBe("coverage.json");
     expect(persisted.runs[0].bundleRef).toMatch(/^runs\/.*\/bundle\.json$/);
     const bundleFile = join(dirname(stateFile), persisted.runs[0].bundleRef);
     const bundleBeforeReload = await readFile(bundleFile, "utf8");
@@ -243,10 +289,20 @@ describe("EvalService simulated-user result persistence", () => {
       testRunId: completed.id,
       run: {
         bundleRef: persisted.runs[0].bundleRef,
-        executions: [{ turns: [{ judgeResults: [expect.objectContaining({
-          status: "completed",
-          artifactAuthority: "references",
-        })] }] }],
+        executions: [
+          {
+            turns: [
+              {
+                judgeResults: [
+                  expect.objectContaining({
+                    status: "completed",
+                    artifactAuthority: "references",
+                  }),
+                ],
+              },
+            ],
+          },
+        ],
       },
     });
 
@@ -256,10 +312,13 @@ describe("EvalService simulated-user result persistence", () => {
       configurationPaths: [configurationPath],
     }).open();
     const restored = reloaded.getRun(completed.id);
-    expect(restored.executions[0].turns[0].judgeResults[0]).toEqual(turn.judgeResults[0]);
-    expect(reloaded.catalog().judges.map(({ id }) => id)).toEqual(["deterministic-graph-contract"]);
+    expect(restored.executions[0].turns[0].judgeResults[0]).toEqual(
+      turn.judgeResults[0],
+    );
+    expect(reloaded.catalog().judges.map(({ id }) => id)).toEqual([
+      "deterministic-graph-contract",
+    ]);
     expect(await readFile(bundleFile, "utf8")).toBe(bundleBeforeReload);
-
   });
 
   it("persists explicit partial and thrown-failure artifacts without losing deterministic evidence", async () => {
@@ -286,23 +345,29 @@ describe("EvalService simulated-user result persistence", () => {
     expect(partial.executions[0]).toMatchObject({
       passed: false,
       presentationGrade: { status: "partial", score: null },
-      checks: expect.arrayContaining([expect.objectContaining({ passed: true })]),
-      turns: [expect.objectContaining({
-        deterministicPassed: true,
-        judgeResults: [expect.objectContaining({
-          status: "partial",
-          passed: null,
-          error: "Node-detail capture failed.",
-          references: {
-            rubric: "rubric.json",
-            configuration: "judge.json",
-            interactionTrace: "trace.partial.json",
-            screenshots: [],
-            reviews: null,
-            coverage: null,
-          },
-        })],
-      })],
+      checks: expect.arrayContaining([
+        expect.objectContaining({ passed: true }),
+      ]),
+      turns: [
+        expect.objectContaining({
+          deterministicPassed: true,
+          judgeResults: [
+            expect.objectContaining({
+              status: "partial",
+              passed: null,
+              error: "Node-detail capture failed.",
+              references: {
+                rubric: "rubric.json",
+                configuration: "judge.json",
+                interactionTrace: "trace.partial.json",
+                screenshots: [],
+                reviews: null,
+                coverage: null,
+              },
+            }),
+          ],
+        }),
+      ],
     });
 
     const failurePaths = await testPaths();
@@ -311,7 +376,9 @@ describe("EvalService simulated-user result persistence", () => {
       stateFile: failurePaths.stateFile,
       productSession: productSession(),
       configurationPaths: [failurePaths.configurationPath],
-      simulatedUserJudgeRunner: async () => { throw new Error("Judge process exited."); },
+      simulatedUserJudgeRunner: async () => {
+        throw new Error("Judge process exited.");
+      },
     }).open();
     const failed = await waitForCompletedRun(
       failedService,
@@ -354,7 +421,10 @@ describe("EvalService simulated-user result persistence", () => {
     const completed = await waitForCompletedRun(service, created.id);
     const execution = completed.executions[0];
 
-    expect(execution.outcomeGrade).toMatchObject({ status: "completed", qualified: false });
+    expect(execution.outcomeGrade).toMatchObject({
+      status: "completed",
+      qualified: false,
+    });
     expect(execution.presentationGrade).toMatchObject({ status: "completed" });
     expect(runner).toHaveBeenCalledOnce();
     expect(execution.turns[0].deterministicPassed).toBe(false);
@@ -364,37 +434,52 @@ describe("EvalService simulated-user result persistence", () => {
   it("converts a persisted in-flight judge artifact to an explicit partial result on restart", async () => {
     const { directory, stateFile, configurationPath } = await testPaths();
     await mkdir(join(directory, "eval-data"), { recursive: true });
-    await writeFile(stateFile, `${JSON.stringify({
-      schemaVersion: 1,
-      runs: [{
-        schemaVersion: 1,
-        id: "run-interrupted",
-        createdAt: "2026-08-19T12:00:00.000Z",
-        completedAt: null,
-        status: "running",
-        testCaseIds: ["empty-project.task-system.single-turn"],
-        harnessConfigurationNames: ["fixture-task-system"],
-        judgeConfigurationName: "simulated-user",
-        executions: [{
-          id: "execution-interrupted",
-          testCaseId: "empty-project.task-system.single-turn",
-          harnessConfigurationName: "fixture-task-system",
-          status: "running",
-          threadIds: ["thread-1"],
-          checks: [],
-          turns: [{
-            interactionId: "interaction-1",
-            judgeResults: [{
+    await writeFile(
+      stateFile,
+      `${JSON.stringify(
+        {
+          schemaVersion: 1,
+          runs: [
+            {
               schemaVersion: 1,
-              id: "judge-result-1",
-              judge: "simulated-user",
+              id: "run-interrupted",
+              createdAt: "2026-08-19T12:00:00.000Z",
+              completedAt: null,
               status: "running",
-              error: null,
-            }],
-          }],
-        }],
-      }],
-    }, null, 2)}\n`);
+              testCaseIds: ["empty-project.task-system.single-turn"],
+              harnessConfigurationNames: ["fixture-task-system"],
+              judgeConfigurationName: "simulated-user",
+              executions: [
+                {
+                  id: "execution-interrupted",
+                  testCaseId: "empty-project.task-system.single-turn",
+                  harnessConfigurationName: "fixture-task-system",
+                  status: "running",
+                  threadIds: ["thread-1"],
+                  checks: [],
+                  turns: [
+                    {
+                      interactionId: "interaction-1",
+                      judgeResults: [
+                        {
+                          schemaVersion: 1,
+                          id: "judge-result-1",
+                          judge: "simulated-user",
+                          status: "running",
+                          error: null,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+    );
 
     const service = await new EvalService({
       stateFile,
@@ -404,13 +489,19 @@ describe("EvalService simulated-user result persistence", () => {
     const restored = service.getRun("run-interrupted");
     expect(restored.status).toBe("interrupted");
     expect(restored.executions[0].status).toBe("interrupted");
-    expect(restored.executions[0].lifecycle).toMatchObject({ status: "failed" });
+    expect(restored.executions[0].lifecycle).toMatchObject({
+      status: "failed",
+    });
     expect(restored.executions[0].turns[0].judgeResults[0]).toMatchObject({
       status: "partial",
       error: "Simulated-user review was interrupted before finalization.",
     });
     expect(restored.bundleRef).toMatch(/^runs\/.*\/bundle\.json$/);
-    expect(JSON.parse(await readFile(join(dirname(stateFile), restored.bundleRef), "utf8"))).toMatchObject({
+    expect(
+      JSON.parse(
+        await readFile(join(dirname(stateFile), restored.bundleRef), "utf8"),
+      ),
+    ).toMatchObject({
       run: { status: "interrupted" },
     });
   });
@@ -422,16 +513,22 @@ describe("EvalService simulated-user result persistence", () => {
     const service = await new EvalService({
       stateFile,
       productSession: productSession(),
-      configurationPaths: [join(repositoryRoot, "harnesses", "prime-agent-basic.yaml")],
+      configurationPaths: [
+        join(repositoryRoot, "harnesses", "prime-agent-basic.yaml"),
+      ],
       platform: "darwin",
     }).open();
 
-    const soleFullConfiguration = { name: "legacy-full-only", permissionBindings: { full: {} } };
+    const soleFullConfiguration = {
+      name: "legacy-full-only",
+      permissionBindings: { full: {} },
+    };
     expect(resolveH3PermissionProfile(soleFullConfiguration, "ask")).toEqual({
       requestedProfileId: "ask",
       effectiveProfileId: "full",
       overridden: true,
-      reason: "Harness supports only Full access; the local Eval fixture is disposable and the unrestricted authority is recorded.",
+      reason:
+        "Harness supports only Full access; the local Eval fixture is disposable and the unrestricted authority is recorded.",
     });
 
     const created = await service.createRun({
@@ -440,27 +537,39 @@ describe("EvalService simulated-user result persistence", () => {
       judgeConfigurationName: "deterministic-graph-contract",
     });
     await waitForCompletedRun(service, created.id);
-    const createRequest = product.mock.calls.find(([url, options]) => (
-      new URL(url).pathname === "/api/threads" && options?.method === "POST"
-    ));
+    const createRequest = product.mock.calls.find(
+      ([url, options]) =>
+        new URL(url).pathname === "/api/threads" && options?.method === "POST",
+    );
     expect(JSON.parse(createRequest[1].body).permissionProfileId).toBe("auto");
   });
 
   it("does not override an unavailable H3 profile for an ambiguous harness", () => {
-    expect(() => resolveH3PermissionProfile({
-      name: "ambiguous",
-      permissionBindings: { ask: {}, full: {} },
-    }, "auto")).toThrow("evaluator-owned verifier cases require confined authority");
+    expect(() =>
+      resolveH3PermissionProfile(
+        {
+          name: "ambiguous",
+          permissionBindings: { ask: {}, full: {} },
+        },
+        "auto",
+      ),
+    ).toThrow("evaluator-owned verifier cases require confined authority");
   });
 });
 
 async function testPaths() {
-  const directory = await mkdtemp(join(tmpdir(), "relayer-eval-simulated-user-"));
+  const directory = await mkdtemp(
+    join(tmpdir(), "relayer-eval-simulated-user-"),
+  );
   directories.push(directory);
   return {
     directory,
     stateFile: join(directory, "eval-data", "test-runs.json"),
-    configurationPath: join(repositoryRoot, "harnesses", "fixture-task-system.yaml"),
+    configurationPath: join(
+      repositoryRoot,
+      "harnesses",
+      "fixture-task-system.yaml",
+    ),
   };
 }
 
@@ -492,17 +601,35 @@ function fakeAcceptedProduct() {
   return vi.fn(async (url, options = {}) => {
     const path = new URL(url).pathname;
     if (path === "/api/threads" && options.method === "POST") {
-      return jsonResponse({ id: "thread-1", rootInteractionId: interaction.id });
+      return jsonResponse({
+        id: "thread-1",
+        rootInteractionId: interaction.id,
+      });
     }
-    if (path === "/api/threads/thread-1" && (options.method === undefined || options.method === "GET")) {
+    if (
+      path === "/api/threads/thread-1" &&
+      (options.method === undefined || options.method === "GET")
+    ) {
       return jsonResponse({ id: "thread-1", interactions: [interaction] });
     }
-    return jsonResponse({ error: `Unexpected fake product request: ${options.method || "GET"} ${path}` }, 404);
+    return jsonResponse(
+      {
+        error: `Unexpected fake product request: ${options.method || "GET"} ${path}`,
+      },
+      404,
+    );
   });
 }
 
 function acceptedOutput() {
-  const node = { id: 2, kind: "concept", icon: "queue", title: "Queue", detail: "Tasks wait here.", state: "accepted" };
+  const node = {
+    id: 2,
+    kind: "concept",
+    icon: "queue",
+    title: "Queue",
+    detail: "Tasks wait here.",
+    state: "accepted",
+  };
   const layer = {
     id: 10,
     nodes: [node.id],
@@ -537,7 +664,11 @@ async function waitForCompletedRun(evalService, runId) {
   const deadline = Date.now() + 5_000;
   while (Date.now() < deadline) {
     const run = evalService.getRun(runId);
-    if (!["queued", "running"].includes(run.status) && typeof run.bundleRef === "string") return run;
+    if (
+      !["queued", "running"].includes(run.status) &&
+      typeof run.bundleRef === "string"
+    )
+      return run;
     await new Promise((resolveWait) => setTimeout(resolveWait, 10));
   }
   throw new Error("Eval run did not finish in time.");
