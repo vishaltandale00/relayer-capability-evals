@@ -19,6 +19,8 @@ import {
   materializeTournamentOperationsFixture,
   materializeReservationCapacityFixture,
   reservationCapacityCase,
+  API_CONTRACT_SIMULATION_LABORATORY_CASE_ID,
+  materializeApiContractSimulationLaboratoryFixture,
 } from "@relayer/eval-runner";
 
 import {
@@ -315,6 +317,7 @@ describe("EvalService simulated-user result persistence", () => {
       ...calibrationAutonomousCaseIds,
       TOURNAMENT_OPERATIONS_CASE_ID,
       RESERVATION_CAPACITY_CASE_ID,
+      "capability.greenfield.api-contract-simulation-laboratory",
     ]);
     const created = await service.createRun(simulatedUserSelection());
     const completed = await waitForCompletedRun(service, created.id);
@@ -429,6 +432,20 @@ describe("EvalService simulated-user result persistence", () => {
       { name: "workspace:reservation-delivery-clean", passed: true, detail: "Delivery clean." },
     );
     const reservationGrader = vi.fn(async () => checks);
+  it("routes the API laboratory through its dedicated materializer and independent mandatory gates", async () => {
+    const { stateFile, configurationPath } = await testPaths();
+    const ordinaryProduct = fakeAcceptedProduct();
+    globalThis.fetch = vi.fn(async (url, options = {}) => {
+      if (new URL(url).pathname === "/api/projects" && options.method === "POST") return jsonResponse({ id: "project-api-lab" });
+      return ordinaryProduct(url, options);
+    });
+    const materializer = vi.fn(materializeApiContractSimulationLaboratoryFixture);
+    const grader = vi.fn(async () => [
+      "contract-import", "mock-routing", "property-contract", "request-validation", "response-validation",
+      "latency-injection", "failure-injection", "bounded-redirect", "bounded-streaming",
+      "revision-comparison", "compatibility-report", "causal-trace", "deterministic-replay", "runtime-contract",
+      "artifact-scope", "protected-contracts", "delivery-commit", "delivery-clean",
+    ].map((name) => ({ name: `workspace:${name}`, passed: true, detail: `${name} passed.` })));
     const service = await new EvalService({
       stateFile,
       productSession: productSession(),
@@ -449,6 +466,13 @@ describe("EvalService simulated-user result persistence", () => {
 
     const created = await service.createRun({
       testCaseIds: [RESERVATION_CAPACITY_CASE_ID],
+      apiContractLaboratoryFixtureMaterializer: materializer,
+      apiContractLaboratoryWorkspaceGrader: grader,
+      platform: "darwin",
+    }).open();
+
+    const created = await service.createRun({
+      testCaseIds: [API_CONTRACT_SIMULATION_LABORATORY_CASE_ID],
       harnessConfigurationNames: ["fixture-task-system"],
       judgeConfigurationName: "deterministic-graph-contract",
     });
@@ -496,6 +520,24 @@ describe("EvalService simulated-user result persistence", () => {
     const product = fakeAcceptedProjectProduct();
     globalThis.fetch = product;
     const reservationGrader = vi.fn(async () => []);
+
+    expect(materializer).toHaveBeenCalledOnce();
+    expect(grader).toHaveBeenCalledOnce();
+    expect(completed.executions[0]).toMatchObject({
+      testCaseId: API_CONTRACT_SIMULATION_LABORATORY_CASE_ID,
+      outcomeGrade: {
+        qualified: null,
+        mandatoryGates: expect.arrayContaining([
+          expect.objectContaining({ gateId: "contract-import", passed: true }),
+          expect.objectContaining({ gateId: "deterministic-replay", passed: true }),
+          expect.objectContaining({ gateId: "scoped-api-laboratory-delivery", passed: true }),
+        ]),
+      },
+    });
+  });
+
+  it("withholds the API laboratory from selection when its exact qualification environment is unavailable", async () => {
+    const { stateFile, configurationPath } = await testPaths();
     const service = await new EvalService({
       stateFile,
       productSession: productSession(),
@@ -556,6 +598,16 @@ describe("EvalService simulated-user result persistence", () => {
       },
       errorText: "fixture source revision does not match case",
     });
+      apiContractLaboratoryEnvironmentPreflight: async () => ({ available: false, reason: "pinned toolchain digest mismatch" }),
+      platform: "darwin",
+    }).open();
+
+    expect(service.catalog().cases.some(({ id }) => id === API_CONTRACT_SIMULATION_LABORATORY_CASE_ID)).toBe(false);
+    await expect(service.createRun({
+      testCaseIds: [API_CONTRACT_SIMULATION_LABORATORY_CASE_ID],
+      harnessConfigurationNames: ["fixture-task-system"],
+      judgeConfigurationName: "deterministic-graph-contract",
+    })).rejects.toThrow("API contract simulation laboratory is unavailable: pinned toolchain digest mismatch");
   });
 
   it("persists explicit partial and thrown-failure artifacts without losing deterministic evidence", async () => {

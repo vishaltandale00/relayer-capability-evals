@@ -43,6 +43,12 @@ import {
   reservationCapacityGateCheckPatterns,
   materializeReservationCapacityFixture,
   gradeReservationCapacityWorkspace,
+  apiContractSimulationLaboratoryCase,
+  apiContractSimulationLaboratoryCaseIds,
+  materializeApiContractSimulationLaboratoryFixture,
+  gradeApiContractSimulationLaboratoryWorkspace,
+  API_CONTRACT_SIMULATION_LABORATORY_GATE_CHECK_PATTERNS,
+  preflightApiContractSimulationLaboratoryEnvironment,
   materializeFrontierProjectFixture,
   materializeH3ProjectFixture,
   projectDeterministicChecksToOutcome,
@@ -103,6 +109,10 @@ export const evalCases = Object.freeze([
     caseSnapshot: entry.catalogSnapshot,
     caseSnapshotDigest: entry.snapshotDigest,
   })),
+    ...apiContractSimulationLaboratoryCase.definition,
+    caseSnapshot: apiContractSimulationLaboratoryCase.catalogSnapshot,
+    caseSnapshotDigest: apiContractSimulationLaboratoryCase.snapshotDigest,
+  }),
 ]);
 
 const h3CaseIds = new Set([
@@ -125,6 +135,7 @@ const projectCaseIds = new Set([
   ...calibrationAutonomousCaseIds,
   ...reservationCapacityCaseIds,
 ]);
+const projectCaseIds = new Set([...h3CaseIds, ...frontierAutonomousCaseIds, ...calibrationAutonomousCaseIds, ...apiContractSimulationLaboratoryCaseIds]);
 
 export const evalJudges = Object.freeze([
   Object.freeze({ id: "deterministic-graph-contract", name: "Deterministic graph contract" }),
@@ -196,6 +207,7 @@ function mandatoryGateReceipt(gate, checks) {
     "hidden-behavior": ["validation-build", "hidden-behavior"],
     "scoped-delivery": ["required-delivery-files", "delivery-commit", "delivery-clean"],
     ...TOURNAMENT_VERIFIER_GATE_CHECKS,
+    ...API_CONTRACT_SIMULATION_LABORATORY_GATE_CHECK_PATTERNS,
   }[gate.id];
   return mandatoryGateReceiptForPatterns(gate, checks, patterns);
 }
@@ -571,6 +583,9 @@ export class EvalService {
     tournamentWorkspaceGrader = gradeTournamentOperationsWorkspace,
     reservationCapacityFixtureMaterializer = materializeReservationCapacityFixture,
     reservationCapacityWorkspaceGrader = gradeReservationCapacityWorkspace,
+    apiContractLaboratoryFixtureMaterializer = materializeApiContractSimulationLaboratoryFixture,
+    apiContractLaboratoryWorkspaceGrader = gradeApiContractSimulationLaboratoryWorkspace,
+    apiContractLaboratoryEnvironmentPreflight = preflightApiContractSimulationLaboratoryEnvironment,
     acceptedTopologyBuilder = buildAcceptedReviewTopology,
     acceptedTopologyGrader = gradeAcceptedReviewTopology,
     candidateTraceExporter = null,
@@ -597,6 +612,10 @@ export class EvalService {
     this.tournamentWorkspaceGrader = tournamentWorkspaceGrader;
     this.reservationCapacityFixtureMaterializer = reservationCapacityFixtureMaterializer;
     this.reservationCapacityWorkspaceGrader = reservationCapacityWorkspaceGrader;
+    this.apiContractLaboratoryFixtureMaterializer = apiContractLaboratoryFixtureMaterializer;
+    this.apiContractLaboratoryWorkspaceGrader = apiContractLaboratoryWorkspaceGrader;
+    this.apiContractLaboratoryEnvironmentPreflight = apiContractLaboratoryEnvironmentPreflight;
+    this.apiContractLaboratoryAvailability = { available: false, reason: "API laboratory qualification has not completed." };
     this.acceptedTopologyBuilder = acceptedTopologyBuilder;
     this.acceptedTopologyGrader = acceptedTopologyGrader;
     this.candidateTraceExporter = candidateTraceExporter;
@@ -615,6 +634,9 @@ export class EvalService {
 
   async open() {
     this.configurations = await loadHarnessConfigurations(this.configurationPaths);
+    this.apiContractLaboratoryAvailability = this.platform === "darwin"
+      ? await this.apiContractLaboratoryEnvironmentPreflight()
+      : { available: false, reason: "The API contract simulation laboratory requires its pinned local Mac qualification environment." };
     await rm(join(dirname(this.stateFile), "import-staging"), { recursive: true, force: true });
     try {
       const persisted = JSON.parse(await readFile(this.stateFile, "utf8"));
@@ -665,7 +687,7 @@ export class EvalService {
 
   catalog() {
     return {
-      cases: copy(evalCases),
+      cases: copy(evalCases.filter((testCase) => testCase.id !== apiContractSimulationLaboratoryCase.definition.id || this.apiContractLaboratoryAvailability.available)),
       harnessConfigurations: [...this.configurations.values()].map((configuration) => ({
         name: configuration.name,
         implementation: configuration.implementation,
@@ -816,6 +838,9 @@ export class EvalService {
     }
     if (testCaseIds.some((id) => projectCaseIds.has(id)) && this.platform !== "darwin") {
       throw new Error("Pinned project cases are local Mac only.");
+    }
+    if (testCaseIds.includes(apiContractSimulationLaboratoryCase.definition.id) && !this.apiContractLaboratoryAvailability.available) {
+      throw new Error(`API contract simulation laboratory is unavailable: ${this.apiContractLaboratoryAvailability.reason}`);
     }
     if (simulatedUserJudgeIds.has(judgeConfigurationName) && this.simulatedUserJudgeRunner === null) {
       throw new Error("Simulated-user judge is not available in this EvalService.");
@@ -1536,6 +1561,7 @@ export class EvalService {
     const isH3 = h3CaseIds.has(definition.id);
     const isCalibration = calibrationAutonomousCaseIds.has(definition.id);
     const isReservationCapacity = reservationCapacityCaseIds.has(definition.id);
+    const isApiContractLaboratory = apiContractSimulationLaboratoryCaseIds.has(definition.id);
     const fixture = isH3
       ? await this.projectFixtureMaterializer({
         cacheDirectory: join(dirname(this.stateFile), "fixtures", `h3-${H3_UPSTREAM_COMMIT}`),
@@ -1551,6 +1577,10 @@ export class EvalService {
         workspaceDirectory,
         platform: this.platform,
       }) : isReservationCapacity ? await this.reservationCapacityFixtureMaterializer({
+      : isApiContractLaboratory ? await this.apiContractLaboratoryFixtureMaterializer({
+        workspaceDirectory,
+        platform: this.platform,
+      }) : isCalibration ? await this.calibrationFixtureMaterializer({
         caseId: definition.id,
         workspaceDirectory,
         platform: this.platform,
@@ -1596,6 +1626,8 @@ export class EvalService {
               ? await this.workspaceGrader({ workspaceDirectory, grade: threadDefinition.workspaceGrade })
               : isTournament
                 ? await this.tournamentWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
+              : isApiContractLaboratory
+                ? await this.apiContractLaboratoryWorkspaceGrader({ workspaceDirectory, baseRevision: fixture.seededCommit })
                 : isCalibration
                 ? await this.calibrationWorkspaceGrader({ caseId: definition.id, workspaceDirectory, baseRevision: fixture.seededCommit })
                 : isReservationCapacity
