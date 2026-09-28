@@ -30,6 +30,7 @@ const boundFiles = [
   testPath,
   "packages/capability-evals/test/fixtures/emergency-evacuation/priority-first-solver.mjs",
   "packages/capability-evals/test/fixtures/emergency-evacuation/exhaustive-solver.mjs",
+  "vitest.config.js",
   "package-lock.json",
 ];
 const sourceInputs = await snapshotBoundFiles();
