@@ -73,7 +73,7 @@ export const harnessCapabilityPilotV1Manifest: CapabilitySuiteManifestV1 =
       {
         caseId: "capability.greenfield.tournament-operations",
         expectedCaseSnapshotDigest:
-          "sha256:bdc5c594dc8f63dfc90787d1d688e77b2661b2f624fcd08056b282c6a356839c",
+          "sha256:3c268c6b5d032069bbf9d6847671a14b80f27b59f0a7d81079d14aea972a2e44",
         outcomeContractVersion: "tournament-operations-outcome-v1",
         outcomeContractDigest:
           "sha256:7534b1fb217d9e9fe97c3083b41baccb58c92c0e408ee2de66ee35ddc1083e7f",
@@ -83,7 +83,7 @@ export const harnessCapabilityPilotV1Manifest: CapabilitySuiteManifestV1 =
       {
         caseId: "capability.greenfield.api-contract-simulation-laboratory",
         expectedCaseSnapshotDigest:
-          "sha256:0a24c04fb24d9a92c91ef2824051b3b697a66633d3f0c5b99557a4d4601cbe24",
+          "sha256:829f2a67327671fe55ed7dc73c2fd2cd1acbcf00858ceda973c1b2e8832fd197",
         outcomeContractVersion: "api-contract-simulation-laboratory-outcome-v1",
         outcomeContractDigest:
           "sha256:a3c90bc24424b0762763f2f5bc164fb35d85e8d28f139bc2797d0db7ef31e477",
@@ -162,7 +162,7 @@ export const harnessCapabilityPilotV1Manifest: CapabilitySuiteManifestV1 =
       },
     ],
     suiteDigest:
-      "sha256:4547a364d9bf79f165916ac772b8a4c9358693b5c8b88b8416ee5aaa2efe0065",
+      "sha256:9a03d0f1f29579e5f1820c29111dcb34b752b25e77fdaa88c5a7259c11e01164",
   });
 
 export function resolveHarnessCapabilityPilotV1(): ResolvedCapabilitySuiteV1 {

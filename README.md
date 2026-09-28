@@ -6,7 +6,7 @@ Generic execution contracts come from the public `@relayer/eval-runner` SDK in G
 
 ## Setup
 
-Use Node 22 or newer. Install this repository's development tools, build the SDK in the GraphComplete checkout you intend to test, and link that exact checkout:
+Catalog consumers require Node 22.8 or newer. The current native focused and admission portfolio requires macOS on Apple silicon with Node 22.23.2; individual case preflight reports an explicit unavailable reason when its platform or exact runtime is absent. Install this repository's development tools, build the SDK in the GraphComplete checkout you intend to test, and link that exact checkout:
 
 ```sh
 npm ci
@@ -23,6 +23,6 @@ The root `catalog.mjs` exports `createEvalCatalog()`. It returns schema version 
 
 ## Verification
 
-`npm run check` runs TypeScript checking and all focused package tests without paid inference. The `eval:admit:*` scripts are heavier deterministic admission entry points. Evidence under `docs/evidence/issue-278-capability-suite` predates extraction and is historical until regenerated against an exact commit in this repository.
+`npm run check` runs TypeScript checking and the native focused package tests without paid inference. The `eval:admit:*` scripts are heavier deterministic macOS entry points. Evidence under `docs/evidence/issue-278-capability-suite` predates extraction and is historical until regenerated against an exact commit in this repository.
 
 Cross-repository CI remains pending until the GraphComplete SDK changes are merged and can be pinned by commit. Local verification must therefore record both the external catalog commit and selected GraphComplete SDK commit.

@@ -95,8 +95,8 @@ export const tournamentVerifierManifestContents = `{
   "schemaVersion": 1,
   "verifierId": "tournament-operations-v2",
   "logicalContentDigest": "sha256:99726ebc46af392fa7ce6d026cb28e0d7de735d71c27a003c9630cbd02c9be2a",
-  "behavioralVerifierSourceDigest": "sha256:d2c662d466aa0e50f53c994d7acc39b4bef5b12c71c95b879d408d7ec5b9b8c2",
-  "serviceIntegrationSourceDigest": "sha256:4bd68532ee8a78c33feead4f01f648d2c63a7cf97a7370589159f9eb29645fa3",
+  "behavioralVerifierSourceDigest": "sha256:4c7bd3f986a5b4b166400e56cf3a2e4e46d3a46075655ff0efc0432161826e81",
+  "serviceIntegrationSourceDigest": "sha256:ea19c45d85e28a8c14471ac6059a41af3e9fd470df7bc42d63f09165e5447f49",
   "operatorInterfaceVerifierDigest": "sha256:0b237f2b74ee0041271ff183fe0adb8c080f59b4d7a6259ca964bf1929f8b2aa",
   "gateChecks": {
     "tournament-core": [

@@ -1,7 +1,7 @@
 import type { EvalCheck } from "@relayer/eval-runner";
 import type { CommandRunner, ProjectEvalThreadDefinition } from "@relayer/eval-runner";
 export declare const API_CONTRACT_SIMULATION_LABORATORY_CASE_ID = "capability.greenfield.api-contract-simulation-laboratory";
-export declare const API_CONTRACT_SIMULATION_LABORATORY_VERIFIER_SOURCE_SHA256 = "e806fe48875bfeaeb89f083b09f48496b380ec0be6e464edb01dee4763e31c3a";
+export declare const API_CONTRACT_SIMULATION_LABORATORY_VERIFIER_SOURCE_SHA256 = "954eefa4047663c530701c47f80fae3de3d66e39575b07175a57e84bfc82be62";
 export declare const API_CONTRACT_SIMULATION_LABORATORY_GATE_CHECK_PATTERNS: Readonly<{
     "contract-import": readonly string[];
     "mock-routing": readonly string[];

@@ -41,6 +41,7 @@ import {
   reservationCapacityGateCheckPatterns,
   saasOperatingModelCase,
   spreadsheetRuntimeFromEnvironment,
+  assertSpreadsheetRuntime,
   preflightApiContractSimulationLaboratoryEnvironment,
   preflightEmergencyEvacuationEnvironment,
   preflightSpreadsheetRuntime,
@@ -104,11 +105,11 @@ function definition(boundCase) {
   });
 }
 
-function plannerRuntime() {
-  const nodeExecutable = process.env.RELAYER_SPREADSHEET_NODE;
-  const nodeModulesPath = process.env.RELAYER_SPREADSHEET_NODE_MODULES;
+export function plannerRuntimeConfig(environment = process.env) {
+  const nodeExecutable = environment.RELAYER_SPREADSHEET_NODE;
+  const nodeModulesPath = environment.RELAYER_SPREADSHEET_NODE_MODULES;
   if (!nodeExecutable || !nodeModulesPath) throw new Error("Planner evaluation requires RELAYER_SPREADSHEET_NODE and RELAYER_SPREADSHEET_NODE_MODULES.");
-  return createProductionDeliveryPlannerRuntime({
+  return Object.freeze({
     nodeExecutable,
     nodeModulesPath,
     environmentDigest: PRODUCTION_DELIVERY_PLANNER_ENVIRONMENT_DIGEST,
@@ -118,6 +119,10 @@ function plannerRuntime() {
     artifactToolEntrypointDigest: productionDeliveryPlannerRuntimeContract.artifactToolEntrypointDigest,
     artifactToolContentDigest: productionDeliveryPlannerRuntimeContract.artifactToolContentDigest,
   });
+}
+
+function plannerRuntime(environment = process.env) {
+  return createProductionDeliveryPlannerRuntime(plannerRuntimeConfig(environment));
 }
 
 function registration(boundCase, materialize, grade, availability = { available: true, unavailableReason: null }) {
@@ -141,14 +146,17 @@ export function createSaasRegistration(runtime, availability, dependencies = {})
     availability);
 }
 
-export async function createEvalCatalog() {
+export async function createEvalCatalog(dependencies = {}) {
+  const environment = dependencies.environment ?? process.env;
+  const assertSaasRuntime = dependencies.assertSpreadsheetRuntime ?? assertSpreadsheetRuntime;
+  const preflightPlannerRuntime = dependencies.preflightSpreadsheetRuntime ?? preflightSpreadsheetRuntime;
   const platformAvailability = process.platform === "darwin"
     ? { available: true, unavailableReason: null }
     : { available: false, unavailableReason: `Case requires darwin; current platform is ${process.platform}.` };
   const apiPreflight = platformAvailability.available
     ? await preflightApiContractSimulationLaboratoryEnvironment()
     : platformAvailability;
-  const emergencyNodeExecutable = process.env.RELAYER_EVAL_NODE?.trim() || process.execPath;
+  const emergencyNodeExecutable = environment.RELAYER_EVAL_NODE?.trim() || process.execPath;
   const emergencyPreflight = platformAvailability.available
     ? await preflightEmergencyEvacuationEnvironment({ nodeExecutable: emergencyNodeExecutable, cwd: process.cwd() })
     : platformAvailability;
@@ -157,16 +165,14 @@ export async function createEvalCatalog() {
   let plannerAvailability = platformAvailability;
   if (platformAvailability.available) {
     try {
-      spreadsheetRuntime = spreadsheetRuntimeFromEnvironment();
-      const result = await preflightSpreadsheetRuntime(spreadsheetRuntime);
-      spreadsheetPreflight = result.available
-        ? { available: true, unavailableReason: null }
-        : { available: false, unavailableReason: result.reason ?? "Spreadsheet runtime preflight failed." };
+      spreadsheetRuntime = spreadsheetRuntimeFromEnvironment(environment);
+      await assertSaasRuntime(spreadsheetRuntime);
+      spreadsheetPreflight = { available: true, unavailableReason: null };
     } catch (error) {
       spreadsheetPreflight = { available: false, unavailableReason: error instanceof Error ? error.message : String(error) };
     }
     try {
-      const result = await preflightSpreadsheetRuntime(plannerRuntime());
+      const result = await preflightPlannerRuntime(plannerRuntimeConfig(environment));
       plannerAvailability = result.available
         ? { available: true, unavailableReason: null }
         : { available: false, unavailableReason: result.reason ?? "Planner runtime preflight failed." };
@@ -202,7 +208,7 @@ export async function createEvalCatalog() {
     createSaasRegistration(spreadsheetRuntime, spreadsheetPreflight),
     registration(productionDeliveryPlannerCase,
       (ctx) => materializeProductionDeliveryPlannerFixture({ workspaceDirectory: ctx.workspaceDirectory, platform: ctx.platform }),
-      (ctx) => gradeProductionDeliveryPlannerWorkspace({ workspaceDirectory: ctx.workspaceDirectory, baseRevision: ctx.fixture.seededCommit, runtime: plannerRuntime() }), plannerAvailability),
+      (ctx) => gradeProductionDeliveryPlannerWorkspace({ workspaceDirectory: ctx.workspaceDirectory, baseRevision: ctx.fixture.seededCommit, runtime: plannerRuntime(environment) }), plannerAvailability),
   ];
   return Object.freeze({ schemaVersion: 1, cases: Object.freeze(cases), suites: Object.freeze([harnessCapabilityPilotV1Manifest]) });
 }

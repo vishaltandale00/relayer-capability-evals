@@ -63,4 +63,30 @@ describe("external capability catalog adapter", () => {
       { grade: { workspaceDirectory: "/workspace", baseRevision: "seed", inspector: expect.any(Inspector) } },
     ]);
   });
+
+  it("preflights SaaS paths and the Planner identity config through their distinct contracts", async () => {
+    const seen: unknown[] = [];
+    const environment = {
+      RELAYER_SPREADSHEET_NODE: "/runtime/node",
+      RELAYER_SPREADSHEET_NODE_MODULES: "/runtime/node_modules",
+    };
+    const catalog = await createEvalCatalog({
+      environment,
+      assertSpreadsheetRuntime: async (runtime: unknown) => { seen.push({ saas: runtime }); },
+      preflightSpreadsheetRuntime: async (runtime: any) => {
+        expect(runtime).toMatchObject({
+          nodeExecutable: "/runtime/node",
+          nodeModulesPath: "/runtime/node_modules",
+          environmentDigest: expect.stringMatching(/^sha256:/),
+        });
+        seen.push({ planner: runtime });
+        return { available: true } as const;
+      },
+    });
+    expect(seen).toEqual([
+      { saas: { nodeExecutable: "/runtime/node", nodeModulesDirectory: "/runtime/node_modules" } },
+      { planner: expect.objectContaining({ nodeExecutable: "/runtime/node", nodeModulesPath: "/runtime/node_modules" }) },
+    ]);
+    expect(catalog.cases.slice(-2).map(({ available }) => available)).toEqual([true, true]);
+  });
 });

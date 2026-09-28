@@ -32,11 +32,17 @@ export interface CapabilityCaseRegistration {
   };
 }
 
-export function createEvalCatalog(): Promise<{
+export function createEvalCatalog(dependencies?: {
+  environment?: NodeJS.ProcessEnv;
+  assertSpreadsheetRuntime?: (runtime: unknown) => Promise<void>;
+  preflightSpreadsheetRuntime?: (runtime: unknown) => Promise<{ readonly available: true } | { readonly available: false; readonly reason: string }>;
+}): Promise<{
   readonly schemaVersion: 1;
   readonly cases: readonly CapabilityCaseRegistration[];
   readonly suites: readonly unknown[];
 }>;
+
+export function plannerRuntimeConfig(environment?: NodeJS.ProcessEnv): Readonly<Record<string, unknown>>;
 
 export function createSaasRegistration(
   runtime: unknown,

@@ -7,7 +7,7 @@ import { createInterface } from "node:readline";
 import { bindAutonomousCaseSnapshot } from "@relayer/eval-runner";
 import { createAutonomousCaseSnapshot } from "@relayer/eval-runner";
 export const API_CONTRACT_SIMULATION_LABORATORY_CASE_ID = "capability.greenfield.api-contract-simulation-laboratory";
-export const API_CONTRACT_SIMULATION_LABORATORY_VERIFIER_SOURCE_SHA256 = "e806fe48875bfeaeb89f083b09f48496b380ec0be6e464edb01dee4763e31c3a";
+export const API_CONTRACT_SIMULATION_LABORATORY_VERIFIER_SOURCE_SHA256 = "954eefa4047663c530701c47f80fae3de3d66e39575b07175a57e84bfc82be62";
 const QUALIFICATION_ENVIRONMENT = Object.freeze({
     nodeVersion: "v22.23.2",
     nodeSha256: "18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572",

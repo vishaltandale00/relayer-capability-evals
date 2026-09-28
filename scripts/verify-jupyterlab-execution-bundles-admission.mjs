@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
@@ -10,11 +10,11 @@ import {
   JUPYTERLAB_UPSTREAM_COMMIT,
   JUPYTERLAB_UPSTREAM_TREE,
   JUPYTERLAB_YARNRC_SHA256,
-  digestAutonomousCaseSnapshot,
   gradeJupyterLabExecutionBundlesWorkspace,
   jupyterLabExecutionBundlesCase,
   materializeJupyterLabExecutionBundlesFixture,
 } from "../packages/capability-evals/dist/index.js";
+import { digestAutonomousCaseSnapshot } from "@relayer/eval-runner";
 import {
   JUPYTERLAB_ADMISSION_CHECK_ROSTER,
   JUPYTERLAB_ADMISSION_PORTFOLIO,
@@ -23,6 +23,7 @@ import {
 
 const execFileAsync = promisify(execFile);
 const repositoryRoot = resolve(import.meta.dirname, "..");
+const sdkDistRoot = dirname(fileURLToPath(import.meta.resolve("@relayer/eval-runner")));
 const admissionRoot = process.env.RELAYER_JUPYTERLAB_ADMISSION_ROOT;
 const sourceCache = process.env.RELAYER_JUPYTERLAB_SOURCE_CACHE;
 if (!admissionRoot || !sourceCache)
@@ -55,13 +56,15 @@ const inputFiles = [
   "packages/capability-evals/test/jupyterlab-execution-bundles.test.ts",
   "packages/capability-evals/dist/index.js",
   "packages/capability-evals/dist/project-cases/jupyterlab-execution-bundles.js",
-  "packages/capability-evals/dist/cases/catalog.js",
-  "packages/capability-evals/dist/cases/contracts.js",
   "packages/capability-evals/package.json",
   "packages/capability-evals/tsconfig.build.json",
   "package.json",
   "package-lock.json",
-].map((path) => resolve(repositoryRoot, path));
+].map((path) => resolve(repositoryRoot, path)).concat([
+  resolve(sdkDistRoot, "index.js"),
+  resolve(sdkDistRoot, "cases/catalog.js"),
+  resolve(sdkDistRoot, "cases/contracts.js"),
+]);
 let sourceInputsBefore = {};
 let results = [];
 
