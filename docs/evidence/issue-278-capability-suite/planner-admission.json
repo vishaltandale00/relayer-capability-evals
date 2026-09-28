@@ -1,0 +1,773 @@
+{
+  "schemaVersion": 1,
+  "caseId": "capability.spreadsheet.production-delivery-planner",
+  "caseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+  "fixtureContentDigest": "sha256:a683924b8d5c43a2c93c8ef29f6a954b6cb24a882b85e6688bb6a144ad94affd",
+  "environmentDigest": "sha256:d65459edeff109e600be65a20c038308a154cb6ec1d3f6b5dfabf334175879d9",
+  "verifierDigest": "sha256:048ed16e5e30b3fec155afd5a08dd34dcb38da3a87c820b7ef2f09866193e7e7",
+  "taskDigest": "sha256:04ec9698584385b1e467f709c2ca50e01037d14bb840111a70e91e90bcbe05b5",
+  "sourceDigestsBefore": {
+    "eval-cases/production-delivery-planner/admission/run-admission.mjs": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+    "eval-cases/spreadsheet-admission-outcome.mjs": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+    "packages/eval-runner/src/project-cases/production-delivery-planner.ts": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+    "packages/eval-runner/src/project-cases/spreadsheet-runtime.ts": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+    "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+    "packages/eval-runner/dist": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3"
+  },
+  "sourceDigestsAfter": {
+    "eval-cases/production-delivery-planner/admission/run-admission.mjs": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+    "eval-cases/spreadsheet-admission-outcome.mjs": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+    "packages/eval-runner/src/project-cases/production-delivery-planner.ts": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+    "packages/eval-runner/src/project-cases/spreadsheet-runtime.ts": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+    "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+    "packages/eval-runner/dist": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3"
+  },
+  "runtimePreflightBefore": {
+    "available": true
+  },
+  "runtimePreflightAfter": {
+    "available": true
+  },
+  "inputsStable": true,
+  "sourceDigests": {
+    "eval-cases/production-delivery-planner/admission/run-admission.mjs": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+    "eval-cases/spreadsheet-admission-outcome.mjs": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+    "packages/eval-runner/src/project-cases/production-delivery-planner.ts": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+    "packages/eval-runner/src/project-cases/spreadsheet-runtime.ts": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+    "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+    "packages/eval-runner/dist": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3"
+  },
+  "runtime": {
+    "nodeVersion": "24.19.0",
+    "nodeExecutableDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+    "artifactToolVersion": "2.8.59",
+    "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+    "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
+  },
+  "runId": "2026-09-28T01-13-46-825Z",
+  "status": "non-certifying-admission-pass",
+  "results": [
+    {
+      "id": "baseline",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": null,
+      "copiedBuilderDigest": null,
+      "builderMatchesSource": null,
+      "failedChecks": [
+        {
+          "name": "workspace:workbook-parse",
+          "detail": "ENOENT: no such file or directory, access '/Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx'"
+        },
+        {
+          "name": "workspace:source-coverage",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:workbook-horizon",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:scenario-controls",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:formula-lineage",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:complete-order-coverage",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:order-conservation",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:component-dependencies",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:finished-goods-conservation",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:weekly-capacity",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:purchase-lead-times",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:fulfillment-dates",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:infeasible-exceptions",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:cost-arithmetic",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:cross-sheet-consistency",
+          "detail": "Workbook parsing failed."
+        },
+        {
+          "name": "workspace:workbook-rendering",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "Scenario probe unavailable because workbook parsing failed."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "Scenario probe unavailable because workbook parsing failed."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "Scenario probe unavailable because workbook parsing failed."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "Scenario probe unavailable because workbook parsing failed."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "workbook does not exist: /Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/baseline/workspace/production-delivery-plan.xlsx"
+        },
+        {
+          "name": "workspace:required-workbook",
+          "detail": "Committed paths: none."
+        },
+        {
+          "name": "workspace:delivery-commit",
+          "detail": "0 post-fixture commit(s)."
+        }
+      ],
+      "target": null
+    },
+    {
+      "id": "green-primary",
+      "expected": "green",
+      "admitted": true,
+      "passed": true,
+      "workbookDigest": "sha256:efbab058b0f0f8acb377aabd43c18d8a7c57de2d59aa920f0e4fc8977a9f8191",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [],
+      "target": null
+    },
+    {
+      "id": "green-alternate",
+      "expected": "green",
+      "admitted": true,
+      "passed": true,
+      "workbookDigest": "sha256:73a36c1839859df5af031be0505ddb0bd700e01441b7436f0683202a2e313844",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [],
+      "target": null
+    },
+    {
+      "id": "mutant-hardcoded",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:373190fd3c5b4d56221c7b38c4c38d0c7846db31919a2300a1cda3d06a9ef600",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:formula-lineage",
+          "detail": "2 formula cell(s); derived semantic formula missing; 0 formula error value(s)."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:changed-input-order-quantity"
+    },
+    {
+      "id": "mutant-capacity",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:b5bf879130dce74d657785d31cb7b7098b95fdceabbaf099753f6deafa03e769",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:source-coverage",
+          "detail": "Workbook source tables preserve every sealed order, BOM row, inventory balance, supplier term, capacity week, shipping option, and product economic input."
+        },
+        {
+          "name": "workspace:weekly-capacity",
+          "detail": "Capacity failures: 2026-09-07."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:weekly-capacity"
+    },
+    {
+      "id": "mutant-components",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:d4716594e15cfeb890195fe2d7c2366c9b7cbbc16312090343042289cd8e3f74",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:component-dependencies",
+          "detail": "Component/BOM failures: 2026-09-07/CMP-A."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:component-dependencies"
+    },
+    {
+      "id": "mutant-inventory",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:96e1f9e6091c1f5c32d335da35beb01c0fd4480e61b6fd827ae4823af06ba367",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:component-dependencies",
+          "detail": "Component/BOM failures: CMP-A/week-2."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:component-dependencies"
+    },
+    {
+      "id": "mutant-missing-order",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:5a1466d7f5d2320a7d5ffebed8c37b31a6ef965bc4e505ba3f7b91ac4c7e68be",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:complete-order-coverage",
+          "detail": "Expected ORD-1001, ORD-1002, ORD-1003, ORD-1004, ORD-1005, ORD-1006; observed ORD-1001, ORD-1002, ORD-1003, ORD-1004, ORD-1005."
+        },
+        {
+          "name": "workspace:order-conservation",
+          "detail": "Order quantity mismatches: ORD-1006."
+        },
+        {
+          "name": "workspace:infeasible-exceptions",
+          "detail": "Every late, short, or infeasible order is surfaced, including constrained demand."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:complete-order-coverage"
+    },
+    {
+      "id": "mutant-late-delivery",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:08271ec72c462f1f25a6291ed9d7dd1625f1d4422367dac84e5193542c413744",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:fulfillment-dates",
+          "detail": "Invalid ship/delivery projections: ORD-1001."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:fulfillment-dates"
+    },
+    {
+      "id": "mutant-receipt",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:6fb1547e5d7ab33b3eff008415fe316ac40339c7e317ffa026d1dc92435dfa6e",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:purchase-lead-times",
+          "detail": "Purchase timing/cost failures: CMP-D/2026-09-14."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:purchase-lead-times"
+    },
+    {
+      "id": "mutant-cost",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:57a9227d20b4b212d558edd3013c8620538c5f41247792bb3e9c467b31f50302",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:cost-arithmetic",
+          "detail": "Expected production $1884.00, purchasing $939.00, expedite $32.40, shipping $974.00, holding $52.40, total $3881.80; workbook total $3870.02."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:cost-arithmetic"
+    },
+    {
+      "id": "mutant-stale-dashboard",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:cf42a125ac68a09b3abb5c58963d615048fc10c06245dc90c8badd7e26cb3171",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:cross-sheet-consistency",
+          "detail": "Requested 168, fulfilled 98, produced 84, purchased 201, exceptions 1, 1 co-located dashboard view(s) are missing, conflicting, or stale; total $3881.80."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:cross-sheet-consistency"
+    },
+    {
+      "id": "mutant-dashboard",
+      "expected": "red",
+      "admitted": true,
+      "passed": false,
+      "workbookDigest": "sha256:13add1ec86b9c6059476242fcdba813c87f8f25273fe5edf9c39dfeff7c3e7d1",
+      "copiedBuilderDigest": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        {
+          "name": "workspace:cross-sheet-consistency",
+          "detail": "Requested 168, fulfilled 98, produced 84, purchased 201, exceptions 1, 0 co-located dashboard view(s) are missing, conflicting, or stale; total $3881.80."
+        },
+        {
+          "name": "workspace:workbook-rendering",
+          "detail": "Missing or unreadable rendered roles: dashboard."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity",
+          "detail": "order-quantity boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-order-quantity-boundary-2",
+          "detail": "order-quantity boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours",
+          "detail": "capacity-hours boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-capacity-hours-boundary-2",
+          "detail": "capacity-hours boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time",
+          "detail": "supplier-lead-time boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-input-supplier-lead-time-boundary-2",
+          "detail": "supplier-lead-time boundary 2 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-demand-multiplier",
+          "detail": "scenario-demand-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-capacity-multiplier",
+          "detail": "scenario-capacity-multiplier boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-supplier-lead-time-adjustment",
+          "detail": "scenario-supplier-lead-time-adjustment boundary 1 did not change the required dependent outputs while preserving global consistency."
+        },
+        {
+          "name": "workspace:changed-scenario-expedite-enabled",
+          "detail": "scenario-expedite-enabled boundary 1 did not change the required dependent outputs while preserving global consistency."
+        }
+      ],
+      "target": "workspace:workbook-rendering"
+    }
+  ]
+}

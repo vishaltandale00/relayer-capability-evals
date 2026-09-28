@@ -1,80 +1,31 @@
 {
-  "name": "relayer-graphcomplete",
-  "version": "0.0.0",
-  "description": "Graph-native agent workspace with a harness- and provider-agnostic product contract.",
+  "name": "relayer-capability-evals",
+  "version": "0.1.0",
+  "description": "Standalone project capability evaluation catalog for Relayer GraphComplete.",
   "license": "Apache-2.0",
   "type": "module",
-  "private": false,
+  "private": true,
   "workspaces": [
-    "desktop",
-    "packages/*"
+    "packages/capability-evals"
   ],
   "engines": {
     "node": ">=22.8.0"
   },
-  "files": [
-    "dist",
-    "harnesses",
-    "python/relayer-graph"
-  ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
   "scripts": {
-    "prepare:renderer": "node scripts/prepare-renderer-vendor.mjs",
-    "prepare:desktop-runtime": "npm run prepare:renderer && npm run build:packages",
-    "prebuild": "npm run prepare:renderer",
-    "precheck": "npm run prepare:renderer",
-    "pretest": "npm run prepare:renderer",
-    "predesktop:pack": "npm run prepare:desktop-runtime",
-    "predesktop:dist": "npm run prepare:desktop-runtime",
-    "predesktop:dist:preview": "npm run prepare:desktop-runtime",
-    "build": "node scripts/clean-dist.mjs && cargo build -p relayer-app-server -p relayer-graph-server && tsc -p tsconfig.build.json && npm run build:packages",
-    "build:packages": "npm run build -w @relayer/graph-client && npm run build -w @relayer/harness-host && npm run build -w @relayer/eval-runner",
-    "check": "cargo fmt --all -- --check && cargo clippy --workspace --all-targets --all-features -- -D warnings && cargo test --workspace && cargo build -p relayer-app-server -p relayer-graph-server && npm run build:packages && tsc --noEmit && npm run check --workspaces --if-present && vitest run && PYTHONPATH=python/relayer-graph/src python3 -m unittest discover -s python/relayer-graph/tests && npm run prd:check-readability",
-    "test": "cargo build -p relayer-app-server -p relayer-graph-server && npm run build:packages && vitest run",
-    "test:desktop:first-message": "npm run build && electron scripts/test-desktop-first-message.mjs",
-    "test:desktop:context-draft-warning": "npm run build && node scripts/run-context-draft-warning-test.mjs",
-    "test:desktop:interaction-context": "npm run build && node scripts/run-interaction-context-lifecycle-test.mjs",
-    "evidence:model-selector": "RELAYER_CAPTURE_MODEL_SELECTOR_EVIDENCE=1 electron scripts/capture-model-selector-evidence.mjs",
-    "evidence:provider-ux": "node scripts/capture-provider-ux-video.mjs",
-    "evidence:prime-family:packaged": "node scripts/capture-packaged-prime-family-evidence.mjs",
-    "evidence:human-eval-annotations": "npm run build && RELAYER_CAPTURE_HUMAN_ANNOTATION_EVIDENCE=1 electron scripts/capture-human-eval-annotation-evidence.mjs",
-    "test:desktop:approval": "npm run build && electron scripts/test-desktop-approval.mjs",
-    "prd": "node docs/prd/server.mjs",
-    "prd:check-readability": "node docs/prd/check-readability.mjs",
-    "desktop:dev": "npm run build && electron desktop/main/index.mjs",
-    "predesktop:dev:prime": "npm run build",
-    "desktop:dev:prime": "node scripts/run-prime-desktop.mjs",
-    "eval-app:dev": "npm run build && electron desktop/eval-main/index.mjs",
-    "eval:basic": "npm run build && node packages/eval-runner/dist/runtime-basic-cli.js",
-    "eval:basic:live": "npm run build && node packages/eval-runner/dist/runtime-basic-cli.js --require-configuration --judge-configuration codex-structured",
-    "eval:graph-repair:live": "npm run build && node packages/eval-runner/dist/runtime-basic-cli.js --require-configuration --case graph-authoring.replay-repair --judge-configuration none",
-    "eval:admit:node-redis": "npm run build:packages && node scripts/verify-node-redis-case-admission.mjs",
-    "eval:httpcore-admission": "npm run build -w @relayer/eval-runner && node scripts/run-httpcore-admission.mjs",
-    "desktop:pack": "node desktop/packaging/build-development.mjs",
-    "eval-app:pack": "npm run build && node desktop/packaging/build-development.mjs --eval",
-    "desktop:dist": "node desktop/release/build-release.mjs stable",
-    "desktop:dist:preview": "node desktop/release/build-release.mjs preview",
-    "desktop:release:verify": "node desktop/release/verify-artifacts.mjs",
-    "desktop:release:audit-authority": "node scripts/audit-desktop-release-authority.mjs",
-    "desktop:release:publish-preview": "node desktop/release/publish-preview.mjs",
-    "desktop:release:promote-stable": "node desktop/release/promote-stable.mjs"
+    "setup": "node scripts/link-runner-sdk.mjs",
+    "build": "npm run build -w @relayer/capability-evals",
+    "check": "npm run check -w @relayer/capability-evals && npm test -w @relayer/capability-evals",
+    "test": "npm test -w @relayer/capability-evals",
+    "eval:admit:node-redis": "node scripts/verify-node-redis-case-admission.mjs",
+    "eval:admit:jupyterlab-execution-bundles": "node scripts/verify-jupyterlab-execution-bundles-admission.mjs",
+    "eval:admit:emergency-evacuation": "node scripts/verify-emergency-evacuation-admission.mjs",
+    "eval:admit:httpcore": "node scripts/run-httpcore-admission.mjs",
+    "eval:admit:excalidraw-scene-history": "node scripts/verify-excalidraw-scene-history-admission.mjs"
   },
   "devDependencies": {
-    "@electron/asar": "3.4.1",
     "@types/node": "^22.20.1",
-    "app-builder-lib": "26.15.3",
-    "electron": "43.0.0",
-    "electron-builder": "26.15.3",
-    "tar": "7.5.22",
+    "electron": "^43.0.0",
     "typescript": "^5.9.2",
-    "vitest": "^4.1.9",
-    "yaml": "2.9.0"
+    "vitest": "^4.1.9"
   }
 }

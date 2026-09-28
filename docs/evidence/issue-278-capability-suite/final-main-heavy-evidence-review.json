@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "reviewId": "issue-278-final-main-heavy-evidence-review-v1",
+  "createdAt": "2026-09-28T01:25:34.061Z",
+  "reviewer": {
+    "agentId": "/root/suite_manifest",
+    "configuredWorkerModel": "GPT-5.6 Sol"
+  },
+  "workspace": "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete",
+  "scope": {
+    "suiteDigest": "sha256:d68baaefb4956528ad8541ac2eb1663a2c639a4e102b9aa02d40ac90241ab038",
+    "wholeEvalRunnerDistDigest": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3",
+    "mergedSourceReview": {
+      "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/final-reviews/pr533-merged-upstream-eval-integration-review.json",
+      "receiptDigest": "sha256:ac02aa24b81e4e6f2e2180bb3c6e3073a559fff545e944c32685f92b13b12565",
+      "scopeDigest": "sha256:d1883f085c6489d9c6ce553ab878d0f3f9fc212db5edfbfb4a11250f452db53d",
+      "reviewedFileCount": 32
+    },
+    "receipts": {
+      "excalidraw": {
+        "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/excalidraw-main-b8390ca2/receipt.json",
+        "receiptDigest": "sha256:ebf14d983628778ca5ef2a47bf355d34d19c0ebaeb58666e55e08ccdba5b1ac1",
+        "status": "passed",
+        "caseId": "autonomous.excalidraw.scene-history",
+        "caseSnapshotDigest": "sha256:37aabb0c67bfc7448018af39b1b5c77ea8818f4c7eaddfc10808e246ef2de957",
+        "verifierDigest": "sha256:4b5c58ba64e7018021fe8c664e513c185b70c4260e01978f97de024631a4229e",
+        "inputsStable": true,
+        "orderedOutcomeCount": 13,
+        "orderedOutcomeIds": [
+          "untouched",
+          "green-functional",
+          "green-command-log",
+          "mutant-forged-verdict",
+          "mutant-forged-runner",
+          "mutant-forged-yarnrc",
+          "mutant-ui-inert",
+          "mutant-ui-miswired",
+          "mutant-branch-overwrite",
+          "mutant-silent-lww",
+          "mutant-relationships",
+          "mutant-undo",
+          "mutant-history-loss"
+        ],
+        "orderedOutcomeVectorDigest": "sha256:7f8ecbd2d6fb0ced5e94e49e546f5df0b2783319f6380d6c5d3b25bf8b43968f",
+        "runtime": {
+          "node": "22.23.2",
+          "platform": "darwin",
+          "architecture": "arm64",
+          "executable": "/Users/vishal/.nvm/versions/node/v22.23.2/bin/node",
+          "executableDigest": "sha256:18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572"
+        }
+      },
+      "jupyter": {
+        "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/jupyterlab-admission-main-b8390ca2/receipt.json",
+        "receiptDigest": "sha256:41b263e01ef384e5a5bd376302be79dc04a832cb6dc637dc8a37926fd603efa5",
+        "status": "passed",
+        "caseId": "jupyterlab.reproducible-execution-bundles",
+        "caseSnapshotDigest": "sha256:82f15a703d24fd1a439762ddea29c090f27d0364a3b4cb78122b04d9618d8045",
+        "verifierDigest": "sha256:b32270aa329d5d67660a627d6152ec3bf75a9e3308281cca1119cea89ddd66bf",
+        "inputsStable": true,
+        "orderedOutcomeCount": 10,
+        "orderedOutcomeIds": [
+          "untouched-baseline",
+          "missing-feature-control",
+          "green-recursive",
+          "green-normalized",
+          "mutant-omits-executions",
+          "mutant-accepts-missing",
+          "mutant-hides-partial",
+          "mutant-detached-ui",
+          "mutant-protected-config",
+          "mutant-post-test-delta"
+        ],
+        "orderedOutcomeVectorDigest": "sha256:133e5f580d3b7dbb0669b36a9ebde62c4b8fe506f448c0af831cbe6e0719c03e",
+        "runtime": {
+          "platform": "darwin",
+          "architecture": "arm64",
+          "node": "22.23.2",
+          "nodeExecutable": "/Users/vishal/.nvm/versions/node/v22.23.2/bin/node",
+          "nodeExecutableDigest": "sha256:18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572"
+        }
+      },
+      "emergency": {
+        "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/emergency-admission-main-b8390ca2/receipt.json",
+        "receiptDigest": "sha256:36eb28d9e4b28d7065b9bfe97d23bd50c455074d9f07826536dae06b2b2f44b8",
+        "status": "passed",
+        "caseId": "capability.greenfield.emergency-evacuation-route-planner",
+        "caseSnapshotDigest": "sha256:c83982a66344165475a7c03b491369c4721dd9bf1b4834d5ee166d59cb753658",
+        "verifierDigest": "sha256:7de6458c6d92601eeb90f6de47634cbb8fc27371a3c3e79603501a14d643d415",
+        "inputsStable": true,
+        "orderedOutcomeCount": 20,
+        "orderedOutcomeIds": [
+          "emergency evacuation capability case publishes one immutable candidate snapshot",
+          "emergency evacuation capability case binds verifier identity to normalized complete source across TS and dist loaders",
+          "emergency evacuation capability case binds the admission driver to executed runtime bytes and durable evidence hashes",
+          "emergency evacuation capability case rejects an unpinned executable before invoking it",
+          "emergency evacuation capability case reports pinned runtime identity (pinned Node and macOS sandbox are available)",
+          "emergency evacuation capability case exposes materialization and public-seam grading",
+          "emergency evacuation capability case digest-binds complete and failed mandatory-gate qualification",
+          "emergency evacuation capability case materializes a clean, content-addressed greenfield repository",
+          "emergency evacuation capability case keeps the untouched baseline red for independently attributed behavioral reasons",
+          "emergency evacuation capability case rejects execution outside the declared local Mac environment",
+          "emergency evacuation capability case accepts two materially different reasonable planners through only the public seam",
+          "emergency evacuation capability case rejects shortcut mutants with independent predicate evidence",
+          "emergency evacuation capability case rejects committed symlinks to uncommitted external implementation code",
+          "emergency evacuation capability case rejects regular committed CLIs that execute uncommitted external code",
+          "emergency evacuation capability case does not expose host environment secrets to the candidate CLI",
+          "emergency evacuation capability case keeps valid-scenario evidence when an invalid-input candidate deletes its input",
+          "emergency evacuation capability case contains malformed candidate structures without suppressing independent predicates",
+          "emergency evacuation capability case enforces the disclosed Node built-ins-only delivery boundary",
+          "emergency evacuation capability case rejects forbidden dependencies before launching any candidate CLI",
+          "emergency evacuation capability case rejects a hard-coded frozen answer on evaluator-owned scenario permutations"
+        ],
+        "orderedOutcomeVectorDigest": "sha256:ffedf5875ffcf92b892181e668d35b5c7acfacd59b7847f874a89789fc633ba4",
+        "runtime": {
+          "version": "22.23.2",
+          "platform": "darwin",
+          "architecture": "arm64",
+          "executableDigest": "sha256:18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572",
+          "environmentDigest": "sha256:9e4bdbd2fc03b19c24843b8480c5f4ff8348765accbba7d8cdada0104aebae11"
+        }
+      },
+      "combined": {
+        "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/reservation-tournament-api-main-b8390ca2-v2/receipt.json",
+        "receiptDigest": "sha256:a8e3f2cd037e1076f27920a1f8687889128d36673eecde2c6c1b3950c496e68d",
+        "status": "passed",
+        "caseId": "reservation+tournament+api",
+        "caseSnapshotDigest": null,
+        "verifierDigest": null,
+        "inputsStable": true,
+        "orderedOutcomeCount": 40,
+        "orderedOutcomeIds": [
+          "API Contract Simulation Laboratory capability case publishes one immutable candidate snapshot without leaking evaluator paths",
+          "API Contract Simulation Laboratory capability case binds the normalized complete verifier source into its immutable identity",
+          "API Contract Simulation Laboratory capability case rejects unpinned executable bytes before running a version probe",
+          "API Contract Simulation Laboratory capability case makes the independently authenticated qualification environment available",
+          "API Contract Simulation Laboratory capability case materializes the frozen greenfield fixture reproducibly with a clean red baseline",
+          "API Contract Simulation Laboratory capability case accepts two independently structured green implementations through only the public HTTP seam",
+          "API Contract Simulation Laboratory capability case qualifies two committed green projects after applying each diff to a pristine verifier workspace",
+          "API Contract Simulation Laboratory capability case rejects protected-contract substitution and uncommitted delivery independently",
+          "API Contract Simulation Laboratory capability case rejects dependency-bearing, generated, and ambient-runtime delivery shortcuts",
+          "API Contract Simulation Laboratory capability case rejects absolute runtime entries and npm start lifecycle hooks",
+          "API Contract Simulation Laboratory capability case denies ambient executable use even when the committed Node delivery shape is valid",
+          "API Contract Simulation Laboratory capability case denies packages bundled beside the pinned Node runtime",
+          "API Contract Simulation Laboratory capability case denies globally installed packages outside the pinned runtime",
+          "API Contract Simulation Laboratory capability case admits safe internal symlinks while rejecting broken and escaping links",
+          "API Contract Simulation Laboratory capability case rejects adversarial shortcuts at their independent public predicates",
+          "reservation capacity case identity and materialization publishes an immutable candidate snapshot with sealed paths removed from the public catalog",
+          "reservation capacity case identity and materialization binds the sealed reference digest to the complete admission portfolio bytes",
+          "reservation capacity case identity and materialization fails closed when the exact v1 verifier implementation drifts",
+          "reservation capacity case identity and materialization materializes byte-identical pristine repositories and refuses to overwrite either one",
+          "reservation capacity case identity and materialization fails closed before materialization when the runtime Node major is not 22",
+          "reservation capacity verifier admission keeps the untouched fixture red for every behavior and durable-delivery predicate",
+          "reservation capacity verifier admission accepts the materially different snapshot-state implementation through only the public seam",
+          "reservation capacity verifier admission accepts the materially different event-ledger implementation through only the public seam",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-availability mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-expiring-holds mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-idempotent-confirmation mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-concurrent-contention mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-time-zone-schedules mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-cancellation mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-capacity-conservation mutant while preserving independent receipts",
+          "reservation capacity verifier admission rejects the targeted workspace:reservation-restart-persistence mutant while preserving independent receipts",
+          "reservation capacity verifier admission keeps receipts evaluator-owned when candidate code tampers with stdout",
+          "reservation capacity verifier admission rejects generic buttons and dead script as the browser lifecycle scaffold",
+          "reservation capacity verifier admission records subcheckpoints independently after an earlier checkpoint fails",
+          "reservation capacity verifier admission denies candidate discovery of evaluator-owned sealed source",
+          "Tournament Operations capability case publishes an immutable candidate snapshot without sealed catalog paths",
+          "Tournament Operations capability case binds the sealed reference descriptor to the checked-in immutable bytes",
+          "Tournament Operations capability case materializes a frozen clean greenfield fixture whose untouched baseline is red",
+          "Tournament Operations capability case admits two materially different reasonable implementations through only the public seam",
+          "Tournament Operations capability case rejects adversarial shortcuts while preserving independent predicate evidence"
+        ],
+        "orderedOutcomeVectorDigest": "sha256:db99a232c881339b00a63840b52098aa83658f2a38bc4b67e62c3022072e929e",
+        "runtime": {
+          "node": "22.23.2",
+          "platform": "darwin",
+          "architecture": "arm64",
+          "vitestMaxWorkers": 1
+        }
+      },
+      "saas": {
+        "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/saas-final-suite-d68baaef/portfolio/admission-receipt.json",
+        "receiptDigest": "sha256:c71b40ab940dc194ba0dd24da173b72396fad24f5c784c992b1552303bcc38be",
+        "caseId": "capability.spreadsheet.saas-operating-model",
+        "caseSnapshotDigest": "sha256:39a5f7579f0dfba0f1e356acf5c34244cf5a44d6b7d5fd9956f2566fd6b33104",
+        "verifierDigest": "sha256:cbd1c1399c67f7b81ce8fb80e8783dee7b1bb9a313d171d73ac31b305035d006",
+        "inputsStable": true,
+        "orderedOutcomeCount": 6,
+        "orderedOutcomeIds": [
+          "baseline",
+          "green-a",
+          "green-b",
+          "mutant-hardcoded",
+          "mutant-omitted-source",
+          "mutant-same-scenarios"
+        ],
+        "orderedOutcomeVectorDigest": "sha256:926e077a456d1c32e1bda6fdb5c87e880d51ad50f369332d4b392fdcab888e6b",
+        "runtime": {
+          "nodeVersion": "v24.19.0",
+          "nodeDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+          "artifactToolVersion": "2.8.59",
+          "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c",
+          "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+          "runtimeTreeDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
+        }
+      },
+      "planner": {
+        "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/admission-receipt.json",
+        "receiptDigest": "sha256:5e31ea4ff0bf23ca8e43d0c1b5db26d1608a104d04be5dd70f339af13420a181",
+        "status": "non-certifying-admission-pass",
+        "caseId": "capability.spreadsheet.production-delivery-planner",
+        "caseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+        "verifierDigest": "sha256:048ed16e5e30b3fec155afd5a08dd34dcb38da3a87c820b7ef2f09866193e7e7",
+        "inputsStable": true,
+        "orderedOutcomeCount": 13,
+        "orderedOutcomeIds": [
+          "baseline",
+          "green-primary",
+          "green-alternate",
+          "mutant-hardcoded",
+          "mutant-capacity",
+          "mutant-components",
+          "mutant-inventory",
+          "mutant-missing-order",
+          "mutant-late-delivery",
+          "mutant-receipt",
+          "mutant-cost",
+          "mutant-stale-dashboard",
+          "mutant-dashboard"
+        ],
+        "orderedOutcomeVectorDigest": "sha256:70054c32ea5f97915d1972e1a852c9d213bc9b18579655f36a9110b70b2991ee",
+        "runtime": {
+          "nodeVersion": "24.19.0",
+          "nodeExecutableDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+          "artifactToolVersion": "2.8.59",
+          "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+          "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
+        }
+      }
+    }
+  },
+  "sourceBindingAudit": {
+    "checkedFileCount": 86,
+    "mismatchCount": 0,
+    "mismatches": [],
+    "method": "Compared every regular-file digest exposed by each receipt after-map to the current frozen workspace. Spreadsheet whole-dist bindings use the final root-validated directory digest recorded above."
+  },
+  "orderedOutcomeAudit": {
+    "verdict": "pass",
+    "method": "Reconstructed each ordered inner result vector from the durable receipt (including failed-check sets where present), verified exact roster counts and expected statuses, and bound that exact vector with orderedOutcomeVectorDigest. This does not infer success from an outer exit code.",
+    "expectedCounts": {
+      "excalidraw": 13,
+      "jupyter": 10,
+      "emergency": 20,
+      "combined": 40,
+      "saas": 6,
+      "planner": 13
+    }
+  },
+  "supersededEvidence": {
+    "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/reservation-tournament-api-main-b8390ca2/receipt.json",
+    "receiptDigest": "sha256:0f12c9c0286c1bdabd10760cfbdc7a250045bc4bffb152e5fc87afe403655807",
+    "status": "failed",
+    "report": {
+      "success": false,
+      "numTotalTests": 40,
+      "numPassedTests": 39,
+      "numFailedTests": 1,
+      "numPendingTests": 0
+    },
+    "failure": "Tournament sealed reference EvalService digest drifted after merging origin/main; 39/40 passed. No retry performed.",
+    "supersededBy": "/Volumes/2T-SSD/eval-evidence/2026-09-27/reservation-tournament-api-main-b8390ca2-v2/receipt.json",
+    "note": "Preserved 39/40 failure from the pre-rebind Tournament snapshot; the fresh rebound receipt is authoritative for the corrected source."
+  },
+  "assertions": [
+    "All six fresh receipts report their declared successful/non-certifying-pass status and stable inputs.",
+    "Excalidraw 13, Jupyter 10, Emergency 20, combined Reservation/Tournament/API 40, SaaS 6, and Planner 13 ordered inner outcomes match their declared exact rosters; their vector digests bind IDs, statuses, and failed-check sets where emitted.",
+    "Current regular-file source/runtime bindings exposed by the receipts have zero mismatches. Jupyter case and admission sources remained byte-identical while merged root package and lock inputs are captured by its fresh receipt.",
+    "Planner and SaaS receipts bind the final eval-runner dist directory digest sha256:be81c5e8... and their declared Node/artifact-tool runtime identities."
+  ],
+  "verificationNotCovered": [
+    "Final post-evidence full repository check, build, compiled parity, and browser proof are root-owned and were pending when this review was written.",
+    "This deterministic evidence is non-certifying and performs no paid live inference."
+  ],
+  "verdict": {
+    "status": "pass-non-certifying-heavy-evidence-review",
+    "unresolvedFindings": []
+  }
+}

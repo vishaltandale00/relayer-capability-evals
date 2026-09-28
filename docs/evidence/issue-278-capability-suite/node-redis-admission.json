@@ -1,0 +1,945 @@
+{
+  "schemaVersion": 1,
+  "caseId": "autonomous.node-redis.command-queue-race",
+  "caseSnapshotDigest": "sha256:86468e8b3d9392d78acc3172353a20a1f6f95fd5fb78b2ea767d8dd26af5d894",
+  "verifierDigest": "sha256:82a09a3397bb61c9a25974e966ee5125580441d3b8f17ccfa40871c842fad562",
+  "upstreamCommit": "4f85030e42da2eed6a178e54994330af5062761e",
+  "upstreamTree": "3a360d5440b2d73831123df48e24b3422676bb16",
+  "environment": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "node": "22.23.2",
+    "npm": "10.9.8"
+  },
+  "productionGraderExercised": true,
+  "results": [
+    {
+      "id": "untouched-source-baseline",
+      "role": "red-baseline",
+      "patchDigest": null,
+      "green": false,
+      "failedChecks": [
+        "workspace:node-redis:candidate-regression-passes",
+        "workspace:node-redis:failed-command-rejected-once",
+        "workspace:node-redis:queue-clean-before-reconnect",
+        "workspace:node-redis:reconnect-reply-order",
+        "workspace:node-redis:offline-queue-replayed-in-order",
+        "workspace:node-redis:reconnect-queue-drained",
+        "workspace:node-redis:single-failure-callbacks-settle",
+        "workspace:node-redis:repeated-failures-rejected-independently",
+        "workspace:node-redis:repeated-reconnects-start-clean",
+        "workspace:node-redis:ordered-replies-after-recovery",
+        "workspace:node-redis:no-command-reply-misassociation",
+        "workspace:node-redis:callbacks-settle-without-hang",
+        "workspace:node-redis:focused-source-and-tests"
+      ],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": false,
+          "detail": "Regression exits: untouched=1, candidate=1."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": false,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": false,
+          "detail": "{\"queueAfterFault\":1,\"readyQueueLengths\":[0,2]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": false,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": false,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": false,
+          "detail": "command_queue_length=1"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": false,
+          "detail": "The reconnect command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": false,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": false,
+          "detail": "{\"queueAfterFaults\":[1,1],\"readyQueueLengths\":[0,1,2]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": false,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"final-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": false,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"final-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}],\"queueAfterReplies\":1,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": false,
+          "detail": "The repeated-failure command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": false,
+          "detail": "Changed source=false; focused tests=true; files=A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "upstream-proposal",
+      "role": "green-solution",
+      "patchDigest": "sha256:2a81eec0735d9b95b1a55dda0844d2b419c06cd0d74d7d55d748d595405aae0d",
+      "green": true,
+      "failedChecks": [],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": true,
+          "detail": "test/command-queue-race.test.js is red on the untouched source and green on the candidate."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": true,
+          "detail": "{\"queueAfterFault\":0,\"readyQueueLengths\":[0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": true,
+          "detail": "command_queue_length=0"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": true,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": true,
+          "detail": "{\"queueAfterFaults\":[0,0],\"readyQueueLengths\":[0,0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}],\"queueAfterReplies\":0,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "queue-admission",
+      "role": "green-solution",
+      "patchDigest": "sha256:c68c52a11fda5f25543d65edfbfaabbe9031bde6e4769a136b4eb173b80f53f5",
+      "green": true,
+      "failedChecks": [],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": true,
+          "detail": "test/command-queue-race.test.js is red on the untouched source and green on the candidate."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": true,
+          "detail": "{\"queueAfterFault\":0,\"readyQueueLengths\":[0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": true,
+          "detail": "command_queue_length=0"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": true,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": true,
+          "detail": "{\"queueAfterFaults\":[0,0],\"readyQueueLengths\":[0,0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}],\"queueAfterReplies\":0,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "clear-on-ready",
+      "role": "adversarial-mutant",
+      "patchDigest": "sha256:ae09606ee343fb3a3600cd6cfce00567f7bc31923a933088eafeb3302fd5e52c",
+      "green": false,
+      "failedChecks": [
+        "workspace:node-redis:candidate-regression-passes",
+        "workspace:node-redis:failed-command-rejected-once",
+        "workspace:node-redis:queue-clean-before-reconnect",
+        "workspace:node-redis:single-failure-callbacks-settle",
+        "workspace:node-redis:repeated-failures-rejected-independently",
+        "workspace:node-redis:repeated-reconnects-start-clean"
+      ],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": false,
+          "detail": "Regression exits: untouched=1, candidate=1."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": false,
+          "detail": "[]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": false,
+          "detail": "{\"queueAfterFault\":1,\"readyQueueLengths\":[0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": true,
+          "detail": "command_queue_length=0"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": false,
+          "detail": "The reconnect command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": false,
+          "detail": "[]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": false,
+          "detail": "{\"queueAfterFaults\":[1,1],\"readyQueueLengths\":[0,0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}],\"queueAfterReplies\":0,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "first-error-only",
+      "role": "adversarial-mutant",
+      "patchDigest": "sha256:d0896a3a8ce5ad0354c1fd9d4f178eb910f1823c67fe5222e05934e3d86b34c8",
+      "green": false,
+      "failedChecks": [
+        "workspace:node-redis:repeated-failures-rejected-independently",
+        "workspace:node-redis:repeated-reconnects-start-clean",
+        "workspace:node-redis:ordered-replies-after-recovery",
+        "workspace:node-redis:no-command-reply-misassociation",
+        "workspace:node-redis:callbacks-settle-without-hang"
+      ],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": true,
+          "detail": "test/command-queue-race.test.js is red on the untouched source and green on the candidate."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": true,
+          "detail": "{\"queueAfterFault\":0,\"readyQueueLengths\":[0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": true,
+          "detail": "command_queue_length=0"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": false,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": false,
+          "detail": "{\"queueAfterFaults\":[0,1],\"readyQueueLengths\":[0,0,2]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": false,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"final-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": false,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"final-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}],\"queueAfterReplies\":1,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": false,
+          "detail": "The repeated-failure command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "no-reconnect",
+      "role": "adversarial-mutant",
+      "patchDigest": "sha256:ffe5c17978d9f613faf07120f089155dd48a034bbf1e4efc5cda1f8c77ca9c62",
+      "green": false,
+      "failedChecks": [
+        "workspace:node-redis:candidate-regression-passes",
+        "workspace:node-redis:fault-injection-observed",
+        "workspace:node-redis:queue-clean-before-reconnect",
+        "workspace:node-redis:reconnect-reply-order",
+        "workspace:node-redis:offline-queue-replayed-in-order",
+        "workspace:node-redis:single-failure-callbacks-settle",
+        "workspace:node-redis:repeated-faults-observed",
+        "workspace:node-redis:fault-command-matrix-observed",
+        "workspace:node-redis:repeated-failures-rejected-independently",
+        "workspace:node-redis:repeated-reconnects-start-clean",
+        "workspace:node-redis:ordered-replies-after-recovery",
+        "workspace:node-redis:no-command-reply-misassociation",
+        "workspace:node-redis:callbacks-settle-without-hang"
+      ],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": false,
+          "detail": "Regression exits: untouched=1, candidate=1."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": false,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":false}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": false,
+          "detail": "{\"queueAfterFault\":1,\"readyQueueLengths\":[0]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": false,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"NR_CLOSED\",\"reply\":null},{\"label\":\"offline-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": false,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": true,
+          "detail": "command_queue_length=0"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": false,
+          "detail": "The reconnect command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": false,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":false}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": false,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": false,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": false,
+          "detail": "{\"queueAfterFaults\":[1],\"readyQueueLengths\":[0]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": false,
+          "detail": "[]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": false,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}],\"queueAfterReplies\":0,\"repeatedTranscriptObserved\":false}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": false,
+          "detail": "The repeated-failure command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "noop-regression",
+      "role": "adversarial-delivery-mutant",
+      "patchDigest": "sha256:2a81eec0735d9b95b1a55dda0844d2b419c06cd0d74d7d55d748d595405aae0d",
+      "green": false,
+      "failedChecks": [
+        "workspace:node-redis:candidate-regression-passes"
+      ],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": false,
+          "detail": "Regression exits: untouched=0, candidate=0."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": true,
+          "detail": "{\"queueAfterFault\":0,\"readyQueueLengths\":[0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": true,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": true,
+          "detail": "command_queue_length=0"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": true,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": true,
+          "detail": "{\"queueAfterFaults\":[0,0],\"readyQueueLengths\":[0,0,1]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": true,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"final-ping\",\"errorCode\":null,\"reply\":\"PONG\"}],\"queueAfterReplies\":0,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": true,
+          "detail": "Every callback settled inside the event-driven deadline."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    },
+    {
+      "id": "forged-observations",
+      "role": "adversarial-authority-mutant",
+      "patchDigest": "sha256:56b498fb5bb0a20d860023521159c9bf9d87b65b9192520152a2068056970ab1",
+      "green": false,
+      "failedChecks": [
+        "workspace:node-redis:candidate-regression-passes",
+        "workspace:node-redis:failed-command-rejected-once",
+        "workspace:node-redis:queue-clean-before-reconnect",
+        "workspace:node-redis:reconnect-reply-order",
+        "workspace:node-redis:offline-queue-replayed-in-order",
+        "workspace:node-redis:reconnect-queue-drained",
+        "workspace:node-redis:single-failure-callbacks-settle",
+        "workspace:node-redis:repeated-failures-rejected-independently",
+        "workspace:node-redis:repeated-reconnects-start-clean",
+        "workspace:node-redis:ordered-replies-after-recovery",
+        "workspace:node-redis:no-command-reply-misassociation",
+        "workspace:node-redis:callbacks-settle-without-hang"
+      ],
+      "checks": [
+        {
+          "name": "workspace:node-redis:candidate-regression-passes",
+          "passed": false,
+          "detail": "Regression exits: untouched=1, candidate=1."
+        },
+        {
+          "name": "workspace:node-redis:fault-injection-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"}],\"rejectedKeysReachedServer\":false,\"singleTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:failed-command-rejected-once",
+          "passed": false,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:queue-clean-before-reconnect",
+          "passed": false,
+          "detail": "{\"queueAfterFault\":1,\"readyQueueLengths\":[0,2]}"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-reply-order",
+          "passed": false,
+          "detail": "[{\"label\":\"poisoned-set\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:offline-queue-replayed-in-order",
+          "passed": false,
+          "detail": "[{\"label\":\"offline-ping\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"post-reconnect-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:reconnect-queue-drained",
+          "passed": false,
+          "detail": "command_queue_length=1"
+        },
+        {
+          "name": "workspace:node-redis:single-failure-callbacks-settle",
+          "passed": false,
+          "detail": "The reconnect command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:repeated-faults-observed",
+          "passed": true,
+          "detail": "{\"failures\":[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}],\"rejectedKeysReachedServer\":false,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:fault-command-matrix-observed",
+          "passed": true,
+          "detail": "[{\"connection\":1,\"command\":\"set\",\"code\":\"EPIPE\"},{\"connection\":2,\"command\":\"get\",\"code\":\"ECONNRESET\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-failures-rejected-independently",
+          "passed": false,
+          "detail": "[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":null,\"reply\":\"PONG\"}]"
+        },
+        {
+          "name": "workspace:node-redis:repeated-reconnects-start-clean",
+          "passed": false,
+          "detail": "{\"queueAfterFaults\":[1,1],\"readyQueueLengths\":[0,1,2]}"
+        },
+        {
+          "name": "workspace:node-redis:ordered-replies-after-recovery",
+          "passed": false,
+          "detail": "[{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"final-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}]"
+        },
+        {
+          "name": "workspace:node-redis:no-command-reply-misassociation",
+          "passed": false,
+          "detail": "{\"events\":[{\"label\":\"failed-command-1\",\"errorCode\":\"UNCERTAIN_STATE\",\"reply\":null},{\"label\":\"failed-command-2\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"offline-ping-after-fault\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-alpha\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"set-beta\",\"errorCode\":null,\"reply\":\"A\"},{\"label\":\"get-alpha\",\"errorCode\":null,\"reply\":\"B\"},{\"label\":\"get-beta\",\"errorCode\":null,\"reply\":\"PONG\"},{\"label\":\"final-ping\",\"errorCode\":\"NR_CLOSED\",\"reply\":null}],\"queueAfterReplies\":1,\"repeatedTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:callbacks-settle-without-hang",
+          "passed": false,
+          "detail": "The repeated-failure command sequence did not settle."
+        },
+        {
+          "name": "workspace:node-redis:client-reply-modes-preserved",
+          "passed": true,
+          "detail": "{\"events\":[{\"label\":\"reply-skip\",\"errorCode\":null,\"reply\":null},{\"label\":\"skipped-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"get-after-skip\",\"errorCode\":null,\"reply\":\"skip-value\"},{\"label\":\"reply-off\",\"errorCode\":null,\"reply\":null},{\"label\":\"off-set\",\"errorCode\":null,\"reply\":null},{\"label\":\"reply-on\",\"errorCode\":null,\"reply\":\"OK\"},{\"label\":\"get-after-on\",\"errorCode\":null,\"reply\":\"off-value\"}],\"queueAfterReplies\":0,\"timedOut\":false,\"replyModeTranscriptObserved\":true}"
+        },
+        {
+          "name": "workspace:node-redis:focused-source-and-tests",
+          "passed": true,
+          "detail": "Changed source=true; focused tests=true; files=M:index.js, A:test/command-queue-race.test.js."
+        },
+        {
+          "name": "workspace:node-redis:dependency-safe-scope",
+          "passed": true,
+          "detail": "The committed patch does not alter dependencies, generated modules, or delete repository files."
+        },
+        {
+          "name": "workspace:node-redis:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-baseline commit(s); exactly one is required."
+        },
+        {
+          "name": "workspace:node-redis:implementation-clean",
+          "passed": true,
+          "detail": "The candidate workspace is clean."
+        }
+      ]
+    }
+  ]
+}

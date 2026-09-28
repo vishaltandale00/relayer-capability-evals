@@ -1,0 +1,11 @@
+--- a/packages/excalidraw/scene-history.tsx
++++ b/packages/excalidraw/scene-history.tsx
+@@ -242,7 +242,7 @@
+   if (value?.type === "excalidraw-scene-history") {
+     if (value.schemaVersion !== 1) throw new Error("unsupported history schema");
+     const initial = value.currentVersionId ? value.snapshots[value.currentVersionId] : { elements: [], files: {}, appState: {} };
+-    return createSceneHistoryController(initial, null, value);
++    return createSceneHistoryController(initial);
+   }
+   if (value?.type === "excalidraw" && [1, 2].includes(value.version)) {
+     const restored = restore(value, null, null, { repairBindings: true });

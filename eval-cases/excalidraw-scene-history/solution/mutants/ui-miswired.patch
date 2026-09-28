@@ -1,0 +1,11 @@
+--- a/packages/excalidraw/scene-history.tsx
++++ b/packages/excalidraw/scene-history.tsx
+@@ -249,7 +249,7 @@
+     <label>Version name<input value={versionName} onChange={(event) => setVersionName(event.target.value)} /></label>
+     <button type="button" onClick={() => { controller.saveVersion({ name: versionName }); setVersionName(""); refresh(); }}>Save version</button>
+     <label>Checkout version<select value={checkoutId} onChange={(event) => setCheckoutId(event.target.value)}><option value="">Choose version</option>{versions.map(option)}</select></label>
+-    <button type="button" disabled={!checkoutId} onClick={() => controller.checkout(checkoutId)}>Checkout version</button>
++    <button type="button" disabled={!checkoutId} onClick={() => controller.exportHistory()}>Checkout version</button>
+     <label>Merge name<input value={mergeName} onChange={(event) => setMergeName(event.target.value)} /></label>
+     <label>Merge base<select value={baseId} onChange={(event) => setBaseId(event.target.value)}><option value="">Choose base</option>{versions.map(option)}</select></label>
+     <label>First merge version<select value={leftId} onChange={(event) => setLeftId(event.target.value)}><option value="">Choose version</option>{versions.map(option)}</select></label>

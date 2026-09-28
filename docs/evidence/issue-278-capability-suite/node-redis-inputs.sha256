@@ -1,0 +1,3 @@
+0ce3626a575ba222b72d59088d16a74895ad65d59a3591b952279543c7ec0b98  packages/eval-runner/src/project-cases/node-redis.ts
+9245a632a66b3e75797fb7f85a7c13b8f085a0650d64bc5dddcaf20f2e46238c  packages/eval-runner/dist/project-cases/node-redis.js
+2906abdab843d3c7a78826f4e3557d8ad0575b457a52a363ca534e0ea6abc21f  scripts/verify-node-redis-case-admission.mjs

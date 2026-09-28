@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "portfolioId": "excalidraw-scene-history-reference-v1",
+  "inputs": [
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/green-command-log.patch",
+      "digest": "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/green-functional.patch",
+      "digest": "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/branch-overwrite.patch",
+      "digest": "sha256:16d2ae42f457aee74216888567f9eb5565f5b2fb85e653c94954543a7ee952fb"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/forged-runner.patch",
+      "digest": "sha256:c4f6a03bc1dd0dfb3802beeb9754a483e0c26ff0ba1fcc86184030e18cf3d43f"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/forged-verdict.patch",
+      "digest": "sha256:5379318d3fb20a8f5d1738cca7194305b9392a469f8b44f2e8e6753b99ac0ef1"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/forged-yarnrc.patch",
+      "digest": "sha256:df156e6c6b5244830e867642397e58c1fca49cd14ef7c8c4ea2ca6f47dc2e3f5"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/history-loss.patch",
+      "digest": "sha256:4a6950a2d1136df414042292c8d942a99d019329d35deb5ed58192d385ebe2e9"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/relationships.patch",
+      "digest": "sha256:49c3265ac5b2897b3f3951e151e919aa5c1882d5de6a004049fc2ea7deecb48b"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/silent-lww.patch",
+      "digest": "sha256:d3424214c0153de9233dc017b680bb20325a7f383cacdc74062c5d278fed80af"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/ui-inert.patch",
+      "digest": "sha256:bfee65a6b6d9a1531523a9ae0379426e7c912d13ba755487d5f27bffc2523db8"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/ui-miswired.patch",
+      "digest": "sha256:24818efa7f1cbea4f7907b8cbb268c0e0a793a46453ccac20ddc3376aba87905"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/mutants/undo.patch",
+      "digest": "sha256:306b1c92db56d3a33d83f1688e53f4fd6419243d6120395196fde8ec08d00c1b"
+    },
+    {
+      "path": "eval-cases/excalidraw-scene-history/solution/reference.md",
+      "digest": "sha256:97c896077cf896da5f456c7e80b0f2f923d989118a50b9260391c3a202899c8e"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/green-command-log.mjs",
+      "digest": "sha256:b0ca6068cc8356ebb53de72b7bec3e5fd5367d27ff7c257fca4ffd9e994463fb"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/green-functional.mjs",
+      "digest": "sha256:3d49a99f70f6dad667cb607ef303a74ec53f61c3639c1609843b2bd6835421c5"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-assets.mjs",
+      "digest": "sha256:296504536b6f2e7ebf974a279dc128c2ac081be5976819a04edd30803d29c0ed"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-bindings.mjs",
+      "digest": "sha256:b5995e8e7e7d6ac3b6b4aaf52c479d634787031dd8ee3086ed2ec2bbb89abdea"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-branch-overwrite.mjs",
+      "digest": "sha256:768a807ebf8cb4e2f2d661c5dd2da4606efac35f72de1d2e42948087c4822975"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-common-ancestor.mjs",
+      "digest": "sha256:b1a5b10af392126201b2f3414520a7eac42d1d1ddf4095fd21bee4ae876f48b9"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-compat.mjs",
+      "digest": "sha256:6dedff3ddab85a4e8a50268e5a4c43b622098854ada7acc9d9fee8a21dd61ceb"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-early-resolution.mjs",
+      "digest": "sha256:75b14cdba69cc23e92394532f3f9dfd850ccd894c3fb926df9a35b917506965c"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-export.mjs",
+      "digest": "sha256:633eef133d97df5a643da375f57e29a05fd726b6927cc65c99a5edc9f7588a43"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-factory.mjs",
+      "digest": "sha256:bdbf3bf7e739f28660fe182c43c4e7e372d6970a619d0ed3ade2cf54597aeca5"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-forged-verdict.mjs",
+      "digest": "sha256:4f2fd6f808ae72ca242191ef05ee78840a16f384e590275438062f0cc38345f9"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-frame-container.mjs",
+      "digest": "sha256:ca9cca12d524dfa2a8438d195d8bf87222fa0de5b7915a5e8c98015622d60108"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-groups.mjs",
+      "digest": "sha256:aafcaf1da0f22664b7911b6dad1d9efcc8715206f72642ac97499938d17cf54b"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-history-loss.mjs",
+      "digest": "sha256:998469dfb7d475859cbfa47eb972dc305d9bb6c522126363ce1b395e4b66d8bc"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-nondeterminism.mjs",
+      "digest": "sha256:948fc181d7dce15a65958ffaf1534987c4e9c8d721e68355f2cf8e05e38ed3f0"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-ordering.mjs",
+      "digest": "sha256:6bfb75a54eb9f0b7d26781246cd055487cfece881daf41df873f57db49daea6c"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-silent-lww.mjs",
+      "digest": "sha256:ed0305be09e5778e270851415497febf670054af3edbcf318e258609a9dba113"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-ui-accessibility.mjs",
+      "digest": "sha256:1dba54ca946a3035c31f51d6232dcef377243d317af067d1c530a7b3cc036ba7"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/mutant-undo.mjs",
+      "digest": "sha256:4ddcd788dc5bce3278c153a46503166d2545b5cda9f796e789fae2cdcc255bca"
+    },
+    {
+      "path": "packages/capability-evals/test/fixtures/excalidraw-scene-history/red-untouched.mjs",
+      "digest": "sha256:f7e69c1e7d97946077425a68c635c7202892525a89a90ab9c8bda37b88cad1df"
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-28T01:26:38.424507+00:00",
+  "scope": "Deterministic verifier qualification; not live model performance or release qualification",
+  "suite": {
+    "suiteId": "harness-capability-pilot-v1",
+    "suiteDigest": "sha256:d68baaefb4956528ad8541ac2eb1663a2c639a4e102b9aa02d40ac90241ab038",
+    "status": "candidate",
+    "presentationContract": {
+      "rubricVersion": "graph-presentation-rubric-v11",
+      "rubricDigest": "sha256:675ee8745eec9af4d8e6d9fbeda552c2fd326275e3a3e8e5a9595d9e3e615b53",
+      "recursiveContractId": "recursive-presentation-judge-v6",
+      "recursiveContractVersion": 6,
+      "recursiveContractDigest": "sha256:e9f607683df96fd5d7e5f17feffbca4754b30b75351c71836ffa859a7a1c3264",
+      "judgeContractId": "simulated-user-tools-v1",
+      "judgeContractDigest": "sha256:75832b4b373c657e2c6f87a37577fd4ba2ec49a583b8c4282d00b2abb3c8e34f",
+      "promptVersion": "simulated-user-judge-prompt-v11"
+    },
+    "members": [
+      {
+        "caseId": "capability.greenfield.reservation-capacity",
+        "expectedCaseSnapshotDigest": "sha256:a8986bd9b0ccc5e2028db786e714f6ae5b95876912d546f0755976f4b11ec594",
+        "outcomeContractVersion": "reservation-capacity-outcome-v1",
+        "outcomeContractDigest": "sha256:0c51a56c2da5714de2335fabdb0a8c2d4daf156c4f1de3da433ee503344873db",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "capability.greenfield.tournament-operations",
+        "expectedCaseSnapshotDigest": "sha256:abf5dc17eee9e2537c663c0344704c271403e9d1ca4a30ca7a7472020ecb2bdf",
+        "outcomeContractVersion": "tournament-operations-outcome-v1",
+        "outcomeContractDigest": "sha256:7534b1fb217d9e9fe97c3083b41baccb58c92c0e408ee2de66ee35ddc1083e7f",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "capability.greenfield.api-contract-simulation-laboratory",
+        "expectedCaseSnapshotDigest": "sha256:5c88018596caf482c41dab8ec5a444dabe683f838cb5a4352565850d5fa1ba56",
+        "outcomeContractVersion": "api-contract-simulation-laboratory-outcome-v1",
+        "outcomeContractDigest": "sha256:a3c90bc24424b0762763f2f5bc164fb35d85e8d28f139bc2797d0db7ef31e477",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "capability.greenfield.emergency-evacuation-route-planner",
+        "expectedCaseSnapshotDigest": "sha256:c83982a66344165475a7c03b491369c4721dd9bf1b4834d5ee166d59cb753658",
+        "outcomeContractVersion": "emergency-evacuation-outcome-v1",
+        "outcomeContractDigest": "sha256:fe4be6e128aeb55b674a97c0c913d6a72fe516eafb5bcfc959da66611952cf3f",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "autonomous.httpcore.cancellation-poisoned-pool",
+        "expectedCaseSnapshotDigest": "sha256:2c57c684a6fc489102871a6013263e06b56a8a18034a97964d3a17bce88c1ef7",
+        "outcomeContractVersion": "httpcore-cancellation-outcome-v1",
+        "outcomeContractDigest": "sha256:031aa292df90b8b921d925152315fae4ce322b9647cbed57cc2304cb5f9adfa5",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "autonomous.node-redis.command-queue-race",
+        "expectedCaseSnapshotDigest": "sha256:86468e8b3d9392d78acc3172353a20a1f6f95fd5fb78b2ea767d8dd26af5d894",
+        "outcomeContractVersion": "node-redis-command-queue-race-outcome-v1",
+        "outcomeContractDigest": "sha256:e74aee1f32ef6ebbff0517b11913cecd3a5077acbaab72064cba7838a605136b",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "autonomous.excalidraw.scene-history",
+        "expectedCaseSnapshotDigest": "sha256:37aabb0c67bfc7448018af39b1b5c77ea8818f4c7eaddfc10808e246ef2de957",
+        "outcomeContractVersion": "excalidraw-scene-history-outcome-v1",
+        "outcomeContractDigest": "sha256:5bc466b2dd2a068b159580de492fcced1118501775114d78f1a1942dd00fa65d",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "jupyterlab.reproducible-execution-bundles",
+        "expectedCaseSnapshotDigest": "sha256:82f15a703d24fd1a439762ddea29c090f27d0364a3b4cb78122b04d9618d8045",
+        "outcomeContractVersion": "jupyterlab-execution-bundles-outcome-v1",
+        "outcomeContractDigest": "sha256:7d468da55a37c042ac3a402473db381973f13ebefc9f7b91e3c005a72974b4a5",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "capability.spreadsheet.saas-operating-model",
+        "expectedCaseSnapshotDigest": "sha256:39a5f7579f0dfba0f1e356acf5c34244cf5a44d6b7d5fd9956f2566fd6b33104",
+        "outcomeContractVersion": "saas-operating-model-outcome-v1",
+        "outcomeContractDigest": "sha256:7ea1b29870c555b38c2764405657b9084fca1442d4a3c55ab500aa9f5de2f112",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      },
+      {
+        "caseId": "capability.spreadsheet.production-delivery-planner",
+        "expectedCaseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+        "outcomeContractVersion": "production-delivery-planner-outcome-v1",
+        "outcomeContractDigest": "sha256:eae35f2d9e89d2b11a5c533a73b274c886364002cfd006460d0204a9f59e0919",
+        "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
+      }
+    ]
+  },
+  "provenance": {
+    "sourceRepository": "https://github.com/vishaltandale00/relayer-capability-evals",
+    "sourceCommit": "4d8f4aeb5c9675805d204a1fbc3418bf8b4671a7",
+    "importCommit": "10852068089972217a9ac01dfda77af75200f146",
+    "integrationMainBase": "b8390ca25b3a73c586136bf6a2438ab95159b2e9",
+    "previousVerifiedIntegrationCommit": "c537f471a5f1d3a45eb198937d74f8e619c8c8f9"
+  },
+  "members": [
+    {
+      "caseId": "capability.greenfield.reservation-capacity",
+      "caseSnapshotDigest": "sha256:a8986bd9b0ccc5e2028db786e714f6ae5b95876912d546f0755976f4b11ec594",
+      "verifierDigest": "sha256:45da19945ee919850cf0ed40f2033b3b5a475046528c6479b69088e3dcadcd9d",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "reservation-tournament-api-admission.json",
+        "sha256": "sha256:a8e3f2cd037e1076f27920a1f8687889128d36673eecde2c6c1b3950c496e68d",
+        "observations": "20 focused assertions"
+      }
+    },
+    {
+      "caseId": "capability.greenfield.tournament-operations",
+      "caseSnapshotDigest": "sha256:abf5dc17eee9e2537c663c0344704c271403e9d1ca4a30ca7a7472020ecb2bdf",
+      "verifierDigest": "sha256:b5c1b0f4d895479ffd2c23196ee49817104af602560c118db5fdd575d2f49d4a",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "reservation-tournament-api-admission.json",
+        "sha256": "sha256:a8e3f2cd037e1076f27920a1f8687889128d36673eecde2c6c1b3950c496e68d",
+        "observations": "5 focused assertions"
+      }
+    },
+    {
+      "caseId": "capability.greenfield.api-contract-simulation-laboratory",
+      "caseSnapshotDigest": "sha256:5c88018596caf482c41dab8ec5a444dabe683f838cb5a4352565850d5fa1ba56",
+      "verifierDigest": "sha256:2a3224fb67a6005e4f51697f9221ad9bce3c27841e497c676d3379876d1ba01a",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "reservation-tournament-api-admission.json",
+        "sha256": "sha256:a8e3f2cd037e1076f27920a1f8687889128d36673eecde2c6c1b3950c496e68d",
+        "observations": "15 focused assertions"
+      }
+    },
+    {
+      "caseId": "capability.greenfield.emergency-evacuation-route-planner",
+      "caseSnapshotDigest": "sha256:c83982a66344165475a7c03b491369c4721dd9bf1b4834d5ee166d59cb753658",
+      "verifierDigest": "sha256:7de6458c6d92601eeb90f6de47634cbb8fc27371a3c3e79603501a14d643d415",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "emergency-admission.json",
+        "sha256": "sha256:36eb28d9e4b28d7065b9bfe97d23bd50c455074d9f07826536dae06b2b2f44b8",
+        "observations": "20 admission assertions"
+      }
+    },
+    {
+      "caseId": "autonomous.httpcore.cancellation-poisoned-pool",
+      "caseSnapshotDigest": "sha256:2c57c684a6fc489102871a6013263e06b56a8a18034a97964d3a17bce88c1ef7",
+      "verifierDigest": "sha256:0365d51724d53169f904cab19ef96ef3537f84187e02a8f08ae9e4b25b976906",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "httpcore-source-bound-admission.json",
+        "sha256": "sha256:e2ccbe8c5821ea96e46527884e71b5fa91a380e41b59c4e76e8d4d30a82d3445",
+        "observations": "10 portfolio entries: baseline, 2 greens, 7 mutants"
+      }
+    },
+    {
+      "caseId": "autonomous.node-redis.command-queue-race",
+      "caseSnapshotDigest": "sha256:86468e8b3d9392d78acc3172353a20a1f6f95fd5fb78b2ea767d8dd26af5d894",
+      "verifierDigest": "sha256:82a09a3397bb61c9a25974e966ee5125580441d3b8f17ccfa40871c842fad562",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "node-redis-admission.json",
+        "sha256": "sha256:d0ef008a5c51d71813bddfc7bb81074b6d378a7779c6f5d268f9d83e19cdeea4",
+        "observations": "8 portfolio entries: baseline, 2 greens, 5 mutants"
+      }
+    },
+    {
+      "caseId": "autonomous.excalidraw.scene-history",
+      "caseSnapshotDigest": "sha256:37aabb0c67bfc7448018af39b1b5c77ea8818f4c7eaddfc10808e246ef2de957",
+      "verifierDigest": "sha256:4b5c58ba64e7018021fe8c664e513c185b70c4260e01978f97de024631a4229e",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "excalidraw-admission.json",
+        "sha256": "sha256:ebf14d983628778ca5ef2a47bf355d34d19c0ebaeb58666e55e08ccdba5b1ac1",
+        "observations": "13 portfolio entries: baseline, 2 greens, 10 mutants"
+      }
+    },
+    {
+      "caseId": "jupyterlab.reproducible-execution-bundles",
+      "caseSnapshotDigest": "sha256:82f15a703d24fd1a439762ddea29c090f27d0364a3b4cb78122b04d9618d8045",
+      "verifierDigest": "sha256:b32270aa329d5d67660a627d6152ec3bf75a9e3308281cca1119cea89ddd66bf",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "jupyterlab-admission.json",
+        "sha256": "sha256:41b263e01ef384e5a5bd376302be79dc04a832cb6dc637dc8a37926fd603efa5",
+        "observations": "10 portfolio entries: baseline/missing feature, 2 greens, 6 mutants"
+      }
+    },
+    {
+      "caseId": "capability.spreadsheet.saas-operating-model",
+      "caseSnapshotDigest": "sha256:39a5f7579f0dfba0f1e356acf5c34244cf5a44d6b7d5fd9956f2566fd6b33104",
+      "verifierDigest": "sha256:cbd1c1399c67f7b81ce8fb80e8783dee7b1bb9a313d171d73ac31b305035d006",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "saas-admission.json",
+        "sha256": "sha256:c71b40ab940dc194ba0dd24da173b72396fad24f5c784c992b1552303bcc38be",
+        "observations": "6 portfolio entries: baseline, 2 greens, 3 mutants"
+      }
+    },
+    {
+      "caseId": "capability.spreadsheet.production-delivery-planner",
+      "caseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+      "verifierDigest": "sha256:048ed16e5e30b3fec155afd5a08dd34dcb38da3a87c820b7ef2f09866193e7e7",
+      "status": "deterministic-portfolio-passed",
+      "evidence": {
+        "file": "planner-admission.json",
+        "sha256": "sha256:5e31ea4ff0bf23ca8e43d0c1b5db26d1608a104d04be5dd70f339af13420a181",
+        "observations": "13 portfolio entries: baseline, 2 greens, 10 mutants"
+      }
+    }
+  ],
+  "sourceReviews": [
+    {
+      "file": "pr533-merged-upstream-eval-integration-review.json",
+      "sha256": "sha256:ac02aa24b81e4e6f2e2180bb3c6e3073a559fff545e944c32685f92b13b12565"
+    },
+    {
+      "file": "final-main-heavy-evidence-review.json",
+      "sha256": "sha256:b3e13bec9348cf979e9e1da0bb7cc3739ec58b15bcba5817845185298d25cd63"
+    },
+    {
+      "file": "emergency-authority-review.json",
+      "sha256": "sha256:1851c3a0de84efd4795982665e1bc381bd02ee99776c83223ef64c34104b46fe"
+    },
+    {
+      "file": "excalidraw-independent-green-review.json",
+      "sha256": "sha256:5faede961ae434cd54f307c2457ac50057da7db1a1d114fc9bcef55db0db8c12"
+    }
+  ],
+  "liveBaseline": {
+    "status": "not-run",
+    "paidInferenceAuthorized": false,
+    "acceptedBaselineExists": false,
+    "blockingGap": "Ordinary suite runs lack the explicit Eval confirmation, credential reference, and declared cost cap required by PRD 13.3; cap semantics need an explicit product decision."
+  },
+  "repositoryGates": {
+    "required": [
+      "RUST_TEST_THREADS=1 VITEST_MAX_WORKERS=1 npm run check",
+      "npm run build",
+      "npm run test:eval-compiled-runtime",
+      "RELAYER_EVAL_REQUIRE_CAPABILITY_SUITE=1 npm run test:eval-web"
+    ],
+    "evidenceLocation": "Final exact-source outer receipts and results are recorded in the pull-request verification section after this source snapshot is frozen."
+  },
+  "limitations": [
+    "Case authoring and suite status remain candidate; deterministic discrimination does not certify a live harness.",
+    "Excalidraw does not certify arbitrary editable-helper sabotage or decoded-pixel image equivalence.",
+    "HTTPCore does not certify arbitrary process-internal sabotage.",
+    "Final Reservation/Tournament/API receipt and repository gates use Node 22.23.2; the prior Node 25.9.0 orchestration receipt is historical.",
+    "Historical review files and interrupted/failed attempts are retained in CHECKPOINTS.md and are superseded where their scoped inputs changed."
+  ]
+}

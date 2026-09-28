@@ -11,7 +11,7 @@ import {
   gradeNodeRedisWorkspace,
   materializeNodeRedisProjectFixture,
   nodeRedisCommandQueueRaceCase,
-} from "../packages/eval-runner/dist/index.js";
+} from "../packages/capability-evals/dist/index.js";
 
 const execFileAsync = promisify(execFile);
 const repositoryRoot = resolve(import.meta.dirname, "..");
