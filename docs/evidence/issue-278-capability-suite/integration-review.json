@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-27",
+  "reviewer": {
+    "identity": "GPT-5.6 Sol /root/integration",
+    "mode": "read-only adversarial source review"
+  },
+  "scope": {
+    "description": "Issue #278 combined capability-suite manifest, ordinary case-by-harness expansion, EvalService selection/persistence/reopen, dashboard selection, native recursion ownership, and outcome/presentation gating.",
+    "files": {
+      "docs/prd/index.html": "sha256:edc60e95aa9db15a2eed36c8ad0a43dcab20ee70fe2c05ba4019e326ea4e8df3",
+      "packages/eval-runner/src/suites/capability-pilot-v1.ts": "sha256:40180c387bbb2da5564a75df4c7877e0562514361cd1e01e2f3f8ac340db6856",
+      "packages/eval-runner/src/run-plan.ts": "sha256:19d269b9f5daa0b36e2b0952dd2a88ab4dff21be3c55121e02d70d676ee7708a",
+      "desktop/eval-main/eval-service.mjs": "sha256:104ddb362efe6487313a2c70bbdc8a53ec5f82a9a4d2af11f1a254168bb2b379",
+      "desktop/eval-renderer/main.js": "sha256:6c49ac1bba2578ff8882a49b272197de66864cfb4ec3c953ed94c3ddb8aa6552",
+      "desktop/eval-renderer/configuration-model.js": "sha256:30ad63ab1644a6a4a6470f0b8ab4d096c2d681f68d29597bee03d9220578697f",
+      "packages/harness-host/src/completion-execution.ts": "sha256:7205b67d3ff1e4f5b6ed9f2fdd1167081db0788de31e91f1038b1148262c581d",
+      "packages/harness-host/src/implementations/codex-basic.ts": "sha256:94204eeda0a3e124bb4f68e8db7aaaf1cee7914fc26b21764985214732e180b7",
+      "packages/harness-host/src/implementations/prime-agent.ts": "sha256:c4be6fe01edb6f9bbaa0b202878c0d8a64fd5914f312d5aa58d9ee1972f69007",
+      "test/eval-service-simulated-user.test.mjs": "sha256:96bc637a3a94a57533791afee0079c9e36912bffa57ce50149ddcea9ebb21a05",
+      "test/eval-app-integration.test.mjs": "sha256:1eeaec0c780d7d2f156b21b57d0492da4c0b3db5ac51df25e13c35abb8bc320a",
+      "test/eval-suite-selection.test.mjs": "sha256:321fc2a592d5c9156284bf6bf2260331a68668bedae5c47d9b4f4dba7f9704af",
+      "scripts/test-eval-web.mjs": "sha256:be27363dc64f4b34a1c3cca1efb6a91a28a273b5d60bda95160291df57c84edc"
+    },
+    "scopeDigest": "sha256:141b9d2f1aafb23adcf7b5b47ba073537fd520f5e86b17f6b17cd70faf4f9ae9",
+    "exclusions": [
+      "Production Delivery Planner sources were changing during review.",
+      "Excalidraw scene-history sources were changing during review."
+    ]
+  },
+  "checkpoints": [
+    {
+      "id": "native-recursion-ownership",
+      "verdict": "pass",
+      "assertion": "The harness host exposes complete(inputGraph) through provider adapters and owns no recursive queue or scheduler; Codex and Prime retain native recursive execution."
+    },
+    {
+      "id": "historical-grade-preservation",
+      "verdict": "pass",
+      "assertion": "EvalService.open preserves terminal persisted grades and absent terminal legacy grades; it settles only judge evidence belonging to executions observed queued/running before normalization."
+    },
+    {
+      "id": "strict-ordered-suite-identity",
+      "verdict": "pass",
+      "assertion": "The code-owned manifest pins ordered membership and grading identities, fails closed on drift, expands through the ordinary case-by-harness matrix, and copies the full suite identity to run and execution records."
+    },
+    {
+      "id": "unavailable-selection",
+      "verdict": "pass",
+      "assertion": "Catalog projection marks a suite unavailable when any member is unavailable; createRun rejects unavailable membership and caller member overrides before queueing."
+    },
+    {
+      "id": "outcome-presentation-separation",
+      "verdict": "pass",
+      "assertion": "Task outcome uses deterministic checks and mandatory outcome gates. Presentation is recorded separately and does not compensate for a failed outcome."
+    },
+    {
+      "id": "durable-reopen",
+      "verdict": "pass",
+      "assertion": "A real createRun-to-disk-to-open regression preserves the exact ordered ten case IDs and suite identity; interrupted recovery preserves historical evidence boundaries."
+    },
+    {
+      "id": "dashboard-selection",
+      "verdict": "pass",
+      "assertion": "The real web host renders suite availability, selects the suite\u2019s ten members for inspection, submits the suite ID, clears suite selection for an ordinary manual case, and shows unavailable reasons."
+    }
+  ],
+  "verdict": "pass",
+  "findings": [],
+  "unresolved": [
+    "Final certification requires the final frozen combined source, full npm run check/build, and separate Planner/Excalidraw reviews and admissions."
+  ],
+  "certification": "non-certifying: no PR and explicitly excludes two changing case implementations"
+}

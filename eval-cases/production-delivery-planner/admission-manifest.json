@@ -2,15 +2,17 @@
   "schemaVersion": 1,
   "caseId": "capability.spreadsheet.production-delivery-planner",
   "authoringStatus": "candidate",
-  "caseSnapshotDigest": "sha256:9e49e105216b3e1b1e1125d01d537a720f2b3441fe9fd08fb4cb1381d960d516",
+  "caseSnapshotDigest": "sha256:56b146a264639a80dae8130c9f0ba1bd64359430ce504ab2d3b9c6b2a8512377",
   "fixtureContentDigest": "sha256:a683924b8d5c43a2c93c8ef29f6a954b6cb24a882b85e6688bb6a144ad94affd",
-  "environmentDigest": "sha256:d4bf08c7f5f95888d5a831d3856b430e7e89eba2ead44c46e2879596117430f7",
-  "verifierDigest": "sha256:4f877a5002e8e59efbf588eef59c8313a59fcbd39dead656e252eb7875a790e8",
+  "environmentDigest": "sha256:d65459edeff109e600be65a20c038308a154cb6ec1d3f6b5dfabf334175879d9",
+  "verifierDigest": "sha256:35090cf2e5032bad1633875a46445d09b6ea30419095a8352c885e5af9603e18",
   "taskDigest": "sha256:04ec9698584385b1e467f709c2ca50e01037d14bb840111a70e91e90bcbe05b5",
   "sourceDigests": {
-    "case": "sha256:7a21a5caf63e848ab0708364eede71a52dee56c54544077f588938e88ba5025b",
-    "runtime": "sha256:ab43cafe67c1e339b346440ac9e425986935e7b2c2800e0b9ef511e05a7fa8c0",
-    "portfolioBuilder": "sha256:99e645ea68b262b77b887ea473f5907fd9a7be72ada62f2f390be6e550e55789"
+    "case": "sha256:7e2781ea7f321cdb2b1a2eeae409e98799ae8b43ab0823086a313d35344abd0b",
+    "runtime": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+    "portfolioBuilder": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+    "admissionRunner": "sha256:d6d1e7a5f8ec70acd4a008752ef35fcb063b2a6be3cdcf3e7a7faf51aa86b590",
+    "outcomeClassifier": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c"
   },
   "redBaseline": "missing production-delivery-plan.xlsx",
   "greens": [
@@ -28,5 +30,12 @@
     "mutant-cost": "workspace:cost-arithmetic",
     "mutant-stale-dashboard": "workspace:cross-sheet-consistency",
     "mutant-dashboard": "workspace:workbook-rendering"
+  },
+  "runtime": {
+    "node": "24.19.0",
+    "nodeExecutableDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+    "artifactTool": "2.8.59",
+    "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+    "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
   }
 }

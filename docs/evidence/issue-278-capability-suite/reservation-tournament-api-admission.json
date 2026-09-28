@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "environment": {
+    "node": "22.23.2",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "vitestMaxWorkers": 1
+  },
+  "inputsStable": true,
+  "inputsBefore": {
+    "packages/eval-runner/src/project-cases/reservation-capacity-case.ts": "sha256:b2d6f0a2a5115f2b6aa764255031608ddbeb84358f7cc8521403c735d2601e6c",
+    "packages/eval-runner/test/reservation-capacity-case.test.ts": "sha256:5cd346d426f8b440b967ce12df5667410cc28d54722c82f7619f334aeb6c24ad",
+    "packages/eval-runner/src/project-cases/tournament-operations-case.ts": "sha256:7f8b5090252c3b1ec59c7427626e3b2138addc4ade52dbfd57a4ec18f39d1738",
+    "packages/eval-runner/test/tournament-operations-case.test.ts": "sha256:0d7c17d32267acdb7e4c36b0111a1b36cd32b2c7fe55e566caf95198de874195",
+    "eval-cases/tournament-operations-platform/verifier/manifest.json": "sha256:b5c1b0f4d895479ffd2c23196ee49817104af602560c118db5fdd575d2f49d4a",
+    "desktop/eval-main/eval-service.mjs": "sha256:e78f864db3d143efd981b58574a3ddb69af5a4bfdde0f29cf6fc77fb838a5101",
+    "packages/eval-runner/src/project-cases/api-contract-simulation-laboratory.ts": "sha256:89d0c29071b81b8136338f7e5e86f7265c99588c81f2cf8f68fb9681ef7773c5",
+    "packages/eval-runner/test/api-contract-simulation-laboratory.test.ts": "sha256:0628e835bdf7b855599df5820d822aff5f2b983e899acccfe5b9e4d61d648bf7",
+    "packages/eval-runner/dist/index.js": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+    "packages/eval-runner/dist/project-cases/reservation-capacity-case.js": "sha256:26523ed1872b5bfe8ca13149dcb34c4ec5a0e3f0f33f4d8c372acb1ceac64733",
+    "packages/eval-runner/dist/project-cases/tournament-operations-case.js": "sha256:d566d6d24f97e84b5cfec261044488bcf0b8fe64ce772e493a7b5f5afed56735",
+    "packages/eval-runner/dist/project-cases/api-contract-simulation-laboratory.js": "sha256:c8cf13aac57cee6452cf956f5a46392fefb2d1b0ccf37a4fad949b7e1f0ec8db",
+    "package-lock.json": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+  },
+  "inputsAfter": {
+    "packages/eval-runner/src/project-cases/reservation-capacity-case.ts": "sha256:b2d6f0a2a5115f2b6aa764255031608ddbeb84358f7cc8521403c735d2601e6c",
+    "packages/eval-runner/test/reservation-capacity-case.test.ts": "sha256:5cd346d426f8b440b967ce12df5667410cc28d54722c82f7619f334aeb6c24ad",
+    "packages/eval-runner/src/project-cases/tournament-operations-case.ts": "sha256:7f8b5090252c3b1ec59c7427626e3b2138addc4ade52dbfd57a4ec18f39d1738",
+    "packages/eval-runner/test/tournament-operations-case.test.ts": "sha256:0d7c17d32267acdb7e4c36b0111a1b36cd32b2c7fe55e566caf95198de874195",
+    "eval-cases/tournament-operations-platform/verifier/manifest.json": "sha256:b5c1b0f4d895479ffd2c23196ee49817104af602560c118db5fdd575d2f49d4a",
+    "desktop/eval-main/eval-service.mjs": "sha256:e78f864db3d143efd981b58574a3ddb69af5a4bfdde0f29cf6fc77fb838a5101",
+    "packages/eval-runner/src/project-cases/api-contract-simulation-laboratory.ts": "sha256:89d0c29071b81b8136338f7e5e86f7265c99588c81f2cf8f68fb9681ef7773c5",
+    "packages/eval-runner/test/api-contract-simulation-laboratory.test.ts": "sha256:0628e835bdf7b855599df5820d822aff5f2b983e899acccfe5b9e4d61d648bf7",
+    "packages/eval-runner/dist/index.js": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+    "packages/eval-runner/dist/project-cases/reservation-capacity-case.js": "sha256:26523ed1872b5bfe8ca13149dcb34c4ec5a0e3f0f33f4d8c372acb1ceac64733",
+    "packages/eval-runner/dist/project-cases/tournament-operations-case.js": "sha256:d566d6d24f97e84b5cfec261044488bcf0b8fe64ce772e493a7b5f5afed56735",
+    "packages/eval-runner/dist/project-cases/api-contract-simulation-laboratory.js": "sha256:c8cf13aac57cee6452cf956f5a46392fefb2d1b0ccf37a4fad949b7e1f0ec8db",
+    "package-lock.json": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+  },
+  "report": {
+    "success": true,
+    "numTotalTests": 40,
+    "numPassedTests": 40,
+    "numFailedTests": 0,
+    "numPendingTests": 0
+  },
+  "portfolios": {
+    "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete/packages/eval-runner/test/api-contract-simulation-laboratory.test.ts": {
+      "total": 15,
+      "passed": 15,
+      "failed": [],
+      "skipped": [],
+      "assertions": [
+        {
+          "name": "API Contract Simulation Laboratory capability case publishes one immutable candidate snapshot without leaking evaluator paths",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case binds the normalized complete verifier source into its immutable identity",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case rejects unpinned executable bytes before running a version probe",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case makes the independently authenticated qualification environment available",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case materializes the frozen greenfield fixture reproducibly with a clean red baseline",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case accepts two independently structured green implementations through only the public HTTP seam",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case qualifies two committed green projects after applying each diff to a pristine verifier workspace",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case rejects protected-contract substitution and uncommitted delivery independently",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case rejects dependency-bearing, generated, and ambient-runtime delivery shortcuts",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case rejects absolute runtime entries and npm start lifecycle hooks",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case denies ambient executable use even when the committed Node delivery shape is valid",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case denies packages bundled beside the pinned Node runtime",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case denies globally installed packages outside the pinned runtime",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case admits safe internal symlinks while rejecting broken and escaping links",
+          "status": "passed"
+        },
+        {
+          "name": "API Contract Simulation Laboratory capability case rejects adversarial shortcuts at their independent public predicates",
+          "status": "passed"
+        }
+      ]
+    },
+    "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete/packages/eval-runner/test/reservation-capacity-case.test.ts": {
+      "total": 20,
+      "passed": 20,
+      "failed": [],
+      "skipped": [],
+      "assertions": [
+        {
+          "name": "reservation capacity case identity and materialization publishes an immutable candidate snapshot with sealed paths removed from the public catalog",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity case identity and materialization binds the sealed reference digest to the complete admission portfolio bytes",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity case identity and materialization fails closed when the exact v1 verifier implementation drifts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity case identity and materialization materializes byte-identical pristine repositories and refuses to overwrite either one",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity case identity and materialization fails closed before materialization when the runtime Node major is not 22",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission keeps the untouched fixture red for every behavior and durable-delivery predicate",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission accepts the materially different snapshot-state implementation through only the public seam",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission accepts the materially different event-ledger implementation through only the public seam",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-availability mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-expiring-holds mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-idempotent-confirmation mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-concurrent-contention mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-time-zone-schedules mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-cancellation mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-capacity-conservation mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects the targeted workspace:reservation-restart-persistence mutant while preserving independent receipts",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission keeps receipts evaluator-owned when candidate code tampers with stdout",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission rejects generic buttons and dead script as the browser lifecycle scaffold",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission records subcheckpoints independently after an earlier checkpoint fails",
+          "status": "passed"
+        },
+        {
+          "name": "reservation capacity verifier admission denies candidate discovery of evaluator-owned sealed source",
+          "status": "passed"
+        }
+      ]
+    },
+    "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete/packages/eval-runner/test/tournament-operations-case.test.ts": {
+      "total": 5,
+      "passed": 5,
+      "failed": [],
+      "skipped": [],
+      "assertions": [
+        {
+          "name": "Tournament Operations capability case publishes an immutable candidate snapshot without sealed catalog paths",
+          "status": "passed"
+        },
+        {
+          "name": "Tournament Operations capability case binds the sealed reference descriptor to the checked-in immutable bytes",
+          "status": "passed"
+        },
+        {
+          "name": "Tournament Operations capability case materializes a frozen clean greenfield fixture whose untouched baseline is red",
+          "status": "passed"
+        },
+        {
+          "name": "Tournament Operations capability case admits two materially different reasonable implementations through only the public seam",
+          "status": "passed"
+        },
+        {
+          "name": "Tournament Operations capability case rejects adversarial shortcuts while preserving independent predicate evidence",
+          "status": "passed"
+        }
+      ]
+    }
+  },
+  "evidence": {
+    "reportDigest": "sha256:8d75c966134aa5ab04a15e10d4345f05d907ff5cc82cdb0c5cdd82f8db341877",
+    "rawLogDigest": "sha256:f8c50893ab3770f7e6b8ab3c525b7f882f5d8db77c0c7e96ad3ca02a79d4a9b1"
+  },
+  "failure": null
+}

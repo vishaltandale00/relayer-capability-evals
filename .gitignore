@@ -1,6 +1,8 @@
 node_modules/
 target/
 dist/
+!packages/capability-evals/dist/
+!packages/capability-evals/dist/**
 coverage/
 target/
 .playwright-mcp/

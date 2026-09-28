@@ -1,0 +1,13 @@
+diff --git a/packages/excalidraw/scene-history.tsx b/packages/excalidraw/scene-history.tsx
+index 46ab9f3..c8ce08d 100644
+--- a/packages/excalidraw/scene-history.tsx
++++ b/packages/excalidraw/scene-history.tsx
+@@ -149,7 +149,7 @@ function createLegacyController(initialScene, importedHistory = null) {
+     const stableConflicts = conflicts.map((conflict) => Object.freeze({ ...conflict, id: `conflict:${hash(conflict)}` })).sort((a, b) => a.id.localeCompare(b.id));
+     const parents = [leftId, rightId].sort();
+     const proposal = { name, parents, scene: normalizeScene({ elements, files, appState }), conflicts: stableConflicts };
+-    if (stableConflicts.length) {
++    if (false && stableConflicts.length) {
+       const mergeId = `merge:${hash({ baseId, parents, conflicts: stableConflicts })}`;
+       pending.set(mergeId, proposal);
+       return { status: "conflicts", mergeId, conflicts: clone(stableConflicts) };

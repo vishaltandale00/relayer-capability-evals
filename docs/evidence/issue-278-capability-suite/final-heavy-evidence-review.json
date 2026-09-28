@@ -1,0 +1,460 @@
+{
+  "schemaVersion": 1,
+  "reviewId": "issue-278-final-heavy-evidence-review-v1",
+  "createdAt": "2026-09-27T20:41:36-04:00",
+  "reviewer": {
+    "agentId": "/root/suite_manifest",
+    "configuredWorkerModel": "GPT-5.6 Sol"
+  },
+  "workspace": "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete",
+  "receipts": {
+    "planner": {
+      "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-dashboard-v2/admission-receipt.json",
+      "sha256": "sha256:d859205370ce4dfeb7d695421a597f924195e22482de31d5e16c9ce6704e275f",
+      "status": "non-certifying-admission-pass",
+      "inputsStable": true,
+      "caseId": "capability.spreadsheet.production-delivery-planner",
+      "caseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+      "verifierDigest": "sha256:048ed16e5e30b3fec155afd5a08dd34dcb38da3a87c820b7ef2f09866193e7e7",
+      "environmentDigest": "sha256:d65459edeff109e600be65a20c038308a154cb6ec1d3f6b5dfabf334175879d9",
+      "runtime": {
+        "nodeVersion": "24.19.0",
+        "nodeExecutableDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+        "artifactToolVersion": "2.8.59",
+        "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+        "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
+      },
+      "runtimePreflightBefore": {
+        "available": true
+      },
+      "runtimePreflightAfter": {
+        "available": true
+      },
+      "sourceBindings": {
+        "eval-cases/production-delivery-planner/admission/run-admission.mjs": {
+          "receipt": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+          "current": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+          "matches": true
+        },
+        "eval-cases/spreadsheet-admission-outcome.mjs": {
+          "receipt": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "current": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "matches": true
+        },
+        "packages/eval-runner/src/project-cases/production-delivery-planner.ts": {
+          "receipt": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+          "current": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+          "matches": true
+        },
+        "packages/eval-runner/src/project-cases/spreadsheet-runtime.ts": {
+          "receipt": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+          "current": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+          "matches": true
+        },
+        "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": {
+          "receipt": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+          "current": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+          "matches": true
+        }
+      },
+      "distReceiptDigest": "sha256:31bb3d4b2eda2a71e714f8ae4e027cafb7b146e812e4f17cf349be4cdeb1fc6b",
+      "distCurrentDigest": "sha256:31bb3d4b2eda2a71e714f8ae4e027cafb7b146e812e4f17cf349be4cdeb1fc6b",
+      "orderedInnerOutcomes": [
+        {
+          "id": "baseline",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:workbook-parse",
+            "workspace:source-coverage",
+            "workspace:workbook-horizon",
+            "workspace:scenario-controls",
+            "workspace:formula-lineage",
+            "workspace:complete-order-coverage",
+            "workspace:order-conservation",
+            "workspace:component-dependencies",
+            "workspace:finished-goods-conservation",
+            "workspace:weekly-capacity",
+            "workspace:purchase-lead-times",
+            "workspace:fulfillment-dates",
+            "workspace:infeasible-exceptions",
+            "workspace:cost-arithmetic",
+            "workspace:cross-sheet-consistency",
+            "workspace:workbook-rendering",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:required-workbook",
+            "workspace:delivery-commit"
+          ]
+        },
+        {
+          "id": "green-primary",
+          "admitted": true,
+          "passed": true,
+          "failedChecks": []
+        },
+        {
+          "id": "green-alternate",
+          "admitted": true,
+          "passed": true,
+          "failedChecks": []
+        },
+        {
+          "id": "mutant-hardcoded",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:formula-lineage",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-capacity",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:source-coverage",
+            "workspace:weekly-capacity",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-components",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:component-dependencies",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-inventory",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:component-dependencies",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-missing-order",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:complete-order-coverage",
+            "workspace:order-conservation",
+            "workspace:infeasible-exceptions",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-late-delivery",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:fulfillment-dates",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-receipt",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:purchase-lead-times",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-cost",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:cost-arithmetic",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-stale-dashboard",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:cross-sheet-consistency",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        },
+        {
+          "id": "mutant-dashboard",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:cross-sheet-consistency",
+            "workspace:workbook-rendering",
+            "workspace:changed-input-order-quantity",
+            "workspace:changed-input-order-quantity-boundary-2",
+            "workspace:changed-input-capacity-hours",
+            "workspace:changed-input-capacity-hours-boundary-2",
+            "workspace:changed-input-supplier-lead-time",
+            "workspace:changed-input-supplier-lead-time-boundary-2",
+            "workspace:changed-scenario-demand-multiplier",
+            "workspace:changed-scenario-capacity-multiplier",
+            "workspace:changed-scenario-supplier-lead-time-adjustment",
+            "workspace:changed-scenario-expedite-enabled"
+          ]
+        }
+      ]
+    },
+    "saas": {
+      "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/saas-final-suite-9122eb6/portfolio/admission-receipt.json",
+      "sha256": "sha256:98552680ec99beaf3f55087676bf1da422296b4b4c28f48b4e53d6ad88af8c91",
+      "status": "complete-all-six-exact-derived-from-inner-results",
+      "inputsStable": true,
+      "caseId": "capability.spreadsheet.saas-operating-model",
+      "caseSnapshotDigest": "sha256:39a5f7579f0dfba0f1e356acf5c34244cf5a44d6b7d5fd9956f2566fd6b33104",
+      "verifierDigest": "sha256:cbd1c1399c67f7b81ce8fb80e8783dee7b1bb9a313d171d73ac31b305035d006",
+      "runtime": {
+        "nodeVersion": "v24.19.0",
+        "nodeDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+        "artifactToolVersion": "2.8.59",
+        "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c",
+        "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+        "runtimeTreeDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
+      },
+      "runtimePreflightBefore": {
+        "available": true
+      },
+      "runtimePreflightAfter": {
+        "available": true
+      },
+      "sourceBindings": {
+        "../../../packages/eval-runner/src/project-cases/saas-operating-model.ts": {
+          "receipt": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+          "current": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+          "matches": true
+        },
+        "../../../packages/eval-runner/src/project-cases/spreadsheet-artifact-inspector.ts": {
+          "receipt": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+          "current": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+          "matches": true
+        },
+        "../../spreadsheet-admission-outcome.mjs": {
+          "receipt": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "current": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "matches": true
+        },
+        "./create-workbooks.mjs": {
+          "receipt": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+          "current": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+          "matches": true
+        },
+        "./run-admission.mjs": {
+          "receipt": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+          "current": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+          "matches": true
+        }
+      },
+      "distReceiptDigest": "sha256:31bb3d4b2eda2a71e714f8ae4e027cafb7b146e812e4f17cf349be4cdeb1fc6b",
+      "distCurrentDigest": "sha256:31bb3d4b2eda2a71e714f8ae4e027cafb7b146e812e4f17cf349be4cdeb1fc6b",
+      "orderedInnerOutcomes": [
+        {
+          "id": "baseline",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:source-coverage:subscriptions",
+            "workspace:source-coverage:invoices",
+            "workspace:source-coverage:payments",
+            "workspace:source-coverage:payroll",
+            "workspace:source-coverage:expenses",
+            "workspace:source-coverage:cash",
+            "workspace:source-coverage:subscriptions-rows",
+            "workspace:source-coverage:invoices-rows",
+            "workspace:source-coverage:payments-rows",
+            "workspace:source-coverage:payroll-rows",
+            "workspace:source-coverage:expenses-rows",
+            "workspace:source-coverage:cash-rows",
+            "workspace:historical-reconciliation:keys",
+            "workspace:historical-reconciliation:independent-values",
+            "workspace:forecast-scenarios:keys",
+            "workspace:forecast-scenarios:materially-different",
+            "workspace:forecast-scenarios:distinct-drivers",
+            "workspace:forecast-scenarios:independent-values",
+            "workspace:cash-runway:keys",
+            "workspace:formula-lineage:required-outputs",
+            "workspace:formula-lineage:dashboard-values",
+            "workspace:formula-lineage:visible-checks",
+            "workspace:workbook-rendering:all-sheets",
+            "workspace:workbook-rendering:dashboard-chart",
+            "workspace:workbook-rendering:dashboard-chart-series",
+            "workspace:workbook-rendering:dashboard-chart-binding",
+            "workspace:changed-input-response:invoice",
+            "workspace:required-delivery-files",
+            "workspace:delivery-commit"
+          ]
+        },
+        {
+          "id": "green-a",
+          "admitted": true,
+          "passed": true,
+          "failedChecks": []
+        },
+        {
+          "id": "green-b",
+          "admitted": true,
+          "passed": true,
+          "failedChecks": []
+        },
+        {
+          "id": "mutant-hardcoded",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:formula-lineage:required-outputs",
+            "workspace:formula-lineage:dashboard-values"
+          ]
+        },
+        {
+          "id": "mutant-omitted-source",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:source-coverage:payments",
+            "workspace:source-coverage:payments-rows",
+            "workspace:historical-reconciliation:independent-values",
+            "workspace:formula-lineage:cell-references"
+          ]
+        },
+        {
+          "id": "mutant-same-scenarios",
+          "admitted": true,
+          "passed": false,
+          "failedChecks": [
+            "workspace:forecast-scenarios:materially-different",
+            "workspace:forecast-scenarios:independent-values"
+          ]
+        }
+      ],
+      "receiptReview": {
+        "status": "non-certifying-no-pr",
+        "note": "Deterministic admission evidence; adversarial review is reported separately and invalidates on source change."
+      }
+    }
+  },
+  "assertions": [
+    {
+      "scope": "planner-13",
+      "verdict": "pass",
+      "detail": "Exactly 13 ordered entries completed and were admitted: baseline, two distinct greens, and ten declared mutants. Both greens have no failed checks. Every red entry has exactly the current runner failure set, including missing-dashboard rendering + cross-sheet + ten changed probes and receipt-only purchase-lead-time + ten probes."
+    },
+    {
+      "scope": "saas-6",
+      "verdict": "pass",
+      "detail": "Exactly six ordered entries completed and were admitted: baseline, two distinct greens, and three declared mutants. Both greens have no failed checks; every mutant failure vector exactly matches the current runner."
+    },
+    {
+      "scope": "input-stability",
+      "verdict": "pass",
+      "detail": "Both receipts report inputsStable=true, available pre/post runtime, identical before/after source maps, and the same eval-runner dist tree digest. Every captured source file and current dist tree independently matches its receipt."
+    },
+    {
+      "scope": "claim-boundary",
+      "verdict": "non-certifying",
+      "detail": "These are deterministic admission receipts and an independent scoped audit. They do not promote candidates or substitute for release, paid, signed, or PR review evidence."
+    }
+  ],
+  "verdict": {
+    "status": "pass",
+    "certifying": false,
+    "unresolvedFindings": []
+  },
+  "scopeDigest": "sha256:766b24cc1f71ec8b09fc83d023d07c0b1c02b89000f19227b1d3b124b104ae87"
+}

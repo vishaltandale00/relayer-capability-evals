@@ -1,0 +1,380 @@
+diff --git a/packages/excalidraw/index.tsx b/packages/excalidraw/index.tsx
+index b4b8574..f315c0e 100644
+--- a/packages/excalidraw/index.tsx
++++ b/packages/excalidraw/index.tsx
+@@ -298,3 +298,9 @@ export { getDataURL } from "./data/blob";
+ export { isElementLink } from "./element/elementLink";
+ 
+ export { setCustomTextMetricsProvider } from "./element/textMeasurements";
++
++export {
++  createSceneHistoryController,
++  importSceneHistory,
++  SceneHistoryPanel,
++} from "./scene-history";
+diff --git a/packages/excalidraw/scene-history.tsx b/packages/excalidraw/scene-history.tsx
+new file mode 100644
+index 0000000..3033b7b
+--- /dev/null
++++ b/packages/excalidraw/scene-history.tsx
+@@ -0,0 +1,360 @@
++// @ts-nocheck -- the public controller deliberately preserves future document fields.
++import React from "react";
++import { restore } from "./data/restore";
++import { CaptureUpdateAction } from "./store";
++import { cleanAppStateForExport } from "./appState";
++import { bumpVersion } from "./element/mutateElement";
++
++const clone = (value) => structuredClone(value);
++const stableFileAlias = (id, file) => {
++  let hash = 2166136261;
++  for (const char of JSON.stringify(canonical(file))) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
++  return `${id}__history_${(hash >>> 0).toString(16)}`;
++};
++const canonical = (value) => {
++  if (Array.isArray(value)) return value.map(canonical);
++  if (value && typeof value === "object") {
++    return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonical(value[key])]));
++  }
++  return value;
++};
++const equal = (left, right) => JSON.stringify(canonical(left)) === JSON.stringify(canonical(right));
++const hash = (value) => {
++  const text = JSON.stringify(canonical(value));
++  let left = 0x811c9dc5;
++  let right = 0x9e3779b9;
++  for (let index = 0; index < text.length; index += 1) {
++    left = Math.imul(left ^ text.charCodeAt(index), 0x01000193) >>> 0;
++    right = Math.imul(right ^ text.charCodeAt(index), 0x85ebca6b) >>> 0;
++  }
++  return `${left.toString(16).padStart(8, "0")}${right.toString(16).padStart(8, "0")}`;
++};
++const cleanElement = (element) => Object.fromEntries(Object.entries(element).filter(([key]) => !["version", "versionNonce", "updated"].includes(key)));
++const normalizeScene = (scene) => ({
++  type: scene.type ?? "excalidraw",
++  version: scene.version ?? 2,
++  elements: clone(scene.elements ?? []).sort((a, b) => String(a.index ?? "").localeCompare(String(b.index ?? "")) || String(a.id).localeCompare(String(b.id))),
++  files: clone(scene.files ?? {}),
++  appState: Object.fromEntries(Object.entries(scene.appState ?? {}).filter(([key]) => !["selectedElementIds", "selectedGroupIds", "activeTool", "editingElement", "hoveredElementIds"].includes(key))),
++});
++
++function mergeValue(base, left, right, path, conflicts) {
++  if (equal(left, right)) return clone(left);
++  if (equal(base, left)) return clone(right);
++  if (equal(base, right)) return clone(left);
++  if (Array.isArray(base) || Array.isArray(left) || Array.isArray(right) || left === null || right === null || typeof left !== "object" || typeof right !== "object") {
++    conflicts.push({ path, base: clone(base), left: clone(left), right: clone(right) });
++    return undefined;
++  }
++  const output = {};
++  for (const key of [...new Set([...Object.keys(base ?? {}), ...Object.keys(left ?? {}), ...Object.keys(right ?? {})])].sort()) {
++    if (["version", "versionNonce", "updated"].includes(key)) {
++      output[key] = clone(left[key] ?? right[key]);
++      continue;
++    }
++    const value = mergeValue(base?.[key], left?.[key], right?.[key], `${path}/${key}`, conflicts);
++    if (value !== undefined) output[key] = value;
++  }
++  return output;
++}
++
++function validateIntegrity(scene) {
++  const ids = new Set(scene.elements.map(({ id }) => id));
++  for (const element of scene.elements) {
++    for (const binding of [element.startBinding, element.endBinding].filter(Boolean)) {
++      if (!ids.has(binding.elementId)) throw new Error(`dangling binding:${element.id}:${binding.elementId}`);
++    }
++    for (const bound of element.boundElements ?? []) if (!ids.has(bound.id)) throw new Error(`dangling bound element:${element.id}:${bound.id}`);
++    if (element.frameId && !ids.has(element.frameId)) throw new Error(`dangling frame:${element.id}:${element.frameId}`);
++    if (element.containerId && !ids.has(element.containerId)) throw new Error(`dangling container:${element.id}:${element.containerId}`);
++    if (element.fileId && !scene.files[element.fileId]) throw new Error(`missing asset:${element.id}:${element.fileId}`);
++  }
++}
++
++function createLegacyController(initialScene, importedHistory = null) {
++  const commands = [];
++  const pending = new Map();
++  const undoStack = [];
++  const redoStack = [];
++  const initial = normalizeScene(initialScene);
++
++  const replay = () => {
++    const versions = [];
++    const snapshots = new Map();
++    let current = clone(initial);
++    let currentVersionId = null;
++    for (const command of commands) {
++      if (command.type === "version-created") {
++        versions.push(command.version);
++        snapshots.set(command.version.id, command.snapshot);
++        current = clone(command.snapshot);
++        currentVersionId = command.version.id;
++      } else if (command.type === "checkout") {
++        current = clone(snapshots.get(command.versionId));
++        currentVersionId = command.versionId;
++      } else if (command.type === "display") {
++        current = clone(command.scene);
++      }
++    }
++    return { versions, snapshots, current, currentVersionId };
++  };
++
++  if (importedHistory) {
++    for (const imported of importedHistory.versions ?? []) {
++      const parents = Object.freeze(clone(imported.parents ?? imported.parentIds ?? []));
++      const version = Object.freeze({ id: imported.id, name: imported.name, parents });
++      commands.push(Object.freeze({ type: "version-created", version, snapshot: normalizeScene(importedHistory.snapshots?.[imported.id] ?? imported.scene) }));
++    }
++    const importedCurrent = importedHistory.currentVersionId ?? importedHistory.versions?.at(-1)?.id ?? null;
++    if (importedCurrent) commands.push(Object.freeze({ type: "checkout", versionId: importedCurrent }));
++  }
++
++  const appendVersion = (name, parents, scene) => {
++    const state = replay();
++    const normalizedName = String(name).normalize("NFC");
++    if (!normalizedName.trim() || state.versions.some((version) => version.name === normalizedName)) throw new Error("invalid version name");
++    const snapshot = normalizeScene(scene);
++    validateIntegrity(snapshot);
++    const id = `version:${hash({ name: normalizedName, parents, snapshot })}`;
++    const version = Object.freeze({ id, name: normalizedName, parents: Object.freeze(clone(parents)) });
++    commands.push(Object.freeze({ type: "version-created", version, snapshot: clone(snapshot) }));
++    return clone(version);
++  };
++
++  const saveVersion = (name, scene) => {
++    const state = replay();
++    return appendVersion(name, state.currentVersionId ? [state.currentVersionId] : [], scene ?? state.current);
++  };
++
++  const checkout = (id) => {
++    const state = replay();
++    if (!state.snapshots.has(id)) throw new Error(`unknown version:${id}`);
++    undoStack.push(clone(state.current));
++    redoStack.length = 0;
++    commands.push(Object.freeze({ type: "checkout", versionId: id }));
++    return clone(replay().current);
++  };
++
++  const merge = ({ name, baseId, leftId, rightId }) => {
++    const state = replay();
++    for (const id of [baseId, leftId, rightId]) if (!state.snapshots.has(id)) throw new Error(`unknown version:${id}`);
++    const isAncestor = (ancestorId, descendantId) => {
++      const queue = [descendantId];
++      const visited = new Set();
++      while (queue.length) {
++        const id = queue.pop();
++        if (id === ancestorId) return true;
++        if (visited.has(id)) continue;
++        visited.add(id);
++        queue.push(...(state.versions.find((version) => version.id === id)?.parents ?? []));
++      }
++      return false;
++    };
++    if (!isAncestor(baseId, leftId) || !isAncestor(baseId, rightId)) throw new Error("merge base must be a common ancestor");
++    const [firstId, secondId] = [leftId, rightId].sort();
++    const base = state.snapshots.get(baseId);
++    const left = state.snapshots.get(firstId);
++    const right = state.snapshots.get(secondId);
++    const conflicts = [];
++    const elementIds = [...new Set([...base.elements, ...left.elements, ...right.elements].map(({ id }) => id))].sort();
++    const byId = (scene, id) => scene.elements.find((element) => element.id === id);
++    const elements = [];
++    for (const id of elementIds) {
++      const baseElement = byId(base, id);
++      const leftElement = byId(left, id);
++      const rightElement = byId(right, id);
++      if (!leftElement || !rightElement) {
++        if (!baseElement) elements.push(clone(leftElement ?? rightElement));
++        else if (equal(baseElement, leftElement ?? rightElement)) continue;
++        else conflicts.push({ path: `/elements/${id}`, base: clone(baseElement), left: clone(leftElement), right: clone(rightElement), kind: "modify-delete" });
++        continue;
++      }
++      const merged = mergeValue(cleanElement(baseElement ?? {}), cleanElement(leftElement), cleanElement(rightElement), `/elements/${id}`, conflicts);
++      if (merged !== undefined) elements.push(merged);
++    }
++    const files = mergeValue(base.files, left.files, right.files, "/files", conflicts) ?? {};
++    const appState = mergeValue(base.appState, left.appState, right.appState, "/appState", conflicts) ?? {};
++    const stableConflicts = conflicts.map((conflict) => Object.freeze({ ...conflict, id: `conflict:${hash(conflict)}` })).sort((a, b) => a.id.localeCompare(b.id));
++    const parents = [leftId, rightId].sort();
++    const proposal = { name, parents, scene: normalizeScene({ elements, files, appState }), conflicts: stableConflicts };
++    if (stableConflicts.length) {
++      const mergeId = `merge:${hash({ baseId, parents, conflicts: stableConflicts })}`;
++      pending.set(mergeId, proposal);
++      return { status: "conflicts", mergeId, conflicts: clone(stableConflicts) };
++    }
++    return finishMerge(proposal);
++  };
++
++  const finishMerge = (proposal) => {
++    const before = replay().current;
++    const version = appendVersion(proposal.name, proposal.parents, proposal.scene);
++    undoStack.push(clone(before));
++    redoStack.length = 0;
++    return { status: "merged", version, scene: clone(replay().current) };
++  };
++
++  const resolveMerge = (mergeId, resolutions) => {
++    const proposal = pending.get(mergeId);
++    if (!proposal) throw new Error("unknown pending merge");
++    if (proposal.conflicts.some(({ id }) => !(id in resolutions))) throw new Error("all conflicts require explicit resolution");
++    const resolved = clone(proposal.scene);
++    for (const conflict of proposal.conflicts) {
++      const choice = resolutions[conflict.id];
++      const value = choice === "left" ? conflict.left : choice === "right" ? conflict.right : choice;
++      const parts = conflict.path.split("/").slice(1);
++      if (parts[0] === "elements") {
++        const elementId = parts[1];
++        let element = resolved.elements.find((candidate) => candidate.id === elementId);
++        if (parts.length === 2) {
++          resolved.elements = resolved.elements.filter((candidate) => candidate.id !== elementId);
++          if (value !== undefined) resolved.elements.push(clone(value));
++          continue;
++        }
++        if (!element) { element = { id: elementId }; resolved.elements.push(element); }
++        let target = element;
++        for (const part of parts.slice(2, -1)) target = target[part] ??= {};
++        target[parts.at(-1)] = clone(value);
++      } else if (parts[0] === "files") resolved.files[parts[1]] = clone(value);
++      else if (parts[0] === "appState") resolved.appState[parts[1]] = clone(value);
++    }
++    pending.delete(mergeId);
++    return finishMerge({ ...proposal, scene: normalizeScene(resolved) });
++  };
++
++  return Object.freeze({
++    saveVersion,
++    checkout,
++    merge,
++    resolveMerge,
++    getCurrentScene: () => clone(replay().current),
++    getVersions: () => clone(replay().versions),
++    exportHistory: () => {
++      const state = replay();
++      return clone({ type: "excalidraw-scene-history", schemaVersion: 1, currentVersionId: state.currentVersionId, versions: state.versions, snapshots: Object.fromEntries(state.snapshots) });
++    },
++    undo: () => {
++      if (!undoStack.length) return false;
++      const current = replay().current;
++      redoStack.push(clone(current));
++      commands.push(Object.freeze({ type: "display", scene: undoStack.pop() }));
++      return true;
++    },
++    redo: () => {
++      if (!redoStack.length) return false;
++      const current = replay().current;
++      undoStack.push(clone(current));
++      commands.push(Object.freeze({ type: "display", scene: redoStack.pop() }));
++      return true;
++    },
++  });
++}
++
++export function importSceneHistory(value) {
++  if (typeof value === "string") value = JSON.parse(value);
++  if (value?.type === "excalidraw-scene-history") {
++    if (value.schemaVersion !== 1) throw new Error("unsupported history schema");
++    const initial = value.currentVersionId ? value.snapshots[value.currentVersionId] : { elements: [], files: {}, appState: {} };
++    return createSceneHistoryController(initial, null, value);
++  }
++  if (value?.type === "excalidraw" && [1, 2].includes(value.version)) {
++    const restored = restore(value, null, null, { repairBindings: true });
++    const rawById = new Map((value.elements ?? []).map((element) => [element.id, element]));
++    const withUnknownFields = {
++      ...value,
++      ...restored,
++      elements: restored.elements.map((element) => ({ ...rawById.get(element.id), ...element })),
++    };
++    return createSceneHistoryController(withUnknownFields);
++  }
++  throw new Error("unsupported Excalidraw document");
++}
++
++export function createSceneHistoryController(initialScene, editor = null, importedHistory = null) {
++  const legacy = createLegacyController(initialScene, importedHistory);
++  const canonicalFilesByAlias = new Map();
++  const captureEditorScene = () => {
++    if (!editor) return legacy.getCurrentScene();
++    const elements = editor.getSceneElements().map((element) => canonicalFilesByAlias.has(element.fileId)
++      ? { ...element, fileId: canonicalFilesByAlias.get(element.fileId).id }
++      : element);
++    const files = {};
++    for (const file of Object.values(editor.getFiles())) {
++      const canonicalFile = canonicalFilesByAlias.get(file.id);
++      if (!canonicalFile) files[file.id] = file;
++    }
++    for (const element of editor.getSceneElements()) {
++      const canonicalFile = canonicalFilesByAlias.get(element.fileId);
++      if (canonicalFile) files[canonicalFile.id] = { ...canonicalFile.file, id: canonicalFile.id };
++    }
++    return { elements, files, appState: cleanAppStateForExport(editor.getAppState()) };
++  };
++  const applyEditorScene = (scene) => {
++    if (!editor) return scene;
++    const existingFiles = editor.getFiles();
++    const aliases = new Map();
++    const files = Object.entries(scene.files ?? {}).map(([id, file]) => {
++      if (!existingFiles[id] || JSON.stringify(canonical(existingFiles[id])) === JSON.stringify(canonical(file))) return file;
++      let alias = stableFileAlias(id, file);
++      while (existingFiles[alias] && JSON.stringify(canonical(existingFiles[alias])) !== JSON.stringify(canonical(file))) alias += "_";
++      aliases.set(id, alias);
++      canonicalFilesByAlias.set(alias, { id, file });
++      return { ...file, id: alias };
++    });
++    editor.addFiles(files);
++    const current = new Map(editor.getSceneElements().map((element) => [element.id, element]));
++    const elements = scene.elements.map((element) => {
++      const displayed = aliases.has(element.fileId) ? { ...clone(element), fileId: aliases.get(element.fileId) } : clone(element);
++      return bumpVersion(displayed, Math.max(element.version ?? 0, current.get(element.id)?.version ?? 0));
++    });
++    editor.updateScene({ elements, appState: scene.appState, captureUpdate: CaptureUpdateAction.IMMEDIATELY });
++    return scene;
++  };
++  return Object.freeze({
++    saveVersion({ name, parentVersionId, scene }) {
++      if (parentVersionId !== null && parentVersionId !== undefined) legacy.checkout(parentVersionId);
++      const version = legacy.saveVersion(name, scene ?? captureEditorScene());
++      return { ...version, parentIds: version.parents };
++    },
++    checkout(versionId) { return applyEditorScene(legacy.checkout(versionId)); },
++    mergeVersions({ name, baseVersionId, versionIds, resolutions }) {
++      const result = legacy.merge({ name, baseId: baseVersionId, leftId: versionIds[0], rightId: versionIds[1] });
++      if (result.status === "conflicts" && resolutions) { const resolved = legacy.resolveMerge(result.mergeId, resolutions); applyEditorScene(resolved.scene); return resolved; }
++      if (result.status === "merged") applyEditorScene(result.scene);
++      return result;
++    },
++    resolveMerge(mergeId, resolutions) { const result = legacy.resolveMerge(mergeId, resolutions); applyEditorScene(result.scene); return result; },
++    getCurrentScene: legacy.getCurrentScene,
++    listVersions: () => legacy.getVersions().map((version) => ({ ...version, parentIds: version.parents })),
++    exportHistory: () => JSON.stringify(legacy.exportHistory()),
++    exportCurrentScene: () => JSON.stringify(legacy.getCurrentScene()),
++    undo: legacy.undo,
++    redo: legacy.redo,
++  });
++}
++
++export function SceneHistoryPanel({ controller }) {
++  const [versions, setVersions] = React.useState(() => controller.listVersions());
++  const [operation, setOperation] = React.useState(null);
++  const [form, setForm] = React.useState({});
++  const [pending, setPending] = React.useState(null);
++  const [exported, setExported] = React.useState("");
++  const refresh = () => setVersions(controller.listVersions());
++  const set = (key) => (event) => setForm({ ...form, [key]: event.target.value });
++  const option = (version) => <option key={version.id} value={version.id}>{version.name}</option>;
++  const finish = () => { setOperation(null); setForm({}); refresh(); };
++  const exportHistory = () => { const value = controller.exportHistory(); setExported(value); setOperation("export"); };
++  return <section role="region" aria-label="Scene history">
++    <button type="button" onClick={() => setOperation("save")}>Save version</button>
++    <button type="button" onClick={() => setOperation("checkout")}>Checkout version</button>
++    <button type="button" onClick={() => setOperation("merge")}>Merge versions</button>
++    <button type="button" disabled={!pending} onClick={() => setOperation("resolve")}>Resolve conflicts</button>
++    <button type="button" onClick={exportHistory}>Export history</button>
++    {operation && <div role="dialog" aria-label={`${operation} scene history`}>
++      {operation === "save" && <><label>Version name<input value={form.name ?? ""} onChange={set("name")} /></label><button type="button" onClick={() => { controller.saveVersion({ name: form.name }); finish(); }}>Save version</button></>}
++      {operation === "checkout" && <><label>Checkout version<select value={form.checkout ?? ""} onChange={set("checkout")}><option value="">Choose version</option>{versions.map(option)}</select></label><button type="button" onClick={() => { controller.checkout(form.checkout); finish(); }}>Checkout version</button></>}
++      {operation === "merge" && <><label>Merge name<input value={form.name ?? ""} onChange={set("name")} /></label><label>Merge base<select value={form.base ?? ""} onChange={set("base")}><option value="">Choose base</option>{versions.map(option)}</select></label><label>First merge version<select value={form.left ?? ""} onChange={set("left")}><option value="">Choose version</option>{versions.map(option)}</select></label><label>Second merge version<select value={form.right ?? ""} onChange={set("right")}><option value="">Choose version</option>{versions.map(option)}</select></label><button type="button" onClick={() => { const result = controller.mergeVersions({ name: form.name, baseVersionId: form.base, versionIds: [form.left, form.right] }); if (result.status === "conflicts") { setPending(result); setOperation(null); setForm({}); } else finish(); }}>Merge versions</button></>}
++      {operation === "resolve" && <>{pending.conflicts.map((conflict) => <label key={conflict.id}>Resolution for {conflict.path}<span>Left: {JSON.stringify(conflict.left)}; Right: {JSON.stringify(conflict.right)}</span><select value={form[conflict.id] ?? ""} onChange={set(conflict.id)}><option value="">Choose resolution</option><option value="left">Use left</option><option value="right">Use right</option></select></label>)}<button type="button" onClick={() => { controller.resolveMerge(pending.mergeId, form); setPending(null); finish(); }}>Resolve conflicts</button></>}
++      {operation === "export" && <output aria-label="History export">{exported}</output>}
++    </div>}
++  </section>;
++}

@@ -5,7 +5,7 @@ This ledger records admission evidence for the candidate verifier from GitHub Is
 ## Public seam and snapshot
 
 - Case: `capability.greenfield.api-contract-simulation-laboratory`
-- Verifier source identity: `sha256:7f673face611a7b712b5d27a189c1ef6b50b57ef379502fbc6a26a6c7913744e`
+- Verifier source identity: `sha256:44adaab17c5f7bf22be9d7ddea0a0fc18f20a91ad3a6d1b536edd9bd0922d13c`
 - Qualification environment identity: `sha256:555071358361bf0a1019b3d09aa6c587e853c150767d760d647b314276025f0c`
 - Frozen fixture and all five autonomous-case artifacts are content-addressed in the immutable case snapshot.
 - Candidate behavior is observed only through its declared Node process and loopback HTTP interface. The verifier does not import candidate internals, inspect candidate source text, match a reference patch, or require a privileged implementation structure.
@@ -41,7 +41,7 @@ This ledger records admission evidence for the candidate verifier from GitHub Is
 - Reviewed commit before this ledger-only amendment: `329dee3bf23a1d19ecff80bf9932e623c988a1de`, based on `origin/main` commit `9a6a6c92ad8fd7042241c225a84017368d6d80d0`.
 - Reviewed scope: the 11 case source, service integration, focused tests and fixtures, sealed reference, README, architecture, and PRD files in the PR diff. This ledger is excluded from that executable/docs manifest.
 - Sorted `sha256  path` manifest digest: `1ea752a918275259af2c916fbfcecca4d2d66f3951aaa2418133bef035872a10`.
-- Review command: `npm exec vitest run -- packages/eval-runner/test/api-contract-simulation-laboratory.test.ts test/eval-service-simulated-user.test.mjs`.
+- Review command: `npm exec vitest run -- packages/capability-evals/test/api-contract-simulation-laboratory.test.ts test/eval-service-simulated-user.test.mjs`.
 - Review result: 2 files and 28 tests passed; both commit-range and working-tree `git diff --check` passed.
 - Verdict: certifying for verifier admission, with no unresolved P0, P1, or P2 findings. The reviewer additionally reproduced denial of a post-launch symlink escape under the pinned Node permission model.
 

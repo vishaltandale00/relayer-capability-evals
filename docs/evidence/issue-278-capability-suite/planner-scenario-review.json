@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-27",
+  "reviewer": {
+    "identity": "GPT-5.6 Sol /root/integration",
+    "mode": "read-only adversarial source review"
+  },
+  "scope": {
+    "description": "Production Delivery Planner editable scenario-control mutations, semantic discovery, formula propagation, feasibility, and verifier authority.",
+    "files": {
+      "packages/eval-runner/src/project-cases/production-delivery-planner.ts": "sha256:da86610a3d1ce4332ef5b86b987b01a0de7bcc6add1c38f2f0df13feb241554f",
+      "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": "sha256:3e5aaf151a3cf0f0090c15a0082d7a41d532fdc14db8a0a6523ff0af325a97e0",
+      "packages/eval-runner/test/production-delivery-planner.test.ts": "sha256:69f1f0f6f77bd56b9a7d275049c437d52eb7713c51581f24e6a0cb5b0d3c8b76",
+      "eval-cases/production-delivery-planner/admission-manifest.json": "sha256:851b69fa9051999d2d2058f26db25844b487ea7918940f1a5cc8d96ce364cd22"
+    },
+    "scopeDigest": "sha256:d15983da7112b5e4124af5e601768b69b4e7206ea4940bddaa06ee373a4ede82",
+    "workingDiffDigest": "sha256:67725eac62c2111c2907105e821c8b3d8fb1fd49dc9f633088beadf81848076a"
+  },
+  "verdict": "pass",
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "id": "capacity-no-op-lineage",
+      "severity": "blocking",
+      "before": "The reference production plan used +0 times the capacity control, while the checkpoint only observed available capacity.",
+      "resolution": "The capacity probe is now a binding 0.5 decrease. The verifier proves the baseline would exceed changed capacity, requires changed production, and reruns the full independent feasibility and consistency contract without prescribing a schedule. The reference workbook propagates production into used hours, fulfillment, BOM consumption, rolling inventories, costs, and exceptions."
+    }
+  ],
+  "assertions": [
+    "Demand mutation changes every semantically discovered order projection and full conservation is reverified.",
+    "Capacity mutation is demonstrably binding, changes production, and requires every changed week to satisfy independent capacity and full model checks; no exact allocation or utilization is required.",
+    "Supplier lead-time adjustment changes purchase decisions and full receipt legality is reverified.",
+    "Expedite-disabled mutation changes purchases, permits no expedited row, and full cost/inventory/date consistency is reverified.",
+    "Scenario controls are located by semantic headers and stable control identifiers, without sheet names, coordinates, or reference-workbook matching.",
+    "A +0*control reference can no longer satisfy the capacity checkpoint."
+  ],
+  "limitations": [
+    "Manifest snapshot/verifier digests remain intentionally stale until final integration rebind.",
+    "Source and smoke evidence do not replace the real 13-entry admission portfolio."
+  ],
+  "certification": "non-certifying until rebind, build, and admission on the final combined source"
+}

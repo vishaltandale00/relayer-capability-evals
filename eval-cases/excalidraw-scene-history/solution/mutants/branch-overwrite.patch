@@ -1,0 +1,11 @@
+--- a/packages/excalidraw/scene-history.tsx
++++ b/packages/excalidraw/scene-history.tsx
+@@ -299,7 +299,7 @@
+   };
+   return Object.freeze({
+     saveVersion({ name, parentVersionId, scene }) {
+-      if (parentVersionId !== null && parentVersionId !== undefined) legacy.checkout(parentVersionId);
++      if (false && parentVersionId !== null && parentVersionId !== undefined) legacy.checkout(parentVersionId);
+       const version = legacy.saveVersion(name, scene ?? captureEditorScene());
+       return { ...version, parentIds: version.parents };
+     },

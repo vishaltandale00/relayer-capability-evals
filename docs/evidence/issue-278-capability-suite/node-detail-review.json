@@ -1,0 +1,19 @@
+{
+  "reviewer": "/root/suite_manifest (gpt-5.6-sol)",
+  "reviewType": "read-only adversarial",
+  "scope": [
+    "desktop/renderer/src/product-workspace/workspace.js",
+    "test/node-detail-runtime.test.mjs"
+  ],
+  "unstagedDiffSha256": "78bffddd0b7204ef0f9f913680989c8bb95dd7b38dbadf53cba3005432f2fe63",
+  "verdict": "pass",
+  "unresolvedFindings": [],
+  "certification": "non-certifying; no PR",
+  "boundary": "Web Crypto observation and terminal workspace disposal",
+  "evidence": {
+    "regressionRed": "node-detail-dispose-regression-red.log",
+    "focusedGreen": "node-detail-dispose-regression-green.log",
+    "testsPassed": 74
+  },
+  "failureCause": "dispose -> releaseSendAttempt -> selectNode restarted rendering after disposal; original test separately waited on Happy DOM instead of native Web Crypto completion"
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "reviewId": "pr533-merged-upstream-eval-integration-review",
+  "createdAt": "2026-09-28T01:24:43Z",
+  "reviewer": {
+    "agentId": "/root/candidate_audit",
+    "configuredWorkerModel": "GPT-6 Luna"
+  },
+  "workspace": "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete",
+  "git": {
+    "prCommit": "c537f471a5f1d3a45eb198937d74f8e619c8c8f9",
+    "incomingUpstreamCommit": "b8390ca25b3a73c586136bf6a2438ab95159b2e9",
+    "candidateHead": "c537f471a5f1d3a45eb198937d74f8e619c8c8f9",
+    "state": "uncommitted integration merge candidate; no final merge commit observed"
+  },
+  "reviewedSourceFileDigests": {
+    "desktop/eval-main/eval-service.mjs": "sha256:e78f864db3d143efd981b58574a3ddb69af5a4bfdde0f29cf6fc77fb838a5101",
+    "desktop/eval-main/index.mjs": "sha256:a21619a7f76b8d4b8e7fb235ec4ae223ee96bd46f5fd69def082c30bdf297b27",
+    "desktop/eval-main/configuration-paths.mjs": "sha256:e3e1ad0df53d47f03661f88aba2a5d0e32ffeaf144f9b1a65b59a05bd89bcb8f",
+    "desktop/eval-main/managed-codex-runtime.mjs": "sha256:402e7d0c0bfb17b1d893bd1893cda097aa26c21952695ff663490760736da9eb",
+    "desktop/eval-main/prime-provider.mjs": "sha256:48db01451cbe47c85d33e0f959f86ce7018e30c32104ae268676fa42e1b54c42",
+    "desktop/eval-main/simulated-user-judge.mjs": "sha256:6846e95a297e86993b5a53fbba6d0c466c94c340c3e501ef714c2426bf3e6545",
+    "desktop/eval-renderer/configuration-model.js": "sha256:30ad63ab1644a6a4a6470f0b8ab4d096c2d681f68d29597bee03d9220578697f",
+    "desktop/eval-renderer/main.js": "sha256:6c49ac1bba2578ff8882a49b272197de66864cfb4ec3c953ed94c3ddb8aa6552",
+    "desktop/package.json": "sha256:a62c7443f38a12ad6addb1fd8acd0614d3b356a5b1d6082c3bfd65cd3cfed75c",
+    "desktop/renderer/src/graph.js": "sha256:5048a80c3033ae41ee17a375d61f721790d74f068e5887f9a7a05778809bd049",
+    "desktop/renderer/src/product-workspace/workspace.js": "sha256:f33b3afbf7cb84cc520e57022e602159c721427c9c8a29fe2af77d61465d1f60",
+    "desktop/renderer/src/threads.js": "sha256:0b1465f1c5c362fe38ff1755e49e099df3f624a431ae815e07a3b82c315c5629",
+    "docs/architecture.md": "sha256:7924c434786b5fe4bc47bd3c941c304c0d0acf032bc706610cbdb05982d459b0",
+    "eval-cases/tournament-operations-platform/verifier/manifest.json": "sha256:b5c1b0f4d895479ffd2c23196ee49817104af602560c118db5fdd575d2f49d4a",
+    "eval-cases/tournament-operations-platform/verifier/operator-interface.cjs": "sha256:0b237f2b74ee0041271ff183fe0adb8c080f59b4d7a6259ca964bf1929f8b2aa",
+    "package.json": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81",
+    "package-lock.json": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+    "packages/eval-runner/src/project-cases/tournament-operations-case.ts": "sha256:7f8b5090252c3b1ec59c7427626e3b2138addc4ade52dbfd57a4ec18f39d1738",
+    "packages/eval-runner/src/suites/capability-pilot-v1.ts": "sha256:3d8fac5e7742a71be3a028fd4007885a49c348ec63eca6988ed5cfe387650aae",
+    "packages/eval-runner/src/run-plan.ts": "sha256:19d269b9f5daa0b36e2b0952dd2a88ab4dff21be3c55121e02d70d676ee7708a",
+    "packages/eval-runner/src/project-cases/production-delivery-planner.ts": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+    "packages/eval-runner/test/capability-suite-manifest.test.ts": "sha256:87f411ce30c7c2a0929b4f6fc5a921f5efc629d617576a0504983c80cf415f67",
+    "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+    "packages/eval-runner/test/production-delivery-planner.test.ts": "sha256:96386f188e9f6cc55d8ecf705dc2796c34e8b1ba729a73e2891441a95db50b3d",
+    "packages/eval-runner/test/run-plan.test.ts": "sha256:56f1dd59d0eda64f46e2ef47e7fb23e355750ddf400e39455f9b191cbab8c9ee",
+    "scripts/eval-compiled.vitest.config.mjs": "sha256:a877b1ff69b99259619679a15c1eff28340f01d9456d739c54b3bf0ca482b23d",
+    "scripts/test-eval-web.mjs": "sha256:f65c7ec028928bdcd1dc7b57fbb4b0c6350b3a1b2b2179de62ca65b773ad9e34",
+    "test/eval-app-integration.test.mjs": "sha256:24b930dcf0683627b48a8296250ec651bc374e62785ee09ccf8bbd52c7fc787d",
+    "test/eval-child-discovery.test.mjs": "sha256:60eb02a854947b69166679f8e9a41730f345d13b44dc85775369f8c25a5cd39f",
+    "test/eval-service-simulated-user.test.mjs": "sha256:2847964d40d5ad6dd1cf539ac5df7cf97a24be7827258f0c238535f34d6d15d9",
+    "test/eval-suite-selection.test.mjs": "sha256:321fc2a592d5c9156284bf6bf2260331a68668bedae5c47d9b4f4dba7f9704af",
+    "test/node-detail-runtime.test.mjs": "sha256:aea32c867fb8f9350d00fe2ceabfe47c98e8bdb6c2f11be6aaade316a535fa9e"
+  },
+  "scopeDigest": "sha256:d1883f085c6489d9c6ce553ab878d0f3f9fc212db5edfbfb4a11250f452db53d",
+  "scope": [
+    "EvalService capability suite catalog availability, exact ordered selection, no member override, rejection of unavailable cases before queueing, durable suite identity on run and executions, reopen compatibility and historical presentation-grade preservation.",
+    "Native Eval launcher/runtime integration after upstream native-only cleanup; package script no longer builds at launch; browser selection seam and stop/node-detail renderer bridges.",
+    "Tournament case sealed-source descriptor refresh and capability suite immutable member/suite pins.",
+    "Node Detail lifecycle and renderer disposal/stop-state integration; referenced source/contract/tests reviewed at exact listed bytes."
+  ],
+  "findings": [
+    {
+      "id": "tournament-source-bindings",
+      "verdict": "pass",
+      "detail": "Current Tournament external manifest and TS-generated manifest both bind behavioral verifier e1d7f86e\u2026, service integration e78f864d\u2026, and operator interface 0b237f2b\u2026. Independently hashed eval-service.mjs and operator-interface.cjs match those pins exactly. Updated case snapshot pin is abf5dc17\u2026 and suite source pin is d68baaef\u2026."
+    },
+    {
+      "id": "suite-selection-and-reopen",
+      "verdict": "pass-source-review",
+      "detail": "The service projects a suite unavailable if any member is unavailable, resolves exact ordered members before run creation, rejects overrides and unavailable members before side effects, and persists suite identity on run and execution. Production service tests include create/persist/reopen identity and legacy finalized-grade preservation; no selection bypass observed."
+    },
+    {
+      "id": "native-eval-integration",
+      "verdict": "pass-source-review",
+      "detail": "Eval remains a Node-native local entry point, package launch scripts no longer trigger build, and browser selection verifies exact suite selection and unavailable-member behavior. Graph integration wires stop and accepted Node Detail asset resolution; workspace selection has a disposed guard. No conflict with the suite lifecycle was found."
+    }
+  ],
+  "verification": {
+    "directlyInspected": [
+      "Current source and targeted diffs for the file set listed in reviewedSourceFileDigests.",
+      "The relevant PRD native Eval section declares npm run test:eval-compiled-runtime after npm run build; that is a separate Vitest config and is not implied by default vitest run."
+    ],
+    "reviewerExecuted": [
+      "Planner 13-entry named admission: `TMPDIR=/Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef-tmp RELAYER_SPREADSHEET_NODE=/Users/vishal/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node RELAYER_SPREADSHEET_NODE_MODULES=/Users/vishal/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules RELAYER_SPREADSHEET_ADMISSION_ROOT=/Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef /Users/vishal/.nvm/versions/node/v22.23.2/bin/node eval-cases/production-delivery-planner/admission/run-admission.mjs`.",
+      "Parsed the durable receipt and confirmed the full 13-entry declared roster/order, both greens passed, each baseline/mutant exact expectation admitted, runtime preflight true before/after, inputsStable true, and compiled suite contained the current Tournament snapshot and suite pins."
+    ],
+    "reportedByOtherWorker": [
+      "Suite worker reported focused source-loader result 8 passed, 4 skipped; command and exact emitted output were not supplied, so this review does not treat it as test evidence."
+    ],
+    "requiredPending": [
+      "PRD-required `npm run test:eval-compiled-runtime` on the final merged build, unless separately recorded by root.",
+      "Final full-repository check/build after all remaining upstream merge and evidence rebinding.",
+      "Other required fresh downstream admissions invalidated by the whole-dist fingerprint, including SaaS replay and final Jupyter/Excalidraw evidence as coordinated by root."
+    ],
+    "notClaimed": [
+      "No paid inference, release, promotion, push, or publication was performed.",
+      "Planner admission is non-certifying and applies only to the receipt-bound dist/source snapshot."
+    ],
+    "rootReported": [
+      "Root reported eval-runner build and compiled suite parity 7/7 passed for suite digest d68baaefb4956528ad8541ac2eb1663a2c639a4e102b9aa02d40ac90241ab038."
+    ]
+  },
+  "priorReviewDisposition": {
+    "supersedes": "final-planner-suite-desktop-review-v3",
+    "detail": "That review used old EvalService, index, browser and suite bytes. Its service/selection/browser conclusions do not bind this source state; source-only observations are re-reviewed here. Prior Jupyter v3 proof differs in root package and lockfile; it is historical until the required fresh replay."
+  },
+  "verdict": {
+    "status": "pass-source-review-and-planner-admission-with-integrated-evidence-pending",
+    "certifying": false,
+    "unresolvedFindings": [
+      "Final merged full-check and remaining required heavy entry points are pending."
+    ]
+  },
+  "plannerAdmission": {
+    "receiptPath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/planner-final-suite-d68baaef/admission-receipt.json",
+    "receiptSha256": "sha256:5e31ea4ff0bf23ca8e43d0c1b5db26d1608a104d04be5dd70f339af13420a181",
+    "distDigestBeforeAndAfter": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3",
+    "caseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+    "verifierDigest": "sha256:048ed16e5e30b3fec155afd5a08dd34dcb38da3a87c820b7ef2f09866193e7e7",
+    "suiteDigest": "sha256:d68baaefb4956528ad8541ac2eb1663a2c639a4e102b9aa02d40ac90241ab038",
+    "results": "All 13 expected entries completed in order. Baseline produced its exact red matrix; green-primary and green-alternate passed; ten semantic mutants were rejected with each exact declared failure vector. All 13 entries were admitted as expected and source/runtime/dist inputs stayed stable."
+  }
+}

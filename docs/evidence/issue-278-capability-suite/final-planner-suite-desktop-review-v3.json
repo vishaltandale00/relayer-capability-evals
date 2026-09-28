@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "reviewId": "issue-278-final-planner-suite-desktop-review-v3",
+  "createdAt": "2026-09-27T20:28:35-04:00",
+  "reviewer": {
+    "agentId": "/root/suite_manifest",
+    "configuredWorkerModel": "GPT-5.6 Sol"
+  },
+  "workspace": "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete",
+  "reviewedPins": {
+    "plannerCaseSnapshotDigest": "sha256:36f5e77642fc973deaf55062642bc8dcee9526918edb6ab0c41f02425b21d04a",
+    "plannerVerifierDigest": "sha256:048ed16e5e30b3fec155afd5a08dd34dcb38da3a87c820b7ef2f09866193e7e7",
+    "capabilitySuiteDigest": "sha256:9122eb6cdf5f967530b19d8263e396904aba602018314f8105770c8b3fd2e3bb"
+  },
+  "reviewedFileDigests": {
+    "desktop/eval-main/eval-service.mjs": "sha256:066c39d1b707986285d660eb8b15c23e7b6e9b7db15e04209defb153221d0b7e",
+    "desktop/eval-main/index.mjs": "sha256:acf515fedddb9ad11fc4dadea6493978c935c297a22152e6af5abf4dcc51e374",
+    "desktop/eval-renderer/configuration-model.js": "sha256:30ad63ab1644a6a4a6470f0b8ab4d096c2d681f68d29597bee03d9220578697f",
+    "desktop/eval-renderer/main.js": "sha256:6c49ac1bba2578ff8882a49b272197de66864cfb4ec3c953ed94c3ddb8aa6552",
+    "eval-cases/production-delivery-planner/admission-manifest.json": "sha256:388abb18a1fdcc5e409498c85211456c670df05dd37aac8198394a6b44c432df",
+    "eval-cases/production-delivery-planner/admission/run-admission.mjs": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+    "packages/eval-runner/dist/project-cases/production-delivery-planner.js": "sha256:ef200d535dd7fd28bf1199d1254c32b75b7b4cc028d42e7ea13084180396db04",
+    "packages/eval-runner/dist/suites/capability-pilot-v1.js": "sha256:7599ec243cadb3e61f7970c0876d4afbdf85add91de7c744d5bd85d530191431",
+    "packages/eval-runner/src/project-cases/production-delivery-planner.ts": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+    "packages/eval-runner/src/run-plan.ts": "sha256:19d269b9f5daa0b36e2b0952dd2a88ab4dff21be3c55121e02d70d676ee7708a",
+    "packages/eval-runner/src/suites/capability-pilot-v1.ts": "sha256:5eb8d1b3c6dd306fe892a7a7a16054f9925ae911a5132db150c67e60fb2f88ed",
+    "packages/eval-runner/test/capability-suite-manifest.test.ts": "sha256:87f411ce30c7c2a0929b4f6fc5a921f5efc629d617576a0504983c80cf415f67",
+    "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+    "packages/eval-runner/test/production-delivery-planner.test.ts": "sha256:96386f188e9f6cc55d8ecf705dc2796c34e8b1ba729a73e2891441a95db50b3d",
+    "scripts/test-eval-web.mjs": "sha256:2bf807b8ae577a557180cee0662ad7c5ad0d0453d0a8ca3731ef399570ed433f",
+    "test/eval-app-integration.test.mjs": "sha256:1eeaec0c780d7d2f156b21b57d0492da4c0b3db5ac51df25e13c35abb8bc320a",
+    "test/eval-service-simulated-user.test.mjs": "sha256:2847964d40d5ad6dd1cf539ac5df7cf97a24be7827258f0c238535f34d6d15d9",
+    "test/eval-suite-selection.test.mjs": "sha256:321fc2a592d5c9156284bf6bf2260331a68668bedae5c47d9b4f4dba7f9704af"
+  },
+  "scope": [
+    "Planner semantic extraction and verifier: derived-table formula lineage, sparse exception formulas, scoped dashboard views, capacity reconciliation, exact percentage interpretation, generic metric extraction isolation, and all changed-input probes.",
+    "Planner fixtures and admission roster: two formula-driven layouts including transposed dashboard, flattened hardcoded mutant, numeric Excel receipt-date mutant, stale and missing dashboard exact failure sets, durable source bindings.",
+    "Capability suite manifest: exact checked-in Planner member pin, deterministic suite digest, fail-closed availability, and source/dist pin agreement.",
+    "Current EvalService ordinary suite selection before run creation, durable suite identity on run/execution records, reopen behavior, mandatory gate mapping, safe catalog projection, and historical-read compatibility.",
+    "Current web selection availability checkpoint and run-plan case-by-harness expansion without suite-specific execution bypass."
+  ],
+  "findings": [
+    {
+      "id": "planner-formula-lineage",
+      "verdict": "pass",
+      "detail": "Qualification requires formula-error freedom and a formula in a located derived semantic output cell. Decorative formulas do not qualify; named-reference formulas can qualify without A1 precedents."
+    },
+    {
+      "id": "planner-dashboard-authority",
+      "verdict": "pass",
+      "detail": "Each complete dashboard view co-locates six service/exception/cost metrics and a capacity signal on one sheet. Every detected complete view must reconcile; identical duplicate views pass and conflicting views fail."
+    },
+    {
+      "id": "planner-layout-fairness",
+      "verdict": "pass",
+      "detail": "Dashboard associations support Metric/Value columns at arbitrary separation, transposed Metric/Value rows, and bounded standalone label cards. Structural associations take precedence only for nonempty bound pairs. No sheet-name requirement is used."
+    },
+    {
+      "id": "planner-percent-boundary",
+      "verdict": "pass",
+      "detail": "Percent-suffixed values parse exactly once; numeric values under explicit percent labels are percentage points; numeric utilization/rate values are fractions. The magnitude heuristic was removed."
+    },
+    {
+      "id": "planner-mixed-seam-isolation",
+      "verdict": "pass",
+      "detail": "Dashboard structural extraction is not used by generic cost/scenario metricValue. This prevents column headers such as Holding Cost or Production Units from shadowing authoritative totals."
+    },
+    {
+      "id": "planner-mutant-roster",
+      "verdict": "pass-source-review",
+      "detail": "Missing dashboard declares rendering, cross-sheet consistency, and all ten changed-input/scenario probes. Stale dashboard declares cross-sheet consistency and all ten probes. Receipt mutant keeps the intended invalid date as an Excel numeric serial."
+    },
+    {
+      "id": "suite-pins",
+      "verdict": "pass",
+      "detail": "Source and freshly compiled suite modules contain the exact Planner snapshot and suite digests listed above; checked-in member pins remain constants rather than runtime catalog derivations."
+    },
+    {
+      "id": "service-selection-run-plan",
+      "verdict": "pass-source-review",
+      "detail": "Current bytes preserve selection before createRun side effects, exact whole-suite failure rather than shrinkage, ordinary case-by-harness run planning, durable run/execution suite identity, reopen behavior, mandatory gates, and sanitized catalog projection."
+    }
+  ],
+  "verification": {
+    "directlyInspected": [
+      "All reviewed files and digests in reviewedFileDigests, including desktop main/renderer configuration and suite selection/integration tests.",
+      "Scoped diff whitespace validation completed with git diff --check.",
+      "Admission roster expected-failure sets were traced against changedInputResponded and verifier branches."
+    ],
+    "rootReported": [
+      "Fresh compiled pins: Planner snapshot 36f5e776..., verifier 048ed16e..., suite 9122eb6....",
+      "Focused capability-manifest, Excalidraw, and Planner command: 27 passed and 16 runtime-skipped. This count does not include EvalService, web selection, or run-plan tests."
+    ],
+    "pending": [
+      "Final named Planner 13-entry admission portfolio.",
+      "Final SaaS replay.",
+      "Any final full-repository check/build after subsequent source changes; this review is bound only to the listed bytes."
+    ],
+    "notClaimed": [
+      "No current-suite browser proof is claimed here. The prior browser proof was for suite digest 911e9db... and is historical.",
+      "No paid inference, release, promotion, push, or external publication was performed."
+    ]
+  },
+  "priorEvidence": {
+    "preservedReview": "/Volumes/2T-SSD/eval-evidence/2026-09-27/final-reviews/final-planner-suite-desktop-review-v2.json",
+    "note": "v2 remains historical and its Planner scope is invalidated by later formula/dashboard/builder changes. Its inaccurate statement that 27 focused tests included service/selection/run-plan is corrected in this v3 record."
+  },
+  "verdict": {
+    "status": "pass-with-heavy-evidence-pending",
+    "certifying": false,
+    "unresolvedFindings": []
+  },
+  "scopeDigest": "sha256:4ac092593f0f881a5fc905e6c7693e73bdc28e02604122c777dc138bc42a3169"
+}

@@ -1,0 +1,1616 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "portfolioId": "excalidraw-scene-history-admission-v1",
+  "requiredRoster": [
+    "untouched",
+    "green-functional",
+    "green-command-log",
+    "mutant-forged-verdict",
+    "mutant-forged-runner",
+    "mutant-forged-yarnrc",
+    "mutant-ui-inert",
+    "mutant-ui-miswired",
+    "mutant-branch-overwrite",
+    "mutant-silent-lww",
+    "mutant-relationships",
+    "mutant-undo",
+    "mutant-history-loss"
+  ],
+  "caseId": "autonomous.excalidraw.scene-history",
+  "caseSnapshotDigest": "sha256:37aabb0c67bfc7448018af39b1b5c77ea8818f4c7eaddfc10808e246ef2de957",
+  "verifierDigest": "sha256:4b5c58ba64e7018021fe8c664e513c185b70c4260e01978f97de024631a4229e",
+  "qualificationAuthority": {
+    "id": "excalidraw-scene-history-qualification-authority-v1",
+    "seededCommit": "c52dec55d5ee55d0b7ab4490c0ae2ea972677a04",
+    "files": [
+      {
+        "path": "package.json",
+        "digest": "sha256:af667c09b686361d0016b68ae7052a89ac56f0716735c0ec902fa56aca8735ab"
+      },
+      {
+        "path": "yarn.lock",
+        "digest": "sha256:ce8b2dd86356140d4d12700f75d0de9fcf91b9ed8d70547834c805b3b113bec2"
+      },
+      {
+        "path": "vitest.config.mts",
+        "digest": "sha256:36af77c8c95f53a5946289a1ceac2c9b3c96c25a23639b7a8f79526b129bb002"
+      },
+      {
+        "path": "setupTests.ts",
+        "digest": "sha256:edf1c801973fa6fa27dc4f383491a4a3ce64042d2389aa6afa8258d443d62ffb"
+      },
+      {
+        "path": "packages/excalidraw/package.json",
+        "digest": "sha256:402f54fc7de128b25d22bd4d905fb46dbcdbe2ce6efee567d4da0fc79a29aab1"
+      },
+      {
+        "path": "packages/excalidraw/tsconfig.json",
+        "digest": "sha256:2ca485bc01425b542b3eef10d615c269f6b6448d12bc4523e430a705e037b968"
+      },
+      {
+        "path": "scripts/buildPackage.js",
+        "digest": "sha256:bbacb59e932431ec3dcf1b99b3d41253dbed2fc30391a07793d21f2d819834bd"
+      },
+      {
+        "path": ".npmrc",
+        "digest": "sha256:5435eb27737e90ee4adccbe4626aeb2bb6152f76872d9dbabb3e5483aa6da44f"
+      },
+      {
+        "path": "tsconfig.json",
+        "digest": "sha256:1cc235e789b858eb3fd133a1bb3e98ff20c22d3c0eb8eacb873454435bb25138"
+      },
+      {
+        "path": ".yarnrc",
+        "digest": null
+      },
+      {
+        "path": ".yarnrc.yml",
+        "digest": null
+      }
+    ],
+    "paths": [
+      "package.json",
+      "yarn.lock",
+      "vitest.config.mts",
+      "setupTests.ts",
+      "packages/excalidraw/package.json",
+      "packages/excalidraw/tsconfig.json",
+      "scripts/buildPackage.js",
+      ".npmrc",
+      "tsconfig.json",
+      ".yarnrc",
+      ".yarnrc.yml"
+    ]
+  },
+  "referenceDigest": "sha256:4577b6b3a4c08a247ebd64702e0354110cdfffca2cdb260a7577e20846ade5c4",
+  "environment": {
+    "node": "22.23.2",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "executable": "/Users/vishal/.nvm/versions/node/v22.23.2/bin/node",
+    "executableDigest": "sha256:18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572"
+  },
+  "sourceInputsBefore": {
+    "scripts/verify-excalidraw-scene-history-admission.mjs": {
+      "status": "hashed",
+      "digest": "sha256:845e02196db2e025f73aecb543a86fd60437f02566d64d9246c0842c4ed492b7"
+    },
+    "packages/eval-runner/src/project-cases/excalidraw-scene-history.ts": {
+      "status": "hashed",
+      "digest": "sha256:ccc9c374559ef402b102388852127fa004aafacadf95102dc17373217929244f"
+    },
+    "packages/eval-runner/dist/project-cases/excalidraw-scene-history.js": {
+      "status": "hashed",
+      "digest": "sha256:cded6c19843086ad6e69041fbd44da0b15b89550e618054a32e89949d489b275"
+    },
+    "packages/eval-runner/dist/index.js": {
+      "status": "hashed",
+      "digest": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20"
+    },
+    "package.json": {
+      "status": "hashed",
+      "digest": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81"
+    },
+    "package-lock.json": {
+      "status": "hashed",
+      "digest": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+    },
+    "eval-cases/excalidraw-scene-history/solution/reference-manifest.json": {
+      "status": "hashed",
+      "digest": "sha256:4577b6b3a4c08a247ebd64702e0354110cdfffca2cdb260a7577e20846ade5c4"
+    },
+    "eval-cases/excalidraw-scene-history/solution/green-command-log.patch": {
+      "status": "hashed",
+      "digest": "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378"
+    },
+    "eval-cases/excalidraw-scene-history/solution/green-functional.patch": {
+      "status": "hashed",
+      "digest": "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/branch-overwrite.patch": {
+      "status": "hashed",
+      "digest": "sha256:16d2ae42f457aee74216888567f9eb5565f5b2fb85e653c94954543a7ee952fb"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/forged-runner.patch": {
+      "status": "hashed",
+      "digest": "sha256:c4f6a03bc1dd0dfb3802beeb9754a483e0c26ff0ba1fcc86184030e18cf3d43f"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/forged-verdict.patch": {
+      "status": "hashed",
+      "digest": "sha256:5379318d3fb20a8f5d1738cca7194305b9392a469f8b44f2e8e6753b99ac0ef1"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/forged-yarnrc.patch": {
+      "status": "hashed",
+      "digest": "sha256:df156e6c6b5244830e867642397e58c1fca49cd14ef7c8c4ea2ca6f47dc2e3f5"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/history-loss.patch": {
+      "status": "hashed",
+      "digest": "sha256:4a6950a2d1136df414042292c8d942a99d019329d35deb5ed58192d385ebe2e9"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/relationships.patch": {
+      "status": "hashed",
+      "digest": "sha256:49c3265ac5b2897b3f3951e151e919aa5c1882d5de6a004049fc2ea7deecb48b"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/silent-lww.patch": {
+      "status": "hashed",
+      "digest": "sha256:d3424214c0153de9233dc017b680bb20325a7f383cacdc74062c5d278fed80af"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/ui-inert.patch": {
+      "status": "hashed",
+      "digest": "sha256:bfee65a6b6d9a1531523a9ae0379426e7c912d13ba755487d5f27bffc2523db8"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/ui-miswired.patch": {
+      "status": "hashed",
+      "digest": "sha256:24818efa7f1cbea4f7907b8cbb268c0e0a793a46453ccac20ddc3376aba87905"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/undo.patch": {
+      "status": "hashed",
+      "digest": "sha256:306b1c92db56d3a33d83f1688e53f4fd6419243d6120395196fde8ec08d00c1b"
+    },
+    "eval-cases/excalidraw-scene-history/solution/reference.md": {
+      "status": "hashed",
+      "digest": "sha256:97c896077cf896da5f456c7e80b0f2f923d989118a50b9260391c3a202899c8e"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/green-command-log.mjs": {
+      "status": "hashed",
+      "digest": "sha256:b0ca6068cc8356ebb53de72b7bec3e5fd5367d27ff7c257fca4ffd9e994463fb"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/green-functional.mjs": {
+      "status": "hashed",
+      "digest": "sha256:3d49a99f70f6dad667cb607ef303a74ec53f61c3639c1609843b2bd6835421c5"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-assets.mjs": {
+      "status": "hashed",
+      "digest": "sha256:296504536b6f2e7ebf974a279dc128c2ac081be5976819a04edd30803d29c0ed"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-bindings.mjs": {
+      "status": "hashed",
+      "digest": "sha256:b5995e8e7e7d6ac3b6b4aaf52c479d634787031dd8ee3086ed2ec2bbb89abdea"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-branch-overwrite.mjs": {
+      "status": "hashed",
+      "digest": "sha256:768a807ebf8cb4e2f2d661c5dd2da4606efac35f72de1d2e42948087c4822975"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-common-ancestor.mjs": {
+      "status": "hashed",
+      "digest": "sha256:b1a5b10af392126201b2f3414520a7eac42d1d1ddf4095fd21bee4ae876f48b9"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-compat.mjs": {
+      "status": "hashed",
+      "digest": "sha256:6dedff3ddab85a4e8a50268e5a4c43b622098854ada7acc9d9fee8a21dd61ceb"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-early-resolution.mjs": {
+      "status": "hashed",
+      "digest": "sha256:75b14cdba69cc23e92394532f3f9dfd850ccd894c3fb926df9a35b917506965c"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-export.mjs": {
+      "status": "hashed",
+      "digest": "sha256:633eef133d97df5a643da375f57e29a05fd726b6927cc65c99a5edc9f7588a43"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-factory.mjs": {
+      "status": "hashed",
+      "digest": "sha256:bdbf3bf7e739f28660fe182c43c4e7e372d6970a619d0ed3ade2cf54597aeca5"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-forged-verdict.mjs": {
+      "status": "hashed",
+      "digest": "sha256:4f2fd6f808ae72ca242191ef05ee78840a16f384e590275438062f0cc38345f9"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-frame-container.mjs": {
+      "status": "hashed",
+      "digest": "sha256:ca9cca12d524dfa2a8438d195d8bf87222fa0de5b7915a5e8c98015622d60108"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-groups.mjs": {
+      "status": "hashed",
+      "digest": "sha256:aafcaf1da0f22664b7911b6dad1d9efcc8715206f72642ac97499938d17cf54b"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-history-loss.mjs": {
+      "status": "hashed",
+      "digest": "sha256:998469dfb7d475859cbfa47eb972dc305d9bb6c522126363ce1b395e4b66d8bc"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-nondeterminism.mjs": {
+      "status": "hashed",
+      "digest": "sha256:948fc181d7dce15a65958ffaf1534987c4e9c8d721e68355f2cf8e05e38ed3f0"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-ordering.mjs": {
+      "status": "hashed",
+      "digest": "sha256:6bfb75a54eb9f0b7d26781246cd055487cfece881daf41df873f57db49daea6c"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-silent-lww.mjs": {
+      "status": "hashed",
+      "digest": "sha256:ed0305be09e5778e270851415497febf670054af3edbcf318e258609a9dba113"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-ui-accessibility.mjs": {
+      "status": "hashed",
+      "digest": "sha256:1dba54ca946a3035c31f51d6232dcef377243d317af067d1c530a7b3cc036ba7"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-undo.mjs": {
+      "status": "hashed",
+      "digest": "sha256:4ddcd788dc5bce3278c153a46503166d2545b5cda9f796e789fae2cdcc255bca"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/red-untouched.mjs": {
+      "status": "hashed",
+      "digest": "sha256:f7e69c1e7d97946077425a68c635c7202892525a89a90ab9c8bda37b88cad1df"
+    }
+  },
+  "sourceInputsAfter": {
+    "scripts/verify-excalidraw-scene-history-admission.mjs": {
+      "status": "hashed",
+      "digest": "sha256:845e02196db2e025f73aecb543a86fd60437f02566d64d9246c0842c4ed492b7"
+    },
+    "packages/eval-runner/src/project-cases/excalidraw-scene-history.ts": {
+      "status": "hashed",
+      "digest": "sha256:ccc9c374559ef402b102388852127fa004aafacadf95102dc17373217929244f"
+    },
+    "packages/eval-runner/dist/project-cases/excalidraw-scene-history.js": {
+      "status": "hashed",
+      "digest": "sha256:cded6c19843086ad6e69041fbd44da0b15b89550e618054a32e89949d489b275"
+    },
+    "packages/eval-runner/dist/index.js": {
+      "status": "hashed",
+      "digest": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20"
+    },
+    "package.json": {
+      "status": "hashed",
+      "digest": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81"
+    },
+    "package-lock.json": {
+      "status": "hashed",
+      "digest": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+    },
+    "eval-cases/excalidraw-scene-history/solution/reference-manifest.json": {
+      "status": "hashed",
+      "digest": "sha256:4577b6b3a4c08a247ebd64702e0354110cdfffca2cdb260a7577e20846ade5c4"
+    },
+    "eval-cases/excalidraw-scene-history/solution/green-command-log.patch": {
+      "status": "hashed",
+      "digest": "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378"
+    },
+    "eval-cases/excalidraw-scene-history/solution/green-functional.patch": {
+      "status": "hashed",
+      "digest": "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/branch-overwrite.patch": {
+      "status": "hashed",
+      "digest": "sha256:16d2ae42f457aee74216888567f9eb5565f5b2fb85e653c94954543a7ee952fb"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/forged-runner.patch": {
+      "status": "hashed",
+      "digest": "sha256:c4f6a03bc1dd0dfb3802beeb9754a483e0c26ff0ba1fcc86184030e18cf3d43f"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/forged-verdict.patch": {
+      "status": "hashed",
+      "digest": "sha256:5379318d3fb20a8f5d1738cca7194305b9392a469f8b44f2e8e6753b99ac0ef1"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/forged-yarnrc.patch": {
+      "status": "hashed",
+      "digest": "sha256:df156e6c6b5244830e867642397e58c1fca49cd14ef7c8c4ea2ca6f47dc2e3f5"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/history-loss.patch": {
+      "status": "hashed",
+      "digest": "sha256:4a6950a2d1136df414042292c8d942a99d019329d35deb5ed58192d385ebe2e9"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/relationships.patch": {
+      "status": "hashed",
+      "digest": "sha256:49c3265ac5b2897b3f3951e151e919aa5c1882d5de6a004049fc2ea7deecb48b"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/silent-lww.patch": {
+      "status": "hashed",
+      "digest": "sha256:d3424214c0153de9233dc017b680bb20325a7f383cacdc74062c5d278fed80af"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/ui-inert.patch": {
+      "status": "hashed",
+      "digest": "sha256:bfee65a6b6d9a1531523a9ae0379426e7c912d13ba755487d5f27bffc2523db8"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/ui-miswired.patch": {
+      "status": "hashed",
+      "digest": "sha256:24818efa7f1cbea4f7907b8cbb268c0e0a793a46453ccac20ddc3376aba87905"
+    },
+    "eval-cases/excalidraw-scene-history/solution/mutants/undo.patch": {
+      "status": "hashed",
+      "digest": "sha256:306b1c92db56d3a33d83f1688e53f4fd6419243d6120395196fde8ec08d00c1b"
+    },
+    "eval-cases/excalidraw-scene-history/solution/reference.md": {
+      "status": "hashed",
+      "digest": "sha256:97c896077cf896da5f456c7e80b0f2f923d989118a50b9260391c3a202899c8e"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/green-command-log.mjs": {
+      "status": "hashed",
+      "digest": "sha256:b0ca6068cc8356ebb53de72b7bec3e5fd5367d27ff7c257fca4ffd9e994463fb"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/green-functional.mjs": {
+      "status": "hashed",
+      "digest": "sha256:3d49a99f70f6dad667cb607ef303a74ec53f61c3639c1609843b2bd6835421c5"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-assets.mjs": {
+      "status": "hashed",
+      "digest": "sha256:296504536b6f2e7ebf974a279dc128c2ac081be5976819a04edd30803d29c0ed"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-bindings.mjs": {
+      "status": "hashed",
+      "digest": "sha256:b5995e8e7e7d6ac3b6b4aaf52c479d634787031dd8ee3086ed2ec2bbb89abdea"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-branch-overwrite.mjs": {
+      "status": "hashed",
+      "digest": "sha256:768a807ebf8cb4e2f2d661c5dd2da4606efac35f72de1d2e42948087c4822975"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-common-ancestor.mjs": {
+      "status": "hashed",
+      "digest": "sha256:b1a5b10af392126201b2f3414520a7eac42d1d1ddf4095fd21bee4ae876f48b9"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-compat.mjs": {
+      "status": "hashed",
+      "digest": "sha256:6dedff3ddab85a4e8a50268e5a4c43b622098854ada7acc9d9fee8a21dd61ceb"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-early-resolution.mjs": {
+      "status": "hashed",
+      "digest": "sha256:75b14cdba69cc23e92394532f3f9dfd850ccd894c3fb926df9a35b917506965c"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-export.mjs": {
+      "status": "hashed",
+      "digest": "sha256:633eef133d97df5a643da375f57e29a05fd726b6927cc65c99a5edc9f7588a43"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-factory.mjs": {
+      "status": "hashed",
+      "digest": "sha256:bdbf3bf7e739f28660fe182c43c4e7e372d6970a619d0ed3ade2cf54597aeca5"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-forged-verdict.mjs": {
+      "status": "hashed",
+      "digest": "sha256:4f2fd6f808ae72ca242191ef05ee78840a16f384e590275438062f0cc38345f9"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-frame-container.mjs": {
+      "status": "hashed",
+      "digest": "sha256:ca9cca12d524dfa2a8438d195d8bf87222fa0de5b7915a5e8c98015622d60108"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-groups.mjs": {
+      "status": "hashed",
+      "digest": "sha256:aafcaf1da0f22664b7911b6dad1d9efcc8715206f72642ac97499938d17cf54b"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-history-loss.mjs": {
+      "status": "hashed",
+      "digest": "sha256:998469dfb7d475859cbfa47eb972dc305d9bb6c522126363ce1b395e4b66d8bc"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-nondeterminism.mjs": {
+      "status": "hashed",
+      "digest": "sha256:948fc181d7dce15a65958ffaf1534987c4e9c8d721e68355f2cf8e05e38ed3f0"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-ordering.mjs": {
+      "status": "hashed",
+      "digest": "sha256:6bfb75a54eb9f0b7d26781246cd055487cfece881daf41df873f57db49daea6c"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-silent-lww.mjs": {
+      "status": "hashed",
+      "digest": "sha256:ed0305be09e5778e270851415497febf670054af3edbcf318e258609a9dba113"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-ui-accessibility.mjs": {
+      "status": "hashed",
+      "digest": "sha256:1dba54ca946a3035c31f51d6232dcef377243d317af067d1c530a7b3cc036ba7"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-undo.mjs": {
+      "status": "hashed",
+      "digest": "sha256:4ddcd788dc5bce3278c153a46503166d2545b5cda9f796e789fae2cdcc255bca"
+    },
+    "packages/eval-runner/test/fixtures/excalidraw-scene-history/red-untouched.mjs": {
+      "status": "hashed",
+      "digest": "sha256:f7e69c1e7d97946077425a68c635c7202892525a89a90ab9c8bda37b88cad1df"
+    }
+  },
+  "inputsStable": true,
+  "result": {
+    "portfolioId": "excalidraw-scene-history-admission-v1",
+    "admitted": true,
+    "entries": [
+      {
+        "id": "untouched",
+        "expectation": "red",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Sealed public-seam predicate public-ui: failed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": false,
+            "detail": "Sealed public-seam predicate named-immutable-versions: failed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": false,
+            "detail": "Sealed public-seam predicate historical-branching: failed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": false,
+            "detail": "Sealed public-seam predicate deterministic-merge: failed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": false,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: failed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": false,
+            "detail": "Sealed public-seam predicate relationship-integrity: failed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": false,
+            "detail": "Sealed public-seam predicate groups-and-assets: failed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": false,
+            "detail": "Sealed public-seam predicate undo-boundary: failed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": false,
+            "detail": "Sealed public-seam predicate native-assets-appstate: failed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": false,
+            "detail": "Sealed public-seam predicate export-boundary: failed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": false,
+            "detail": "Sealed public-seam predicate historical-compatibility: failed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 125 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1\")\n          stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 15.78s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-sYNeNU/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 31ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 996ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 14720ms\n   ✓ exportToSvg > with default arguments 1129ms\n   ✓ exportToSvg > with a CJK font 10651ms\n   ✓ exportToSvg > with background color 474ms\n   ✓ exportToSvg > with exportPadding 881ms\n   ✓ exportToSvg > with scale 913ms\n   ✓ exportToSvg > with exportEmbedScene 379ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 17073ms\n   ✓ history > singleplayer undo/redo > should not clear the redo stack on standalone appstate change 480ms\n   ✓ history >"
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": false,
+            "detail": "0 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui, workspace:scene-history-named-immutable-versions, workspace:scene-history-historical-branching, workspace:scene-history-deterministic-merge, workspace:scene-history-conflict-taxonomy, workspace:scene-history-relationship-integrity, workspace:scene-history-groups-and-assets, workspace:scene-history-undo-boundary, workspace:scene-history-native-assets-appstate, workspace:scene-history-export-boundary, workspace:scene-history-historical-compatibility, workspace:scene-history-commit.",
+        "inputDigests": []
+      },
+      {
+        "id": "green-functional",
+        "expectation": "green",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": true,
+            "detail": "Sealed public-seam predicate public-ui: passed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 125 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1\")\n          stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 12.82s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-jnekYy/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 38ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 865ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 7568ms\n   ✓ exportToSvg > with default arguments 933ms\n   ✓ exportToSvg > with a CJK font 5834ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 8915ms\n   ✓ history > singleplayer undo/redo > should not clear the redo stack on standalone appstate change 424ms\n   ✓ history > singleplayer undo/redo > should support element creation, deletion and appstate element selection change 398ms\n   ✓ history > singleplayer undo/redo > should support changes in "
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "All declared checks passed.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73"
+        ]
+      },
+      {
+        "id": "green-command-log",
+        "expectation": "green",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": true,
+            "detail": "Sealed public-seam predicate public-ui: passed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 203 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1 stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 21.75s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-03V7g1/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 61ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 1617ms\n   ✓ export > export embedded png and reimport 360ms\n   ✓ export > import embedded svg (legacy v1) 302ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 9581ms\n   ✓ exportToSvg > with default arguments 1206ms\n   ✓ exportToSvg > with a CJK font 7641ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 10469ms\n   ✓ history > singleplayer undo/redo > should not collapse when applying corrupted history entry 385ms\n   ✓ history > singleplayer undo/redo > should not end up with history entry when there "
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "All declared checks passed.",
+        "inputDigests": [
+          "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378"
+        ]
+      },
+      {
+        "id": "mutant-forged-verdict",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Sealed public-seam predicate public-ui: failed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": false,
+            "detail": "Sealed public-seam predicate named-immutable-versions: failed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": false,
+            "detail": "Sealed public-seam predicate historical-branching: failed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": false,
+            "detail": "Sealed public-seam predicate deterministic-merge: failed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": false,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: failed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": false,
+            "detail": "Sealed public-seam predicate relationship-integrity: failed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": false,
+            "detail": "Sealed public-seam predicate groups-and-assets: failed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": false,
+            "detail": "Sealed public-seam predicate undo-boundary: failed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": false,
+            "detail": "Sealed public-seam predicate native-assets-appstate: failed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": false,
+            "detail": "Sealed public-seam predicate export-boundary: failed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": false,
+            "detail": "Sealed public-seam predicate historical-compatibility: failed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 203 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1 stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 11.12s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-8CdSV5/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 25ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 395ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 5181ms\n   ✓ exportToSvg > with default arguments 459ms\n   ✓ exportToSvg > with a CJK font 4237ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 5575ms\n\n Test Files  4 passed (4)\n      Tests  117 passed (117)\n   Start at  21:00:58\n   Duration  8.93s (transform 2.66s, setup 410ms, collect 10.58s, tests 11.18s, environment 1.10s, prepare 228ms)\n\nDone in 9.33s."
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui, workspace:scene-history-named-immutable-versions, workspace:scene-history-historical-branching, workspace:scene-history-deterministic-merge, workspace:scene-history-conflict-taxonomy, workspace:scene-history-relationship-integrity, workspace:scene-history-groups-and-assets, workspace:scene-history-undo-boundary, workspace:scene-history-native-assets-appstate, workspace:scene-history-export-boundary, workspace:scene-history-historical-compatibility.",
+        "inputDigests": [
+          "sha256:5379318d3fb20a8f5d1738cca7194305b9392a469f8b44f2e8e6753b99ac0ef1"
+        ]
+      },
+      {
+        "id": "mutant-forged-runner",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": false,
+            "detail": "Candidate changed seeded qualification authority files: package.json. No install, build, or test command ran."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": false,
+            "detail": "Not executed after qualification authority rejection."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": false,
+            "detail": "Not executed after qualification authority rejection."
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui, workspace:scene-history-named-immutable-versions, workspace:scene-history-historical-branching, workspace:scene-history-deterministic-merge, workspace:scene-history-conflict-taxonomy, workspace:scene-history-relationship-integrity, workspace:scene-history-groups-and-assets, workspace:scene-history-undo-boundary, workspace:scene-history-native-assets-appstate, workspace:scene-history-export-boundary, workspace:scene-history-historical-compatibility, workspace:scene-history-qualification-authority, workspace:scene-history-build, workspace:scene-history-upstream-tests.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:c4f6a03bc1dd0dfb3802beeb9754a483e0c26ff0ba1fcc86184030e18cf3d43f"
+        ]
+      },
+      {
+        "id": "mutant-forged-yarnrc",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": false,
+            "detail": "Not executed because qualification authority rejected the candidate before commands ran; this predicate is not the rejection reason."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": false,
+            "detail": "Candidate changed seeded qualification authority files: .yarnrc. No install, build, or test command ran."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": false,
+            "detail": "Not executed after qualification authority rejection."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": false,
+            "detail": "Not executed after qualification authority rejection."
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui, workspace:scene-history-named-immutable-versions, workspace:scene-history-historical-branching, workspace:scene-history-deterministic-merge, workspace:scene-history-conflict-taxonomy, workspace:scene-history-relationship-integrity, workspace:scene-history-groups-and-assets, workspace:scene-history-undo-boundary, workspace:scene-history-native-assets-appstate, workspace:scene-history-export-boundary, workspace:scene-history-historical-compatibility, workspace:scene-history-qualification-authority, workspace:scene-history-build, workspace:scene-history-upstream-tests.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:df156e6c6b5244830e867642397e58c1fca49cd14ef7c8c4ea2ca6f47dc2e3f5"
+        ]
+      },
+      {
+        "id": "mutant-ui-inert",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Sealed public-seam predicate public-ui: failed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 203 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    components/Button.tsx:4:7:\n      4 │ import \"./Button.scss\";\n        ╵        ~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    components/Button.tsx:4:7:\n      4 │ import \"./Button.scss\";\n        ╵        ~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray- stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 9.31s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-TPNoFl/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 15ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 322ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 3401ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 3821ms\n   ✓ exportToSvg > with default arguments 348ms\n   ✓ exportToSvg > with a CJK font 3137ms\n\n Test Files  4 passed (4)\n      Tests  117 passed (117)\n   Start at  21:01:38\n   Duration  6.27s (transform 2.02s, setup 380ms, collect 7.68s, tests 7.56s, environment 869ms, prepare 193ms)\n\nDone in 6.62s."
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:bfee65a6b6d9a1531523a9ae0379426e7c912d13ba755487d5f27bffc2523db8"
+        ]
+      },
+      {
+        "id": "mutant-ui-miswired",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Sealed public-seam predicate public-ui: failed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 125 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    components/DefaultSidebar.tsx:16:7:\n      16 │ import \"../components/dropdownMenu/DropdownMenu.scss\";\n         ╵        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    components/DefaultSidebar.tsx:16:7:\n      16 │ import \"../components/dropdownMenu/DropdownMenu.scss\";\n         ╵        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated mi stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 7.04s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-fKraRd/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 17ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 307ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 3261ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 3787ms\n   ✓ exportToSvg > with default arguments 336ms\n   ✓ exportToSvg > with a CJK font 3116ms\n\n Test Files  4 passed (4)\n      Tests  117 passed (117)\n   Start at  21:02:11\n   Duration  6.08s (transform 1.88s, setup 375ms, collect 7.20s, tests 7.37s, environment 779ms, prepare 201ms)\n\nDone in 6.47s."
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:24818efa7f1cbea4f7907b8cbb268c0e0a793a46453ccac20ddc3376aba87905"
+        ]
+      },
+      {
+        "id": "mutant-branch-overwrite",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": true,
+            "detail": "Sealed public-seam predicate public-ui: passed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": false,
+            "detail": "Sealed public-seam predicate historical-branching: failed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": false,
+            "detail": "Sealed public-seam predicate deterministic-merge: failed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 203 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1 stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 11.57s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-lQl7ZA/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 32ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 652ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 7013ms\n   ✓ exportToSvg > with default arguments 613ms\n   ✓ exportToSvg > with a CJK font 5715ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 7740ms\n   ✓ history > singleplayer undo/redo > should support element creation, deletion and appstate element selection change 307ms\n   ✓ history > singleplayer undo/redo > should support linear element creation and points manipulation through the editor 353ms\n   ✓ history > singleplayer undo/redo > should"
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-historical-branching, workspace:scene-history-deterministic-merge.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:16d2ae42f457aee74216888567f9eb5565f5b2fb85e653c94954543a7ee952fb"
+        ]
+      },
+      {
+        "id": "mutant-silent-lww",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Sealed public-seam predicate public-ui: failed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": false,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: failed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": false,
+            "detail": "Sealed public-seam predicate undo-boundary: failed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 125 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1\")\n          stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 12.41s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-1puJoU/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 28ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 708ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 6908ms\n   ✓ exportToSvg > with default arguments 728ms\n   ✓ exportToSvg > with a CJK font 5611ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 7502ms\n   ✓ history > singleplayer undo/redo > should not clear the redo stack on standalone appstate change 303ms\n   ✓ history > singleplayer undo/redo > should support linear element creation and points manipulation through the editor 302ms\n\n Test Files  4 passed (4)\n      Tests  117 passed (117)\n   Star"
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui, workspace:scene-history-conflict-taxonomy, workspace:scene-history-undo-boundary.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:d3424214c0153de9233dc017b680bb20325a7f383cacdc74062c5d278fed80af"
+        ]
+      },
+      {
+        "id": "mutant-relationships",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": true,
+            "detail": "Sealed public-seam predicate public-ui: passed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": false,
+            "detail": "Sealed public-seam predicate relationship-integrity: failed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 203 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1 stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 10.65s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-QNcHXv/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 26ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 487ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 7272ms\n   ✓ history > singleplayer undo/redo > should not override appstate changes when redo stack is not cleared 433ms\n   ✓ history > singleplayer undo/redo > should support element creation, deletion and appstate element selection change 317ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 7507ms\n   ✓ exportToSvg > with default arguments 537ms\n   ✓ exportToSvg > with a CJK font 6326ms\n\n Test Files  4 passed (4)\n      Tests  117 passed (117)\n   "
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-relationship-integrity.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:49c3265ac5b2897b3f3951e151e919aa5c1882d5de6a004049fc2ea7deecb48b"
+        ]
+      },
+      {
+        "id": "mutant-undo",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": true,
+            "detail": "Sealed public-seam predicate public-ui: passed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": false,
+            "detail": "Sealed public-seam predicate undo-boundary: failed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-compatibility: passed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 203 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:8:7:\n      8 │ import \"./css/styles.scss\";\n        ╵        ~~~~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1 stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 15.80s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-gD8gyb/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 32ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 521ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 4966ms\n   ✓ exportToSvg > with default arguments 465ms\n   ✓ exportToSvg > with a CJK font 4036ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 5115ms\n\n Test Files  4 passed (4)\n      Tests  117 passed (117)\n   Start at  21:05:30\n   Duration  9.05s (transform 3.05s, setup 490ms, collect 12.35s, tests 10.63s, environment 1.36s, prepare 278ms)\n\nDone in 9.48s."
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-undo-boundary.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:306b1c92db56d3a33d83f1688e53f4fd6419243d6120395196fde8ec08d00c1b"
+        ]
+      },
+      {
+        "id": "mutant-history-loss",
+        "expectation": "mutant",
+        "passed": true,
+        "checks": [
+          {
+            "name": "workspace:scene-history-public-ui",
+            "passed": false,
+            "detail": "Sealed public-seam predicate public-ui: failed."
+          },
+          {
+            "name": "workspace:scene-history-named-immutable-versions",
+            "passed": true,
+            "detail": "Sealed public-seam predicate named-immutable-versions: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-branching",
+            "passed": true,
+            "detail": "Sealed public-seam predicate historical-branching: passed."
+          },
+          {
+            "name": "workspace:scene-history-deterministic-merge",
+            "passed": true,
+            "detail": "Sealed public-seam predicate deterministic-merge: passed."
+          },
+          {
+            "name": "workspace:scene-history-conflict-taxonomy",
+            "passed": true,
+            "detail": "Sealed public-seam predicate conflict-taxonomy: passed."
+          },
+          {
+            "name": "workspace:scene-history-relationship-integrity",
+            "passed": true,
+            "detail": "Sealed public-seam predicate relationship-integrity: passed."
+          },
+          {
+            "name": "workspace:scene-history-groups-and-assets",
+            "passed": true,
+            "detail": "Sealed public-seam predicate groups-and-assets: passed."
+          },
+          {
+            "name": "workspace:scene-history-undo-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate undo-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-native-assets-appstate",
+            "passed": true,
+            "detail": "Sealed public-seam predicate native-assets-appstate: passed."
+          },
+          {
+            "name": "workspace:scene-history-export-boundary",
+            "passed": true,
+            "detail": "Sealed public-seam predicate export-boundary: passed."
+          },
+          {
+            "name": "workspace:scene-history-historical-compatibility",
+            "passed": false,
+            "detail": "Sealed public-seam predicate historical-compatibility: failed."
+          },
+          {
+            "name": "workspace:scene-history-qualification-authority",
+            "passed": true,
+            "detail": "Seeded qualification authority files are unchanged."
+          },
+          {
+            "name": "workspace:scene-history-build",
+            "passed": true,
+            "detail": "Excalidraw package build exited 0. stderr: ▲ [WARNING] sass warning: 125 repetitive deprecation warnings omitted.\nRun in verbose mode to see all warnings. [plugin sass-plugin]\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:31:12:\n      31 │ map-get($oc-gray-list, \"0\")\n         ╵             ^\n\n  The plugin \"sass-plugin\" was triggered by this import\n\n    index.tsx:7:7:\n      7 │ import \"./css/app.scss\";\n        ╵        ~~~~~~~~~~~~~~~~\n\n▲ [WARNING] Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.\nUse map.get instead.\n\nMore info and automated migrator: https://sass-lang.com/d/import [plugin sass-plugin]\n\n    ../../node_modules/open-color/open-color.scss:32:12:\n      32 │ map-get($oc-gray-list, \"1\")\n          stdout: yarn run v1.22.22\n$ yarn --cwd ./packages/excalidraw build:esm\n$ rm -rf dist && node ../../scripts/buildPackage.js && yarn gen:types\n$ rm -rf types && tsc\nDone in 16.79s."
+          },
+          {
+            "name": "workspace:scene-history-upstream-tests",
+            "passed": true,
+            "detail": "focused upstream history/restore/export tests exited 0. stdout: yarn run v1.22.22\n$ vitest --watch=false packages/excalidraw/tests/history.test.tsx packages/excalidraw/tests/data/restore.test.ts packages/excalidraw/tests/export.test.tsx packages/excalidraw/tests/scene/export.test.ts --reporter=dot\n\n RUN  v3.0.6 /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-excal-main/relayer-excalidraw-verifier-tIKv3J/workspace\n\n ✓ packages/excalidraw/tests/data/restore.test.ts (36 tests) 39ms\n ✓ packages/excalidraw/tests/export.test.tsx (8 tests) 818ms\n ✓ packages/excalidraw/tests/scene/export.test.ts (15 tests) 7469ms\n   ✓ exportToSvg > with default arguments 790ms\n   ✓ exportToSvg > with a CJK font 6008ms\n ✓ packages/excalidraw/tests/history.test.tsx (58 tests) 8382ms\n   ✓ history > singleplayer undo/redo > should not end up with history entry when there are no appstate changes 328ms\n   ✓ history > singleplayer undo/redo > should not override appstate changes when redo stack is not cleared 332ms\n   ✓ history > multiplayer undo/redo > should update history entries"
+          },
+          {
+            "name": "workspace:scene-history-commit",
+            "passed": true,
+            "detail": "1 post-fixture commit(s)."
+          },
+          {
+            "name": "workspace:scene-history-clean",
+            "passed": true,
+            "detail": "The candidate workspace is clean."
+          }
+        ],
+        "verdictDetail": "Rejected for intended checks: workspace:scene-history-public-ui, workspace:scene-history-historical-compatibility.",
+        "inputDigests": [
+          "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "sha256:4a6950a2d1136df414042292c8d942a99d019329d35deb5ed58192d385ebe2e9"
+        ]
+      }
+    ]
+  },
+  "error": null
+}

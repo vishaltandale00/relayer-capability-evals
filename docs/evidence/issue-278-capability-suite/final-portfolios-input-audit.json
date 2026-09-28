@@ -1,0 +1,658 @@
+{
+  "schemaVersion": 1,
+  "kind": "scoped-input-byte-audit-not-behavior-rerun",
+  "checkedAt": "2026-09-28T01:25:21.109Z",
+  "passed": true,
+  "results": [
+    {
+      "name": "Emergency",
+      "matched": 8,
+      "total": 8,
+      "checked": [
+        {
+          "file": "scripts/verify-emergency-evacuation-admission.mjs",
+          "expected": "sha256:f439661a9a8a6ae0318a5df8750128f2220bd44a66fbdfa46b75ce4b671a3843",
+          "actual": "sha256:f439661a9a8a6ae0318a5df8750128f2220bd44a66fbdfa46b75ce4b671a3843",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/emergency-evacuation-case.ts",
+          "expected": "sha256:cbe90746f7ff922b0d4a783f9f179b3965008b365be02db84c20956cffc48db4",
+          "actual": "sha256:cbe90746f7ff922b0d4a783f9f179b3965008b365be02db84c20956cffc48db4",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/emergency-evacuation-case.js",
+          "expected": "sha256:3258d6c3ce72c80de3a6994310470edc916541680c837b9b448cf5e5f05008de",
+          "actual": "sha256:3258d6c3ce72c80de3a6994310470edc916541680c837b9b448cf5e5f05008de",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/index.js",
+          "expected": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "actual": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/emergency-evacuation-case.test.ts",
+          "expected": "sha256:74877454dda1bf0ddcba40c5f8c084cd0fa609c9457f21b552634470b5b9a349",
+          "actual": "sha256:74877454dda1bf0ddcba40c5f8c084cd0fa609c9457f21b552634470b5b9a349",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/emergency-evacuation/priority-first-solver.mjs",
+          "expected": "sha256:8480542455fe331d47645d2e8bff69607bd5c0c3755ae55a301c863b9fb476b3",
+          "actual": "sha256:8480542455fe331d47645d2e8bff69607bd5c0c3755ae55a301c863b9fb476b3",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/emergency-evacuation/exhaustive-solver.mjs",
+          "expected": "sha256:f8d3619dbeb847831cdfc01e167ed06e6317f6561d673b6bef264ee41c8e816d",
+          "actual": "sha256:f8d3619dbeb847831cdfc01e167ed06e6317f6561d673b6bef264ee41c8e816d",
+          "matches": true
+        },
+        {
+          "file": "package-lock.json",
+          "expected": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "actual": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "JupyterLab",
+      "matched": 15,
+      "total": 15,
+      "checked": [
+        {
+          "file": "scripts/verify-jupyterlab-execution-bundles-admission.mjs",
+          "expected": "sha256:a4a5cd15c55652a463866ecbfa3ad75cbfaaf13fbb36d4e92f81950b4592cf0f",
+          "actual": "sha256:a4a5cd15c55652a463866ecbfa3ad75cbfaaf13fbb36d4e92f81950b4592cf0f",
+          "matches": true
+        },
+        {
+          "file": "scripts/lib/jupyterlab-admission-contract.mjs",
+          "expected": "sha256:70a1afe8acc7e609ff37637aa3d9af4029e3b4056a35f7e122d0c91448474afe",
+          "actual": "sha256:70a1afe8acc7e609ff37637aa3d9af4029e3b4056a35f7e122d0c91448474afe",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/jupyterlab-execution-bundles/solution/README.md",
+          "expected": "sha256:2fa56287e3b1e346ef9e56bb5680489490a6324a8bff089128f8f55a10f44118",
+          "actual": "sha256:2fa56287e3b1e346ef9e56bb5680489490a6324a8bff089128f8f55a10f44118",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/jupyterlab-execution-bundles/solution/green-recursive.patch",
+          "expected": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+          "actual": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/jupyterlab-execution-bundles/solution/green-normalized.patch",
+          "expected": "sha256:baaae88d9483af3768ff65531cad90daabb22d7a40f0cd261d3441dfdb8fcc04",
+          "actual": "sha256:baaae88d9483af3768ff65531cad90daabb22d7a40f0cd261d3441dfdb8fcc04",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/jupyterlab-execution-bundles.ts",
+          "expected": "sha256:c81ef1b137beb7dc0ff770f07270ed25f4dea729614c8d6903e4ff0098904d61",
+          "actual": "sha256:c81ef1b137beb7dc0ff770f07270ed25f4dea729614c8d6903e4ff0098904d61",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/jupyterlab-execution-bundles.test.ts",
+          "expected": "sha256:a6419bc6f6f1b54e3d8ff7af48ec60040b06ecba285ff95cda0e438f652e5161",
+          "actual": "sha256:a6419bc6f6f1b54e3d8ff7af48ec60040b06ecba285ff95cda0e438f652e5161",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/index.js",
+          "expected": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "actual": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/jupyterlab-execution-bundles.js",
+          "expected": "sha256:5eca150bc9729474eda9428060d869a74dfcbfad1dcafd3616fb20ca04f32d40",
+          "actual": "sha256:5eca150bc9729474eda9428060d869a74dfcbfad1dcafd3616fb20ca04f32d40",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/cases/catalog.js",
+          "expected": "sha256:c7905a7f8f1bbb4b1895cb197ddc2b0886964959d6c746066355f161ef6d85bc",
+          "actual": "sha256:c7905a7f8f1bbb4b1895cb197ddc2b0886964959d6c746066355f161ef6d85bc",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/cases/contracts.js",
+          "expected": "sha256:7244d4023d8ce25db396d1587fb5873bb0abd4321277e094d8cd6123f3f06023",
+          "actual": "sha256:7244d4023d8ce25db396d1587fb5873bb0abd4321277e094d8cd6123f3f06023",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/package.json",
+          "expected": "sha256:5cef632ed2af845e653103f9bfa4772128ac5e86ddf35b93b00b045dd0052f5b",
+          "actual": "sha256:5cef632ed2af845e653103f9bfa4772128ac5e86ddf35b93b00b045dd0052f5b",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/tsconfig.build.json",
+          "expected": "sha256:0db99c92e128103d23a5022be8c8a6da1a85c87829a4ff1f8f5a8611026c51df",
+          "actual": "sha256:0db99c92e128103d23a5022be8c8a6da1a85c87829a4ff1f8f5a8611026c51df",
+          "matches": true
+        },
+        {
+          "file": "package.json",
+          "expected": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81",
+          "actual": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81",
+          "matches": true
+        },
+        {
+          "file": "package-lock.json",
+          "expected": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "actual": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "Reservation/Tournament/API",
+      "matched": 13,
+      "total": 13,
+      "checked": [
+        {
+          "file": "packages/eval-runner/src/project-cases/reservation-capacity-case.ts",
+          "expected": "sha256:b2d6f0a2a5115f2b6aa764255031608ddbeb84358f7cc8521403c735d2601e6c",
+          "actual": "sha256:b2d6f0a2a5115f2b6aa764255031608ddbeb84358f7cc8521403c735d2601e6c",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/reservation-capacity-case.test.ts",
+          "expected": "sha256:5cd346d426f8b440b967ce12df5667410cc28d54722c82f7619f334aeb6c24ad",
+          "actual": "sha256:5cd346d426f8b440b967ce12df5667410cc28d54722c82f7619f334aeb6c24ad",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/tournament-operations-case.ts",
+          "expected": "sha256:7f8b5090252c3b1ec59c7427626e3b2138addc4ade52dbfd57a4ec18f39d1738",
+          "actual": "sha256:7f8b5090252c3b1ec59c7427626e3b2138addc4ade52dbfd57a4ec18f39d1738",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/tournament-operations-case.test.ts",
+          "expected": "sha256:0d7c17d32267acdb7e4c36b0111a1b36cd32b2c7fe55e566caf95198de874195",
+          "actual": "sha256:0d7c17d32267acdb7e4c36b0111a1b36cd32b2c7fe55e566caf95198de874195",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/tournament-operations-platform/verifier/manifest.json",
+          "expected": "sha256:b5c1b0f4d895479ffd2c23196ee49817104af602560c118db5fdd575d2f49d4a",
+          "actual": "sha256:b5c1b0f4d895479ffd2c23196ee49817104af602560c118db5fdd575d2f49d4a",
+          "matches": true
+        },
+        {
+          "file": "desktop/eval-main/eval-service.mjs",
+          "expected": "sha256:e78f864db3d143efd981b58574a3ddb69af5a4bfdde0f29cf6fc77fb838a5101",
+          "actual": "sha256:e78f864db3d143efd981b58574a3ddb69af5a4bfdde0f29cf6fc77fb838a5101",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/api-contract-simulation-laboratory.ts",
+          "expected": "sha256:89d0c29071b81b8136338f7e5e86f7265c99588c81f2cf8f68fb9681ef7773c5",
+          "actual": "sha256:89d0c29071b81b8136338f7e5e86f7265c99588c81f2cf8f68fb9681ef7773c5",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/api-contract-simulation-laboratory.test.ts",
+          "expected": "sha256:0628e835bdf7b855599df5820d822aff5f2b983e899acccfe5b9e4d61d648bf7",
+          "actual": "sha256:0628e835bdf7b855599df5820d822aff5f2b983e899acccfe5b9e4d61d648bf7",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/index.js",
+          "expected": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "actual": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/reservation-capacity-case.js",
+          "expected": "sha256:26523ed1872b5bfe8ca13149dcb34c4ec5a0e3f0f33f4d8c372acb1ceac64733",
+          "actual": "sha256:26523ed1872b5bfe8ca13149dcb34c4ec5a0e3f0f33f4d8c372acb1ceac64733",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/tournament-operations-case.js",
+          "expected": "sha256:d566d6d24f97e84b5cfec261044488bcf0b8fe64ce772e493a7b5f5afed56735",
+          "actual": "sha256:d566d6d24f97e84b5cfec261044488bcf0b8fe64ce772e493a7b5f5afed56735",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/api-contract-simulation-laboratory.js",
+          "expected": "sha256:c8cf13aac57cee6452cf956f5a46392fefb2d1b0ccf37a4fad949b7e1f0ec8db",
+          "actual": "sha256:c8cf13aac57cee6452cf956f5a46392fefb2d1b0ccf37a4fad949b7e1f0ec8db",
+          "matches": true
+        },
+        {
+          "file": "package-lock.json",
+          "expected": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "actual": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "Excalidraw",
+      "matched": 40,
+      "total": 40,
+      "checked": [
+        {
+          "file": "scripts/verify-excalidraw-scene-history-admission.mjs",
+          "expected": "sha256:845e02196db2e025f73aecb543a86fd60437f02566d64d9246c0842c4ed492b7",
+          "actual": "sha256:845e02196db2e025f73aecb543a86fd60437f02566d64d9246c0842c4ed492b7",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/excalidraw-scene-history.ts",
+          "expected": "sha256:ccc9c374559ef402b102388852127fa004aafacadf95102dc17373217929244f",
+          "actual": "sha256:ccc9c374559ef402b102388852127fa004aafacadf95102dc17373217929244f",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/excalidraw-scene-history.js",
+          "expected": "sha256:cded6c19843086ad6e69041fbd44da0b15b89550e618054a32e89949d489b275",
+          "actual": "sha256:cded6c19843086ad6e69041fbd44da0b15b89550e618054a32e89949d489b275",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/index.js",
+          "expected": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "actual": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "matches": true
+        },
+        {
+          "file": "package.json",
+          "expected": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81",
+          "actual": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81",
+          "matches": true
+        },
+        {
+          "file": "package-lock.json",
+          "expected": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "actual": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/reference-manifest.json",
+          "expected": "sha256:4577b6b3a4c08a247ebd64702e0354110cdfffca2cdb260a7577e20846ade5c4",
+          "actual": "sha256:4577b6b3a4c08a247ebd64702e0354110cdfffca2cdb260a7577e20846ade5c4",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/green-command-log.patch",
+          "expected": "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378",
+          "actual": "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/green-functional.patch",
+          "expected": "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "actual": "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/branch-overwrite.patch",
+          "expected": "sha256:16d2ae42f457aee74216888567f9eb5565f5b2fb85e653c94954543a7ee952fb",
+          "actual": "sha256:16d2ae42f457aee74216888567f9eb5565f5b2fb85e653c94954543a7ee952fb",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/forged-runner.patch",
+          "expected": "sha256:c4f6a03bc1dd0dfb3802beeb9754a483e0c26ff0ba1fcc86184030e18cf3d43f",
+          "actual": "sha256:c4f6a03bc1dd0dfb3802beeb9754a483e0c26ff0ba1fcc86184030e18cf3d43f",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/forged-verdict.patch",
+          "expected": "sha256:5379318d3fb20a8f5d1738cca7194305b9392a469f8b44f2e8e6753b99ac0ef1",
+          "actual": "sha256:5379318d3fb20a8f5d1738cca7194305b9392a469f8b44f2e8e6753b99ac0ef1",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/forged-yarnrc.patch",
+          "expected": "sha256:df156e6c6b5244830e867642397e58c1fca49cd14ef7c8c4ea2ca6f47dc2e3f5",
+          "actual": "sha256:df156e6c6b5244830e867642397e58c1fca49cd14ef7c8c4ea2ca6f47dc2e3f5",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/history-loss.patch",
+          "expected": "sha256:4a6950a2d1136df414042292c8d942a99d019329d35deb5ed58192d385ebe2e9",
+          "actual": "sha256:4a6950a2d1136df414042292c8d942a99d019329d35deb5ed58192d385ebe2e9",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/relationships.patch",
+          "expected": "sha256:49c3265ac5b2897b3f3951e151e919aa5c1882d5de6a004049fc2ea7deecb48b",
+          "actual": "sha256:49c3265ac5b2897b3f3951e151e919aa5c1882d5de6a004049fc2ea7deecb48b",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/silent-lww.patch",
+          "expected": "sha256:d3424214c0153de9233dc017b680bb20325a7f383cacdc74062c5d278fed80af",
+          "actual": "sha256:d3424214c0153de9233dc017b680bb20325a7f383cacdc74062c5d278fed80af",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/ui-inert.patch",
+          "expected": "sha256:bfee65a6b6d9a1531523a9ae0379426e7c912d13ba755487d5f27bffc2523db8",
+          "actual": "sha256:bfee65a6b6d9a1531523a9ae0379426e7c912d13ba755487d5f27bffc2523db8",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/ui-miswired.patch",
+          "expected": "sha256:24818efa7f1cbea4f7907b8cbb268c0e0a793a46453ccac20ddc3376aba87905",
+          "actual": "sha256:24818efa7f1cbea4f7907b8cbb268c0e0a793a46453ccac20ddc3376aba87905",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/mutants/undo.patch",
+          "expected": "sha256:306b1c92db56d3a33d83f1688e53f4fd6419243d6120395196fde8ec08d00c1b",
+          "actual": "sha256:306b1c92db56d3a33d83f1688e53f4fd6419243d6120395196fde8ec08d00c1b",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/excalidraw-scene-history/solution/reference.md",
+          "expected": "sha256:97c896077cf896da5f456c7e80b0f2f923d989118a50b9260391c3a202899c8e",
+          "actual": "sha256:97c896077cf896da5f456c7e80b0f2f923d989118a50b9260391c3a202899c8e",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/green-command-log.mjs",
+          "expected": "sha256:b0ca6068cc8356ebb53de72b7bec3e5fd5367d27ff7c257fca4ffd9e994463fb",
+          "actual": "sha256:b0ca6068cc8356ebb53de72b7bec3e5fd5367d27ff7c257fca4ffd9e994463fb",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/green-functional.mjs",
+          "expected": "sha256:3d49a99f70f6dad667cb607ef303a74ec53f61c3639c1609843b2bd6835421c5",
+          "actual": "sha256:3d49a99f70f6dad667cb607ef303a74ec53f61c3639c1609843b2bd6835421c5",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-assets.mjs",
+          "expected": "sha256:296504536b6f2e7ebf974a279dc128c2ac081be5976819a04edd30803d29c0ed",
+          "actual": "sha256:296504536b6f2e7ebf974a279dc128c2ac081be5976819a04edd30803d29c0ed",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-bindings.mjs",
+          "expected": "sha256:b5995e8e7e7d6ac3b6b4aaf52c479d634787031dd8ee3086ed2ec2bbb89abdea",
+          "actual": "sha256:b5995e8e7e7d6ac3b6b4aaf52c479d634787031dd8ee3086ed2ec2bbb89abdea",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-branch-overwrite.mjs",
+          "expected": "sha256:768a807ebf8cb4e2f2d661c5dd2da4606efac35f72de1d2e42948087c4822975",
+          "actual": "sha256:768a807ebf8cb4e2f2d661c5dd2da4606efac35f72de1d2e42948087c4822975",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-common-ancestor.mjs",
+          "expected": "sha256:b1a5b10af392126201b2f3414520a7eac42d1d1ddf4095fd21bee4ae876f48b9",
+          "actual": "sha256:b1a5b10af392126201b2f3414520a7eac42d1d1ddf4095fd21bee4ae876f48b9",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-compat.mjs",
+          "expected": "sha256:6dedff3ddab85a4e8a50268e5a4c43b622098854ada7acc9d9fee8a21dd61ceb",
+          "actual": "sha256:6dedff3ddab85a4e8a50268e5a4c43b622098854ada7acc9d9fee8a21dd61ceb",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-early-resolution.mjs",
+          "expected": "sha256:75b14cdba69cc23e92394532f3f9dfd850ccd894c3fb926df9a35b917506965c",
+          "actual": "sha256:75b14cdba69cc23e92394532f3f9dfd850ccd894c3fb926df9a35b917506965c",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-export.mjs",
+          "expected": "sha256:633eef133d97df5a643da375f57e29a05fd726b6927cc65c99a5edc9f7588a43",
+          "actual": "sha256:633eef133d97df5a643da375f57e29a05fd726b6927cc65c99a5edc9f7588a43",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-factory.mjs",
+          "expected": "sha256:bdbf3bf7e739f28660fe182c43c4e7e372d6970a619d0ed3ade2cf54597aeca5",
+          "actual": "sha256:bdbf3bf7e739f28660fe182c43c4e7e372d6970a619d0ed3ade2cf54597aeca5",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-forged-verdict.mjs",
+          "expected": "sha256:4f2fd6f808ae72ca242191ef05ee78840a16f384e590275438062f0cc38345f9",
+          "actual": "sha256:4f2fd6f808ae72ca242191ef05ee78840a16f384e590275438062f0cc38345f9",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-frame-container.mjs",
+          "expected": "sha256:ca9cca12d524dfa2a8438d195d8bf87222fa0de5b7915a5e8c98015622d60108",
+          "actual": "sha256:ca9cca12d524dfa2a8438d195d8bf87222fa0de5b7915a5e8c98015622d60108",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-groups.mjs",
+          "expected": "sha256:aafcaf1da0f22664b7911b6dad1d9efcc8715206f72642ac97499938d17cf54b",
+          "actual": "sha256:aafcaf1da0f22664b7911b6dad1d9efcc8715206f72642ac97499938d17cf54b",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-history-loss.mjs",
+          "expected": "sha256:998469dfb7d475859cbfa47eb972dc305d9bb6c522126363ce1b395e4b66d8bc",
+          "actual": "sha256:998469dfb7d475859cbfa47eb972dc305d9bb6c522126363ce1b395e4b66d8bc",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-nondeterminism.mjs",
+          "expected": "sha256:948fc181d7dce15a65958ffaf1534987c4e9c8d721e68355f2cf8e05e38ed3f0",
+          "actual": "sha256:948fc181d7dce15a65958ffaf1534987c4e9c8d721e68355f2cf8e05e38ed3f0",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-ordering.mjs",
+          "expected": "sha256:6bfb75a54eb9f0b7d26781246cd055487cfece881daf41df873f57db49daea6c",
+          "actual": "sha256:6bfb75a54eb9f0b7d26781246cd055487cfece881daf41df873f57db49daea6c",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-silent-lww.mjs",
+          "expected": "sha256:ed0305be09e5778e270851415497febf670054af3edbcf318e258609a9dba113",
+          "actual": "sha256:ed0305be09e5778e270851415497febf670054af3edbcf318e258609a9dba113",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-ui-accessibility.mjs",
+          "expected": "sha256:1dba54ca946a3035c31f51d6232dcef377243d317af067d1c530a7b3cc036ba7",
+          "actual": "sha256:1dba54ca946a3035c31f51d6232dcef377243d317af067d1c530a7b3cc036ba7",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/mutant-undo.mjs",
+          "expected": "sha256:4ddcd788dc5bce3278c153a46503166d2545b5cda9f796e789fae2cdcc255bca",
+          "actual": "sha256:4ddcd788dc5bce3278c153a46503166d2545b5cda9f796e789fae2cdcc255bca",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/excalidraw-scene-history/red-untouched.mjs",
+          "expected": "sha256:f7e69c1e7d97946077425a68c635c7202892525a89a90ab9c8bda37b88cad1df",
+          "actual": "sha256:f7e69c1e7d97946077425a68c635c7202892525a89a90ab9c8bda37b88cad1df",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "HTTPCore",
+      "matched": 8,
+      "total": 8,
+      "checked": [
+        {
+          "file": "packages/eval-runner/src/project-cases/httpcore-cancellation.ts",
+          "expected": "sha256:3344ad3968162ad1ba0011971ca5d1b8e2536dd0fbbeae1f7a9a8c529b6d4bca",
+          "actual": "sha256:3344ad3968162ad1ba0011971ca5d1b8e2536dd0fbbeae1f7a9a8c529b6d4bca",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/httpcore-cancellation.js",
+          "expected": "sha256:d69bb1733f51ce068476fc5ac3797695438bc75eb1b41c4111773e6eac86361e",
+          "actual": "sha256:d69bb1733f51ce068476fc5ac3797695438bc75eb1b41c4111773e6eac86361e",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/httpcore-cancellation-pool/verifier/verify.py",
+          "expected": "sha256:b859fbcb32e8559203893b0a60857e9688697c24decab9b5cdce912070b878bc",
+          "actual": "sha256:b859fbcb32e8559203893b0a60857e9688697c24decab9b5cdce912070b878bc",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/httpcore-cancellation-pool/verifier/regression.py",
+          "expected": "sha256:effced73865277136cba74126b263b0b4efcf276e0de81451dd0589628ae970e",
+          "actual": "sha256:effced73865277136cba74126b263b0b4efcf276e0de81451dd0589628ae970e",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/httpcore-cancellation-pool/environment/requirements.lock",
+          "expected": "sha256:1574363aaad673aee0654c936447f11fa3ed09bcf582d5e75c3e743509c1a99b",
+          "actual": "sha256:1574363aaad673aee0654c936447f11fa3ed09bcf582d5e75c3e743509c1a99b",
+          "matches": true
+        },
+        {
+          "file": "scripts/run-httpcore-admission.mjs",
+          "expected": "sha256:a0c6cde55f4dd371373752cacb537f5beb1a5d60a093beedd82b10fb8f311bcc",
+          "actual": "sha256:a0c6cde55f4dd371373752cacb537f5beb1a5d60a093beedd82b10fb8f311bcc",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/index.js",
+          "expected": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "actual": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/httpcore-cancellation-pool/admission/receipt.json",
+          "expected": "sha256:5ba67fc3e4b0868c436a785fef55e8dde6c51ce3451c30b7e246cecf3fe8a904",
+          "actual": "sha256:5ba67fc3e4b0868c436a785fef55e8dde6c51ce3451c30b7e246cecf3fe8a904",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "NodeRedis",
+      "matched": 3,
+      "total": 3,
+      "checked": [
+        {
+          "file": "packages/eval-runner/src/project-cases/node-redis.ts",
+          "expected": "sha256:0ce3626a575ba222b72d59088d16a74895ad65d59a3591b952279543c7ec0b98",
+          "actual": "sha256:0ce3626a575ba222b72d59088d16a74895ad65d59a3591b952279543c7ec0b98",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist/project-cases/node-redis.js",
+          "expected": "sha256:9245a632a66b3e75797fb7f85a7c13b8f085a0650d64bc5dddcaf20f2e46238c",
+          "actual": "sha256:9245a632a66b3e75797fb7f85a7c13b8f085a0650d64bc5dddcaf20f2e46238c",
+          "matches": true
+        },
+        {
+          "file": "scripts/verify-node-redis-case-admission.mjs",
+          "expected": "sha256:2906abdab843d3c7a78826f4e3557d8ad0575b457a52a363ca534e0ea6abc21f",
+          "actual": "sha256:2906abdab843d3c7a78826f4e3557d8ad0575b457a52a363ca534e0ea6abc21f",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "SaaS",
+      "matched": 6,
+      "total": 6,
+      "checked": [
+        {
+          "file": "./create-workbooks.mjs",
+          "expected": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+          "actual": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+          "matches": true
+        },
+        {
+          "file": "./run-admission.mjs",
+          "expected": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+          "actual": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+          "matches": true
+        },
+        {
+          "file": "../../spreadsheet-admission-outcome.mjs",
+          "expected": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "actual": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "matches": true
+        },
+        {
+          "file": "../../../packages/eval-runner/src/project-cases/saas-operating-model.ts",
+          "expected": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+          "actual": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+          "matches": true
+        },
+        {
+          "file": "../../../packages/eval-runner/src/project-cases/spreadsheet-artifact-inspector.ts",
+          "expected": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+          "actual": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist",
+          "expected": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3",
+          "actual": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "name": "Planner",
+      "matched": 6,
+      "total": 6,
+      "checked": [
+        {
+          "file": "eval-cases/production-delivery-planner/admission/run-admission.mjs",
+          "expected": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+          "actual": "sha256:0879716b7885b4980ca294b36aad4d84429fa76ab1215b1c6468d8200f3a93be",
+          "matches": true
+        },
+        {
+          "file": "eval-cases/spreadsheet-admission-outcome.mjs",
+          "expected": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "actual": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/production-delivery-planner.ts",
+          "expected": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+          "actual": "sha256:c4d3c604385376d31a1080c7e8813fe8abe976b99ad6fd5fc143e8151862d06d",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/src/project-cases/spreadsheet-runtime.ts",
+          "expected": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+          "actual": "sha256:1e04d6fe157d4a8c88ef77135c71a2b6e7ae7075a94e284b72693cbc153c067f",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/test/fixtures/production-delivery-planner-workbook.mjs",
+          "expected": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+          "actual": "sha256:72d4990a8d6f74442e168dc026bdf317474d1a25b9d2e4278b7e8c87012d2261",
+          "matches": true
+        },
+        {
+          "file": "packages/eval-runner/dist",
+          "expected": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3",
+          "actual": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3",
+          "matches": true
+        }
+      ]
+    }
+  ]
+}

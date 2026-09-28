@@ -1,0 +1,40 @@
+{
+  "name": "@relayer/capability-evals",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./catalog": "./catalog.mjs"
+  },
+  "files": [
+    "catalog.mjs",
+    "dist",
+    "src",
+    "test/fixtures"
+  ],
+  "scripts": {
+    "setup": "node ../../scripts/link-runner-sdk.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "check": "tsc --noEmit",
+    "test": "cd ../.. && vitest run packages/capability-evals/test"
+  },
+  "peerDependencies": {
+    "@relayer/eval-runner": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.9"
+  },
+  "peerDependenciesMeta": {
+    "@relayer/eval-runner": {
+      "optional": true
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "reviewer": {
+    "agentId": "/root/suite_manifest",
+    "configuredWorkerModel": "GPT-5.6 Sol"
+  },
+  "reviewKind": "read-only exact scoped input reuse audit",
+  "workspace": "/Volumes/2T-SSD/worktrees/capability-eval-integration/relayer-graphcomplete",
+  "results": {
+    "emergency-v3": {
+      "evidencePath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/emergency-admission-v3/receipt.json",
+      "matched": 8,
+      "total": 8,
+      "mismatches": []
+    },
+    "jupyter-v4": {
+      "evidencePath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/jupyterlab-admission-final-v4/receipt.json",
+      "matched": 15,
+      "total": 15,
+      "mismatches": []
+    },
+    "reservation-tournament-api": {
+      "evidencePath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/reservation-tournament-api-final/receipt.json",
+      "matched": 13,
+      "total": 13,
+      "mismatches": []
+    },
+    "excalidraw-v2": {
+      "evidencePath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/excalidraw-admission-final13-v2/receipt.json",
+      "matched": 40,
+      "total": 40,
+      "mismatches": []
+    },
+    "httpcore-source-bound": {
+      "evidencePath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/httpcore-source-bound-final/inputs-before.json",
+      "matched": 8,
+      "total": 8,
+      "mismatches": []
+    },
+    "node-redis": {
+      "evidencePath": "/Volumes/2T-SSD/eval-evidence/2026-09-27/node-redis-inputs-before.sha256",
+      "matched": 3,
+      "total": 3,
+      "mismatches": []
+    }
+  },
+  "verdict": "all captured scoped inputs match current workspace bytes",
+  "limitations": [
+    "This byte audit does not rerun portfolio behavior.",
+    "Any later source edit or build can invalidate the comparison; recheck after the final build.",
+    "Receipt scope differs by runner. Absence of a path from a receipt is not proof about that path."
+  ]
+}

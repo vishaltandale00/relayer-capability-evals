@@ -1,0 +1,1210 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "caseId": "jupyterlab.reproducible-execution-bundles",
+  "caseSnapshotDigest": "sha256:82f15a703d24fd1a439762ddea29c090f27d0364a3b4cb78122b04d9618d8045",
+  "verifierDigest": "sha256:b32270aa329d5d67660a627d6152ec3bf75a9e3308281cca1119cea89ddd66bf",
+  "normalizedVerifierSourceSha256": "edb10b7b99d234859ba7bda99ccea925cc56a363a7341e12cd8a72daec5a3ea5",
+  "upstreamCommit": "9a217d024d13ef82c8de060a9fed8b430d28424a",
+  "upstreamTree": "f75d058600de259d858001471410d67729405070",
+  "sourceInputsBefore": {
+    "scripts/verify-jupyterlab-execution-bundles-admission.mjs": {
+      "status": "hashed",
+      "digest": "sha256:a4a5cd15c55652a463866ecbfa3ad75cbfaaf13fbb36d4e92f81950b4592cf0f"
+    },
+    "scripts/lib/jupyterlab-admission-contract.mjs": {
+      "status": "hashed",
+      "digest": "sha256:70a1afe8acc7e609ff37637aa3d9af4029e3b4056a35f7e122d0c91448474afe"
+    },
+    "eval-cases/jupyterlab-execution-bundles/solution/README.md": {
+      "status": "hashed",
+      "digest": "sha256:2fa56287e3b1e346ef9e56bb5680489490a6324a8bff089128f8f55a10f44118"
+    },
+    "eval-cases/jupyterlab-execution-bundles/solution/green-recursive.patch": {
+      "status": "hashed",
+      "digest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4"
+    },
+    "eval-cases/jupyterlab-execution-bundles/solution/green-normalized.patch": {
+      "status": "hashed",
+      "digest": "sha256:baaae88d9483af3768ff65531cad90daabb22d7a40f0cd261d3441dfdb8fcc04"
+    },
+    "packages/eval-runner/src/project-cases/jupyterlab-execution-bundles.ts": {
+      "status": "hashed",
+      "digest": "sha256:c81ef1b137beb7dc0ff770f07270ed25f4dea729614c8d6903e4ff0098904d61"
+    },
+    "packages/eval-runner/test/jupyterlab-execution-bundles.test.ts": {
+      "status": "hashed",
+      "digest": "sha256:a6419bc6f6f1b54e3d8ff7af48ec60040b06ecba285ff95cda0e438f652e5161"
+    },
+    "packages/eval-runner/dist/index.js": {
+      "status": "hashed",
+      "digest": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20"
+    },
+    "packages/eval-runner/dist/project-cases/jupyterlab-execution-bundles.js": {
+      "status": "hashed",
+      "digest": "sha256:5eca150bc9729474eda9428060d869a74dfcbfad1dcafd3616fb20ca04f32d40"
+    },
+    "packages/eval-runner/dist/cases/catalog.js": {
+      "status": "hashed",
+      "digest": "sha256:c7905a7f8f1bbb4b1895cb197ddc2b0886964959d6c746066355f161ef6d85bc"
+    },
+    "packages/eval-runner/dist/cases/contracts.js": {
+      "status": "hashed",
+      "digest": "sha256:7244d4023d8ce25db396d1587fb5873bb0abd4321277e094d8cd6123f3f06023"
+    },
+    "packages/eval-runner/package.json": {
+      "status": "hashed",
+      "digest": "sha256:5cef632ed2af845e653103f9bfa4772128ac5e86ddf35b93b00b045dd0052f5b"
+    },
+    "packages/eval-runner/tsconfig.build.json": {
+      "status": "hashed",
+      "digest": "sha256:0db99c92e128103d23a5022be8c8a6da1a85c87829a4ff1f8f5a8611026c51df"
+    },
+    "package.json": {
+      "status": "hashed",
+      "digest": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81"
+    },
+    "package-lock.json": {
+      "status": "hashed",
+      "digest": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+    }
+  },
+  "sourceInputsAfter": {
+    "scripts/verify-jupyterlab-execution-bundles-admission.mjs": {
+      "status": "hashed",
+      "digest": "sha256:a4a5cd15c55652a463866ecbfa3ad75cbfaaf13fbb36d4e92f81950b4592cf0f"
+    },
+    "scripts/lib/jupyterlab-admission-contract.mjs": {
+      "status": "hashed",
+      "digest": "sha256:70a1afe8acc7e609ff37637aa3d9af4029e3b4056a35f7e122d0c91448474afe"
+    },
+    "eval-cases/jupyterlab-execution-bundles/solution/README.md": {
+      "status": "hashed",
+      "digest": "sha256:2fa56287e3b1e346ef9e56bb5680489490a6324a8bff089128f8f55a10f44118"
+    },
+    "eval-cases/jupyterlab-execution-bundles/solution/green-recursive.patch": {
+      "status": "hashed",
+      "digest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4"
+    },
+    "eval-cases/jupyterlab-execution-bundles/solution/green-normalized.patch": {
+      "status": "hashed",
+      "digest": "sha256:baaae88d9483af3768ff65531cad90daabb22d7a40f0cd261d3441dfdb8fcc04"
+    },
+    "packages/eval-runner/src/project-cases/jupyterlab-execution-bundles.ts": {
+      "status": "hashed",
+      "digest": "sha256:c81ef1b137beb7dc0ff770f07270ed25f4dea729614c8d6903e4ff0098904d61"
+    },
+    "packages/eval-runner/test/jupyterlab-execution-bundles.test.ts": {
+      "status": "hashed",
+      "digest": "sha256:a6419bc6f6f1b54e3d8ff7af48ec60040b06ecba285ff95cda0e438f652e5161"
+    },
+    "packages/eval-runner/dist/index.js": {
+      "status": "hashed",
+      "digest": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20"
+    },
+    "packages/eval-runner/dist/project-cases/jupyterlab-execution-bundles.js": {
+      "status": "hashed",
+      "digest": "sha256:5eca150bc9729474eda9428060d869a74dfcbfad1dcafd3616fb20ca04f32d40"
+    },
+    "packages/eval-runner/dist/cases/catalog.js": {
+      "status": "hashed",
+      "digest": "sha256:c7905a7f8f1bbb4b1895cb197ddc2b0886964959d6c746066355f161ef6d85bc"
+    },
+    "packages/eval-runner/dist/cases/contracts.js": {
+      "status": "hashed",
+      "digest": "sha256:7244d4023d8ce25db396d1587fb5873bb0abd4321277e094d8cd6123f3f06023"
+    },
+    "packages/eval-runner/package.json": {
+      "status": "hashed",
+      "digest": "sha256:5cef632ed2af845e653103f9bfa4772128ac5e86ddf35b93b00b045dd0052f5b"
+    },
+    "packages/eval-runner/tsconfig.build.json": {
+      "status": "hashed",
+      "digest": "sha256:0db99c92e128103d23a5022be8c8a6da1a85c87829a4ff1f8f5a8611026c51df"
+    },
+    "package.json": {
+      "status": "hashed",
+      "digest": "sha256:20bcaec8b51cde35530add91bc95ea45ab88c000e2a618190c187d8c325b8e81"
+    },
+    "package-lock.json": {
+      "status": "hashed",
+      "digest": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+    }
+  },
+  "sourceInputsDigest": "sha256:11010a0eaf939de4533c720fdd19b2b5e9c34ad284eb9fa1740cab7ecc44ca16",
+  "inputsStable": true,
+  "environment": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "node": "22.23.2",
+    "nodeExecutable": "/Users/vishal/.nvm/versions/node/v22.23.2/bin/node",
+    "nodeExecutableDigest": "sha256:18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572"
+  },
+  "productionMaterializerAndGraderExercised": true,
+  "results": [
+    {
+      "schemaVersion": 1,
+      "id": "untouched-baseline",
+      "role": "delivery-ineligible-red-baseline",
+      "status": "passed",
+      "patchDigest": null,
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:implementation-build",
+        "workspace:focused-upstream-tests",
+        "workspace:sealed-public-export",
+        "workspace:bundle-public-api",
+        "workspace:bundle-environment-identity",
+        "workspace:bundle-ordered-execution-evidence",
+        "workspace:bundle-output-preservation",
+        "workspace:bundle-referenced-file-integrity",
+        "workspace:bundle-bundle-integrity",
+        "workspace:bundle-read-only-import",
+        "workspace:bundle-rerun-comparison",
+        "workspace:bundle-missing-inputs",
+        "workspace:bundle-tamper-detection",
+        "workspace:bundle-partial-execution",
+        "workspace:bundle-ui-status",
+        "workspace:pristine-verification-integrity",
+        "workspace:meaningful-commit"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:implementation-build",
+        "workspace:focused-upstream-tests",
+        "workspace:sealed-public-export",
+        "workspace:bundle-public-api",
+        "workspace:bundle-environment-identity",
+        "workspace:bundle-ordered-execution-evidence",
+        "workspace:bundle-output-preservation",
+        "workspace:bundle-referenced-file-integrity",
+        "workspace:bundle-bundle-integrity",
+        "workspace:bundle-read-only-import",
+        "workspace:bundle-rerun-comparison",
+        "workspace:bundle-missing-inputs",
+        "workspace:bundle-tamper-detection",
+        "workspace:bundle-partial-execution",
+        "workspace:bundle-ui-status",
+        "workspace:pristine-verification-integrity",
+        "workspace:meaningful-commit"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": false,
+          "detail": "scoped @jupyterlab/notebook build exited 1.\nThe build did not run because the candidate was not exactly one clean commit on the pinned fixture.\nscoped @jupyterlab/testing build exited 1.\nThe JupyterLab test-support build did not run because the candidate was not exactly one clean commit on the pinned fixture."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": false,
+          "detail": "focused JupyterLab execution-bundle tests exited 1.\nFocused tests did not run because the candidate was not exactly one clean commit on the pinned fixture."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": false,
+          "detail": "evaluator-owned public package export test exited 1.\nThe sealed public-export test did not run because the candidate was not exactly one clean commit on the pinned fixture."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": false,
+          "detail": "No pristine candidate delta was eligible for verification."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": false,
+          "detail": "0 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "missing-feature-control",
+      "role": "delivery-eligible-red-control",
+      "status": "passed",
+      "patchDigest": null,
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:focused-upstream-tests",
+        "workspace:sealed-public-export",
+        "workspace:bundle-public-api",
+        "workspace:bundle-environment-identity",
+        "workspace:bundle-ordered-execution-evidence",
+        "workspace:bundle-output-preservation",
+        "workspace:bundle-referenced-file-integrity",
+        "workspace:bundle-bundle-integrity",
+        "workspace:bundle-read-only-import",
+        "workspace:bundle-rerun-comparison",
+        "workspace:bundle-missing-inputs",
+        "workspace:bundle-tamper-detection",
+        "workspace:bundle-partial-execution",
+        "workspace:bundle-ui-status"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:focused-upstream-tests",
+        "workspace:sealed-public-export",
+        "workspace:bundle-public-api",
+        "workspace:bundle-environment-identity",
+        "workspace:bundle-ordered-execution-evidence",
+        "workspace:bundle-output-preservation",
+        "workspace:bundle-referenced-file-integrity",
+        "workspace:bundle-bundle-integrity",
+        "workspace:bundle-read-only-import",
+        "workspace:bundle-rerun-comparison",
+        "workspace:bundle-missing-inputs",
+        "workspace:bundle-tamper-detection",
+        "workspace:bundle-partial-execution",
+        "workspace:bundle-ui-status"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": false,
+          "detail": "focused JupyterLab execution-bundle tests exited 1.\nNo tests found, exiting with code 1\nRun with `--passWithNoTests` to exit with code 0\nIn /Volumes/2T-SSD/eval-evidence/2026-09-27/tmp-jupyterlab-main-b8390ca2/relayer-jupyter-verifier-6ETPoI/workspace/packages/notebook\n  103 files checked.\n  testMatch:  - 0 matches\n  testPathIgnorePatterns: /lib/, /node_modules/ - 52 matches\n  testRegex: /test/.*.spec.ts[x]?$ - 14 matches\nPattern: executionbundle - 0 matches"
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": false,
+          "detail": "evaluator-owned public package export test exited 1.\nFAIL test/relayer.executionbundle.spec.ts\n  ● Test suite failed to run\n\n    \u001b[96mtest/relayer.executionbundle.spec.ts\u001b[0m:\u001b[93m1\u001b[0m:\u001b[93m10\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2305: \u001b[0mModule '\"../src\"' has no exported member 'compareExecutionBundle'.\n\n    \u001b[7m1\u001b[0m import { compareExecutionBundle, executionBundleStatus, exportExecutionBundle, importExecutionBundle } from '../src';\n    \u001b[7m \u001b[0m \u001b[91m         ~~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n    \u001b[96mtest/relayer.executionbundle.spec.ts\u001b[0m:\u001b[93m1\u001b[0m:\u001b[93m34\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2305: \u001b[0mModule '\"../src\"' has no exported member 'executionBundleStatus'.\n\n    \u001b[7m1\u001b[0m import { compareExecutionBundle, executionBundleStatus, exportExecutionBundle, importExecutionBundle } from '../src';\n    \u001b[7m \u001b[0m \u001b[91m                                 ~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n    \u001b[96mtest/relayer.executionbundle.spec.ts\u001b[0m:\u001b[93m1\u001b[0m:\u001b[93m57\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2305: \u001b[0mModule '\"../src\"' has no exported member 'exportExecutionBundle'.\n\n    \u001b[7m1\u001b[0m import { compareExecutionBundle, executionBundleStatus, exportExecutionBundle, importExecutionBundle } from '../src';\n    \u001b[7m \u001b[0m \u001b[91m                                                        ~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n    \u001b[96mtest/relayer.executionbundle.spec.ts\u001b[0m:\u001b[93m1\u001b[0m:\u001b[93m80\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2305: \u001b[0mModule '\"../src\"' has no exported member 'importExecutionBundle'.\n\n    \u001b[7m1\u001b[0m import { compareExecutionBundle, executionBundleStatus, exportExecutionBundle, importExecutionBundle } from '../src';\n    \u001b[7m \u001b[0m \u001b[91m                                                                               ~~~~~~~~~~~~~~~~~~~~~\u001b[0m\n\nTest Suites: 1 failed, 1 total\nTests:       0 total\nSnapshots:   0 total\nTime:        2.733 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": false,
+          "detail": "exportExecutionBundle must be publicly exported\n+ actual - expected\n\n+ 'undefined'\n- 'function'\n"
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": false,
+          "detail": "api.exportExecutionBundle is not a function"
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": false,
+          "detail": "api.executionBundleStatus is not a function"
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "green-recursive",
+      "role": "green-solution",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": true,
+          "detail": "focused JupyterLab execution-bundle tests exited 0.\nPASS test/executionbundle.spec.ts\n  execution bundles\n    ✓ round trips immutable evidence and compares a rerun (6 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        2.014 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (6.729 s)\n  ✓ exports the execution-bundle API from the public notebook package (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        7.135 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "green-normalized",
+      "role": "green-solution",
+      "status": "passed",
+      "patchDigest": "sha256:baaae88d9483af3768ff65531cad90daabb22d7a40f0cd261d3441dfdb8fcc04",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": true,
+          "detail": "focused JupyterLab execution-bundle tests exited 0.\nPASS test/executionbundle.spec.ts\n  execution bundles\n    ✓ round trips immutable evidence and compares a rerun (10 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        2.821 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (7.845 s)\n  ✓ exports the execution-bundle API from the public notebook package (3 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        8.161 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "mutant-omits-executions",
+      "role": "semantic-mutant",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:bundle-bundle-integrity",
+        "workspace:bundle-tamper-detection"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:bundle-bundle-integrity",
+        "workspace:bundle-tamper-detection"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": true,
+          "detail": "focused JupyterLab execution-bundle tests exited 0.\nPASS test/executionbundle.spec.ts\n  execution bundles\n    ✓ round trips immutable evidence and compares a rerun (12 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        2.449 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (11.825 s)\n  ✓ exports the execution-bundle API from the public notebook package (2 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        12.207 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": false,
+          "detail": "Expected \"actual\" to be strictly unequal to:\n\n'e4b18045d4424b1872d22b0eb988696be14eeea465f3d7ca56121e023184f0b8'"
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": false,
+          "detail": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'verified'\n- 'tampered'\n"
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "mutant-accepts-missing",
+      "role": "authority-mutant",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:bundle-missing-inputs"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:bundle-missing-inputs"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": true,
+          "detail": "focused JupyterLab execution-bundle tests exited 0.\nPASS test/executionbundle.spec.ts\n  execution bundles\n    ✓ round trips immutable evidence and compares a rerun (13 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        4.724 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (10.832 s)\n  ✓ exports the execution-bundle API from the public notebook package (5 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        11.296 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": false,
+          "detail": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'verified'\n- 'missing-inputs'\n"
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "mutant-hides-partial",
+      "role": "semantic-mutant",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:bundle-partial-execution"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:bundle-partial-execution"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": true,
+          "detail": "focused JupyterLab execution-bundle tests exited 0.\nPASS test/executionbundle.spec.ts\n  execution bundles\n    ✓ round trips immutable evidence and compares a rerun (5 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        1.684 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (7.848 s)\n  ✓ exports the execution-bundle API from the public notebook package (2 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        8.246 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": false,
+          "detail": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'verified'\n- 'partial'\n"
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "mutant-detached-ui",
+      "role": "semantic-mutant",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:focused-upstream-tests",
+        "workspace:bundle-ui-status"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:focused-upstream-tests",
+        "workspace:bundle-ui-status"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": false,
+          "detail": "focused JupyterLab execution-bundle tests exited 1.\nFAIL test/executionbundle.spec.ts\n  execution bundles\n    ✕ round trips immutable evidence and compares a rerun (13 ms)\n\n  ● execution bundles › round trips immutable evidence and compares a rerun\n\n    expect(received).toBe(expected) // Object.is equality\n\n    Expected: true\n    Received: false\n\n      26 |       '<span data-tone=\"positive\" aria-readonly=\"true\">Verified</span>'\n      27 |     );\n    > 28 |     expect(host.contains(status.node)).toBe(true);\n         |                                        ^\n      29 |     await expect(importExecutionBundle('null', files)).resolves.toMatchObject({\n      30 |       status: 'tampered'\n      31 |     });\n\n      at Object.<anonymous> (test/executionbundle.spec.ts:28:40)\n\nTest Suites: 1 failed, 1 total\nTests:       1 failed, 1 total\nSnapshots:   0 total\nTime:        2.366 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (7.682 s)\n  ✓ exports the execution-bundle API from the public notebook package (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        8.029 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": false,
+          "detail": "Expected values to be strictly equal:\n\nfalse !== true\n"
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": true,
+          "detail": "Protected bytes and the staged candidate delta remained unchanged in the pristine verifier workspace."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "mutant-protected-config",
+      "role": "protected-authority-mutant",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": {
+        "path": ".yarnrc.yml",
+        "expectedDigest": "2c0b85ab0efb4dd97c5720d1f31244b60564fceda112d32d6cdc5a2b8a5d5e86",
+        "actualDigest": "85b6d9effd70153018fde935bc0d7c4b6089cff63a080065d2ffaa1a1bc67833",
+        "expectedError": "Pinned JupyterLab .yarnrc.yml digest mismatch: expected 2c0b85ab0efb4dd97c5720d1f31244b60564fceda112d32d6cdc5a2b8a5d5e86, received 85b6d9effd70153018fde935bc0d7c4b6089cff63a080065d2ffaa1a1bc67833."
+      },
+      "expectedFailedChecks": [],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": "Pinned JupyterLab .yarnrc.yml digest mismatch: expected 2c0b85ab0efb4dd97c5720d1f31244b60564fceda112d32d6cdc5a2b8a5d5e86, received 85b6d9effd70153018fde935bc0d7c4b6089cff63a080065d2ffaa1a1bc67833.",
+      "failedChecks": [],
+      "checks": []
+    },
+    {
+      "schemaVersion": 1,
+      "id": "mutant-post-test-delta",
+      "role": "delta-authority-mutant",
+      "status": "passed",
+      "patchDigest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4",
+      "protectedConfigMutation": null,
+      "expectedFailedChecks": [
+        "workspace:pristine-verification-integrity"
+      ],
+      "rosterComplete": true,
+      "expectationsMet": true,
+      "setupError": null,
+      "graderError": null,
+      "failedChecks": [
+        "workspace:pristine-verification-integrity"
+      ],
+      "checks": [
+        {
+          "name": "workspace:implementation-build",
+          "passed": true,
+          "detail": "scoped @jupyterlab/notebook build exited 0.\nscoped @jupyterlab/testing build exited 0."
+        },
+        {
+          "name": "workspace:focused-upstream-tests",
+          "passed": true,
+          "detail": "focused JupyterLab execution-bundle tests exited 0.\nPASS test/executionbundle.spec.ts\n  execution bundles\n    ✓ round trips immutable evidence and compares a rerun (6 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        1.925 s\nRan all test suites matching /executionbundle/i."
+        },
+        {
+          "name": "workspace:sealed-public-export",
+          "passed": true,
+          "detail": "evaluator-owned public package export test exited 0.\nPASS test/relayer.executionbundle.spec.ts (8.645 s)\n  ✓ exports the execution-bundle API from the public notebook package (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        9.196 s\nRan all test suites within paths \"test/relayer.executionbundle.spec.ts\"."
+        },
+        {
+          "name": "workspace:bundle-public-api",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-environment-identity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ordered-execution-evidence",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-output-preservation",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-referenced-file-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-bundle-integrity",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-read-only-import",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-rerun-comparison",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-missing-inputs",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-tamper-detection",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-partial-execution",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:bundle-ui-status",
+          "passed": true,
+          "detail": "Public behavioral predicate passed."
+        },
+        {
+          "name": "workspace:pristine-verification-integrity",
+          "passed": false,
+          "detail": "Verifier workspace drifted: unstaged=true, untracked=0, delta=b80f42de5934ef056ca0c112503295a2bd010b39bf6457bf029642ab35fd3930."
+        },
+        {
+          "name": "workspace:meaningful-commit",
+          "passed": true,
+          "detail": "1 post-fixture commit(s); pinned fixture is an ancestor."
+        },
+        {
+          "name": "workspace:implementation-clean",
+          "passed": true,
+          "detail": "The workspace is clean."
+        }
+      ]
+    }
+  ]
+}

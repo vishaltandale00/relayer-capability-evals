@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "caseId": "capability.greenfield.emergency-evacuation-route-planner",
+  "caseSnapshotDigest": "sha256:c83982a66344165475a7c03b491369c4721dd9bf1b4834d5ee166d59cb753658",
+  "verifierDigest": "sha256:7de6458c6d92601eeb90f6de47634cbb8fc27371a3c3e79603501a14d643d415",
+  "status": "passed",
+  "environment": {
+    "platform": "darwin",
+    "architecture": "arm64",
+    "node": "22.23.2"
+  },
+  "runtime": {
+    "version": "22.23.2",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "executableDigest": "sha256:18e387c90ab8a8400183e8bdd396376e1e875b91b4c874b894dcade7b35bf572",
+    "environmentDigest": "sha256:9e4bdbd2fc03b19c24843b8480c5f4ff8348765accbba7d8cdada0104aebae11"
+  },
+  "sourceInputs": {
+    "scripts/verify-emergency-evacuation-admission.mjs": "sha256:f439661a9a8a6ae0318a5df8750128f2220bd44a66fbdfa46b75ce4b671a3843",
+    "packages/eval-runner/src/project-cases/emergency-evacuation-case.ts": "sha256:cbe90746f7ff922b0d4a783f9f179b3965008b365be02db84c20956cffc48db4",
+    "packages/eval-runner/dist/project-cases/emergency-evacuation-case.js": "sha256:3258d6c3ce72c80de3a6994310470edc916541680c837b9b448cf5e5f05008de",
+    "packages/eval-runner/dist/index.js": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+    "packages/eval-runner/test/emergency-evacuation-case.test.ts": "sha256:74877454dda1bf0ddcba40c5f8c084cd0fa609c9457f21b552634470b5b9a349",
+    "packages/eval-runner/test/fixtures/emergency-evacuation/priority-first-solver.mjs": "sha256:8480542455fe331d47645d2e8bff69607bd5c0c3755ae55a301c863b9fb476b3",
+    "packages/eval-runner/test/fixtures/emergency-evacuation/exhaustive-solver.mjs": "sha256:f8d3619dbeb847831cdfc01e167ed06e6317f6561d673b6bef264ee41c8e816d",
+    "package-lock.json": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+  },
+  "sourceInputsAfter": {
+    "scripts/verify-emergency-evacuation-admission.mjs": "sha256:f439661a9a8a6ae0318a5df8750128f2220bd44a66fbdfa46b75ce4b671a3843",
+    "packages/eval-runner/src/project-cases/emergency-evacuation-case.ts": "sha256:cbe90746f7ff922b0d4a783f9f179b3965008b365be02db84c20956cffc48db4",
+    "packages/eval-runner/dist/project-cases/emergency-evacuation-case.js": "sha256:3258d6c3ce72c80de3a6994310470edc916541680c837b9b448cf5e5f05008de",
+    "packages/eval-runner/dist/index.js": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20",
+    "packages/eval-runner/test/emergency-evacuation-case.test.ts": "sha256:74877454dda1bf0ddcba40c5f8c084cd0fa609c9457f21b552634470b5b9a349",
+    "packages/eval-runner/test/fixtures/emergency-evacuation/priority-first-solver.mjs": "sha256:8480542455fe331d47645d2e8bff69607bd5c0c3755ae55a301c863b9fb476b3",
+    "packages/eval-runner/test/fixtures/emergency-evacuation/exhaustive-solver.mjs": "sha256:f8d3619dbeb847831cdfc01e167ed06e6317f6561d673b6bef264ee41c8e816d",
+    "package-lock.json": "sha256:7c14693f1408ff9537cfbe1b2285f3208a0a7997973154bb5619ca574f9b1942"
+  },
+  "sourceInputsStable": true,
+  "sourceInputsDigest": "sha256:332ae6b9ab67ccd5e1eae4ea37c64f600531c016c09d771095a2e7a9194c0345",
+  "report": {
+    "path": "vitest-report.json",
+    "digest": "sha256:74e27768d9aa7bc40403f18f0afbfc4e482fef36450703825f2f8df20ce9bec8"
+  },
+  "rawLog": {
+    "path": "vitest-raw.log",
+    "digest": "sha256:e411efb4ad1048950729111c5cc693289484bb78af188156192fa9a1f962df25"
+  },
+  "result": {
+    "outerExitCode": 0,
+    "reportSuccess": true,
+    "total": 20,
+    "passed": 20,
+    "failed": [],
+    "skipped": [],
+    "unexpectedStatuses": [],
+    "missingRequired": []
+  }
+}

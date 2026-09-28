@@ -1,0 +1,13 @@
+diff --git a/packages/excalidraw/scene-history.tsx b/packages/excalidraw/scene-history.tsx
+index 46ab9f3..3ceefc1 100644
+--- a/packages/excalidraw/scene-history.tsx
++++ b/packages/excalidraw/scene-history.tsx
+@@ -268,7 +268,7 @@ export function createSceneHistoryController(initialScene, importedHistory = nul
+     listVersions: () => legacy.getVersions().map((version) => ({ ...version, parentIds: version.parents })),
+     exportHistory: () => JSON.stringify(legacy.exportHistory()),
+     exportCurrentScene: () => JSON.stringify(legacy.getCurrentScene()),
+-    undo: legacy.undo,
++    undo: () => false,
+     redo: legacy.redo,
+   });
+ }

@@ -1,0 +1,411 @@
+{
+  "schemaVersion": 1,
+  "caseId": "capability.spreadsheet.saas-operating-model",
+  "caseSnapshotDigest": "sha256:39a5f7579f0dfba0f1e356acf5c34244cf5a44d6b7d5fd9956f2566fd6b33104",
+  "verifierDigest": "sha256:cbd1c1399c67f7b81ce8fb80e8783dee7b1bb9a313d171d73ac31b305035d006",
+  "sourceDigest": "sha256:33be6bba9e5213c7b398f08d94e2aedc774ffebe86c1ca740d7a61c4b38f90e0",
+  "sourceDigestsBefore": {
+    "./create-workbooks.mjs": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+    "./run-admission.mjs": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+    "../../spreadsheet-admission-outcome.mjs": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+    "../../../packages/eval-runner/src/project-cases/saas-operating-model.ts": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+    "../../../packages/eval-runner/src/project-cases/spreadsheet-artifact-inspector.ts": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+    "packages/eval-runner/dist": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3"
+  },
+  "sourceDigestsAfter": {
+    "./create-workbooks.mjs": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+    "./run-admission.mjs": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+    "../../spreadsheet-admission-outcome.mjs": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+    "../../../packages/eval-runner/src/project-cases/saas-operating-model.ts": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+    "../../../packages/eval-runner/src/project-cases/spreadsheet-artifact-inspector.ts": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+    "packages/eval-runner/dist": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3"
+  },
+  "runtimePreflightBefore": {
+    "available": true
+  },
+  "runtimePreflightAfter": {
+    "available": true
+  },
+  "inputsStable": true,
+  "sourceDigests": {
+    "./create-workbooks.mjs": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+    "./run-admission.mjs": "sha256:3b102f651d5d791d7d72379364d7fa9f12a2abb478530118bafae74efb3ff3f6",
+    "../../spreadsheet-admission-outcome.mjs": "sha256:1ec973c87f921db3ae0cec1d84629ef1e6773488bf6a68fa68c4bebf2785af2c",
+    "../../../packages/eval-runner/src/project-cases/saas-operating-model.ts": "sha256:509dfde1dc5446cd87a0ef0f0f259a7fed717cd616f2ab54171e806c3971e033",
+    "../../../packages/eval-runner/src/project-cases/spreadsheet-artifact-inspector.ts": "sha256:903440bc614bed1ce4c4ce8871ce73cda0f4ab2072ad924ad996b54b653ba5a3",
+    "packages/eval-runner/dist": "sha256:be81c5e8e246ef0e29c88ed65eb52737c018dd4dacbd0d7b334716d5b107b8c3"
+  },
+  "runId": "2026-09-28T01-13-10-347Z",
+  "runtime": {
+    "nodeVersion": "v24.19.0",
+    "nodeDigest": "sha256:27db838bb204ef7c21df2931f5656e4c8fb32e6e947f363a402b49714d32b5b1",
+    "artifactToolVersion": "2.8.59",
+    "artifactToolContentDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c",
+    "artifactToolEntrypointDigest": "sha256:d23c29992898aaf6efc0f78611ee34ba213579fa25e05ad4dc5dbcb356c11a89",
+    "runtimeTreeDigest": "sha256:eb3c0b54042c490c79837b4cd093028f34f2199e22236977ddbba6ec0482924c"
+  },
+  "review": {
+    "status": "non-certifying-no-pr",
+    "note": "Deterministic admission evidence; adversarial review is reported separately and invalidates on source change."
+  },
+  "results": [
+    {
+      "id": "baseline",
+      "admitted": true,
+      "passed": false,
+      "workspace": "baseline",
+      "workbookDigest": null,
+      "renderDigests": [],
+      "builderDigest": null,
+      "builderMatchesSource": null,
+      "failedChecks": [
+        "workspace:source-coverage:subscriptions",
+        "workspace:source-coverage:invoices",
+        "workspace:source-coverage:payments",
+        "workspace:source-coverage:payroll",
+        "workspace:source-coverage:expenses",
+        "workspace:source-coverage:cash",
+        "workspace:source-coverage:subscriptions-rows",
+        "workspace:source-coverage:invoices-rows",
+        "workspace:source-coverage:payments-rows",
+        "workspace:source-coverage:payroll-rows",
+        "workspace:source-coverage:expenses-rows",
+        "workspace:source-coverage:cash-rows",
+        "workspace:historical-reconciliation:keys",
+        "workspace:historical-reconciliation:independent-values",
+        "workspace:forecast-scenarios:keys",
+        "workspace:forecast-scenarios:materially-different",
+        "workspace:forecast-scenarios:distinct-drivers",
+        "workspace:forecast-scenarios:independent-values",
+        "workspace:cash-runway:keys",
+        "workspace:formula-lineage:required-outputs",
+        "workspace:formula-lineage:dashboard-values",
+        "workspace:formula-lineage:visible-checks",
+        "workspace:workbook-rendering:all-sheets",
+        "workspace:workbook-rendering:dashboard-chart",
+        "workspace:workbook-rendering:dashboard-chart-series",
+        "workspace:workbook-rendering:dashboard-chart-binding",
+        "workspace:changed-input-response:invoice",
+        "workspace:required-delivery-files",
+        "workspace:delivery-commit"
+      ],
+      "failedDetails": [
+        {
+          "name": "workspace:source-coverage:subscriptions",
+          "detail": "0/16 canonical subscriptions IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:invoices",
+          "detail": "0/15 canonical invoices IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:payments",
+          "detail": "0/15 canonical payments IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:payroll",
+          "detail": "0/13 canonical payroll IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:expenses",
+          "detail": "0/8 canonical expenses IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:cash",
+          "detail": "0/11 canonical cash IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:subscriptions-rows",
+          "detail": "No header-bound subscriptions source table found."
+        },
+        {
+          "name": "workspace:source-coverage:invoices-rows",
+          "detail": "No header-bound invoices source table found."
+        },
+        {
+          "name": "workspace:source-coverage:payments-rows",
+          "detail": "No header-bound payments source table found."
+        },
+        {
+          "name": "workspace:source-coverage:payroll-rows",
+          "detail": "No header-bound payroll source table found."
+        },
+        {
+          "name": "workspace:source-coverage:expenses-rows",
+          "detail": "No header-bound expenses source table found."
+        },
+        {
+          "name": "workspace:source-coverage:cash-rows",
+          "detail": "No header-bound cash source table found."
+        },
+        {
+          "name": "workspace:historical-reconciliation:keys",
+          "detail": "0/108 historical outputs are numeric."
+        },
+        {
+          "name": "workspace:historical-reconciliation:independent-values",
+          "detail": "Mismatched outputs: actual_revenue_2025-01, actual_collections_2025-01, actual_payroll_2025-01, actual_opex_2025-01, ending_cash_2025-01, ending_mrr_2025-01, logo_churn_2025-01, gross_revenue_churn_2025-01, nrr_2025-01, actual_revenue_2025-02, actual_collections_2025-02, actual_payroll_2025-02, actual_opex_2025-02, ending_cash_2025-02, ending_mrr_2025-02, logo_churn_2025-02, gross_revenue_churn_2025-02, nrr_2025-02, actual_revenue_2025-03, actual_collections_2025-03, actual_payroll_2025-03, actual_opex_2025-03, ending_cash_2025-03, ending_mrr_2025-03, logo_churn_2025-03, gross_revenue_churn_2025-03, nrr_2025-03, actual_revenue_2025-04, actual_collections_2025-04, actual_payroll_2025-04, actual_opex_2025-04, ending_cash_2025-04, ending_mrr_2025-04, logo_churn_2025-04, gross_revenue_churn_2025-04, nrr_2025-04, actual_revenue_2025-05, actual_collections_2025-05, actual_payroll_2025-05, actual_opex_2025-05, ending_cash_2025-05, ending_mrr_2025-05, logo_churn_2025-05, gross_revenue_churn_2025-05, nrr_2025-05, actual_revenue_2025-06, actual_collections_2025-06, actual_payroll_2025-06, actual_opex_2025-06, ending_cash_2025-06, ending_mrr_2025-06, logo_churn_2025-06, gross_revenue_churn_2025-06, nrr_2025-06, actual_revenue_2025-07, actual_collections_2025-07, actual_payroll_2025-07, actual_opex_2025-07, ending_cash_2025-07, ending_mrr_2025-07, logo_churn_2025-07, gross_revenue_churn_2025-07, nrr_2025-07, actual_revenue_2025-08, actual_collections_2025-08, actual_payroll_2025-08, actual_opex_2025-08, ending_cash_2025-08, ending_mrr_2025-08, logo_churn_2025-08, gross_revenue_churn_2025-08, nrr_2025-08, actual_revenue_2025-09, actual_collections_2025-09, actual_payroll_2025-09, actual_opex_2025-09, ending_cash_2025-09, ending_mrr_2025-09, logo_churn_2025-09, gross_revenue_churn_2025-09, nrr_2025-09, actual_revenue_2025-10, actual_collections_2025-10, actual_payroll_2025-10, actual_opex_2025-10, ending_cash_2025-10, ending_mrr_2025-10, logo_churn_2025-10, gross_revenue_churn_2025-10, nrr_2025-10, actual_revenue_2025-11, actual_collections_2025-11, actual_payroll_2025-11, actual_opex_2025-11, ending_cash_2025-11, ending_mrr_2025-11, logo_churn_2025-11, gross_revenue_churn_2025-11, nrr_2025-11, actual_revenue_2025-12, actual_collections_2025-12, actual_payroll_2025-12, actual_opex_2025-12, ending_cash_2025-12, ending_mrr_2025-12, logo_churn_2025-12, gross_revenue_churn_2025-12, nrr_2025-12."
+        },
+        {
+          "name": "workspace:forecast-scenarios:keys",
+          "detail": "0/72 scenario outputs are numeric."
+        },
+        {
+          "name": "workspace:forecast-scenarios:materially-different",
+          "detail": "0/12 forecast months have three distinct scenario revenues."
+        },
+        {
+          "name": "workspace:forecast-scenarios:distinct-drivers",
+          "detail": "0/4 required scenario drivers differ across all scenarios."
+        },
+        {
+          "name": "workspace:forecast-scenarios:independent-values",
+          "detail": "Mismatched scenario outputs: base:assumptions, upside:assumptions, downside:assumptions."
+        },
+        {
+          "name": "workspace:cash-runway:keys",
+          "detail": "Cash outputs are numeric and runway outputs use the visible text contract."
+        },
+        {
+          "name": "workspace:formula-lineage:required-outputs",
+          "detail": "0/189 required outputs contain formulas."
+        },
+        {
+          "name": "workspace:formula-lineage:dashboard-values",
+          "detail": "Dashboard mismatch: dashboard_ltm_revenue, dashboard_base_ending_cash."
+        },
+        {
+          "name": "workspace:formula-lineage:visible-checks",
+          "detail": "Non-passing checks: model_status, check_source_coverage, check_cash_rollforward, check_scenario_validity."
+        },
+        {
+          "name": "workspace:workbook-rendering:all-sheets",
+          "detail": "0 sheets rendered."
+        },
+        {
+          "name": "workspace:workbook-rendering:dashboard-chart",
+          "detail": "0 dashboard drawing(s) found."
+        },
+        {
+          "name": "workspace:workbook-rendering:dashboard-chart-series",
+          "detail": "0 formula-backed dashboard chart series found."
+        },
+        {
+          "name": "workspace:workbook-rendering:dashboard-chart-binding",
+          "detail": "0/0 dashboard series bind both values and categories to dashboard ranges."
+        },
+        {
+          "name": "workspace:changed-input-response:invoice",
+          "detail": "Workbook unavailable for mutation."
+        },
+        {
+          "name": "workspace:required-delivery-files",
+          "detail": "Workbook is missing."
+        },
+        {
+          "name": "workspace:delivery-commit",
+          "detail": "0 post-fixture commit(s)."
+        }
+      ],
+      "target": null
+    },
+    {
+      "id": "green-a",
+      "admitted": true,
+      "passed": true,
+      "workspace": "green-a",
+      "workbookDigest": "sha256:a1bd58c9b28c8f2daee3fbad8af91a7f9b7e09f703cf16b080ed006fcee722cd",
+      "renderDigests": [
+        {
+          "sheet": "Source_Subscriptions",
+          "digest": "sha256:51653f8c0af4ec9b1c73be4adf33f9fdfbe8f15dd894b41e8c2fd61b9af635fc",
+          "bytes": 134651
+        },
+        {
+          "sheet": "Source_Invoices",
+          "digest": "sha256:adb182b6fda9ea739405fe23836ae95b92e02ddce941e87e21c00a31e83b1392",
+          "bytes": 90338
+        },
+        {
+          "sheet": "Source_Payments",
+          "digest": "sha256:95ba88b2af87a4e051800a50099f8c69d70a837867b21bb1b879be485cc5baee",
+          "bytes": 89095
+        },
+        {
+          "sheet": "Source_Payroll",
+          "digest": "sha256:64ce0f5b87b458a601d70368350de32810abe8c17a84883adad987c7581f780e",
+          "bytes": 85533
+        },
+        {
+          "sheet": "Source_Expenses",
+          "digest": "sha256:3f4dc91b8e7414ccf077e055b163b798ea46bc124c8aa8937906c2c908c07c85",
+          "bytes": 72642
+        },
+        {
+          "sheet": "Source_Cash",
+          "digest": "sha256:93ac1793b94246ee40eaa3ce188a37b010c27cacde4fceeeee7ef53957be7625",
+          "bytes": 90574
+        },
+        {
+          "sheet": "Model",
+          "digest": "sha256:27da80179d6fff6b46e3f1bb71c3eb2edd0859133bffb0ece8f121fbe6a884f1",
+          "bytes": 1062867
+        },
+        {
+          "sheet": "Dashboard",
+          "digest": "sha256:4c9245ecbc86053d8c725d6a612e5fc68a3230aceb6b063ce63f2e79631d5ab7",
+          "bytes": 124875
+        }
+      ],
+      "builderDigest": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+      "builderMatchesSource": true,
+      "failedChecks": [],
+      "failedDetails": [],
+      "target": null
+    },
+    {
+      "id": "green-b",
+      "admitted": true,
+      "passed": true,
+      "workspace": "green-b",
+      "workbookDigest": "sha256:1b8fee70845097df7b6abbe456544c3c395020b6bf74cc7cb08eed0a07347efa",
+      "renderDigests": [
+        {
+          "sheet": "Subscriptions",
+          "digest": "sha256:51653f8c0af4ec9b1c73be4adf33f9fdfbe8f15dd894b41e8c2fd61b9af635fc",
+          "bytes": 134651
+        },
+        {
+          "sheet": "Invoices",
+          "digest": "sha256:adb182b6fda9ea739405fe23836ae95b92e02ddce941e87e21c00a31e83b1392",
+          "bytes": 90338
+        },
+        {
+          "sheet": "Payments",
+          "digest": "sha256:95ba88b2af87a4e051800a50099f8c69d70a837867b21bb1b879be485cc5baee",
+          "bytes": 89095
+        },
+        {
+          "sheet": "Payroll",
+          "digest": "sha256:64ce0f5b87b458a601d70368350de32810abe8c17a84883adad987c7581f780e",
+          "bytes": 85533
+        },
+        {
+          "sheet": "Expenses",
+          "digest": "sha256:3f4dc91b8e7414ccf077e055b163b798ea46bc124c8aa8937906c2c908c07c85",
+          "bytes": 72642
+        },
+        {
+          "sheet": "Cash",
+          "digest": "sha256:93ac1793b94246ee40eaa3ce188a37b010c27cacde4fceeeee7ef53957be7625",
+          "bytes": 90574
+        },
+        {
+          "sheet": "Audit & Forecast",
+          "digest": "sha256:83cb18b1f89ccebe5250543baeba911445d486d4bf105c572e2a56a43982ec6f",
+          "bytes": 1220799
+        },
+        {
+          "sheet": "Executive Dashboard",
+          "digest": "sha256:53b53e3c1b229746c60bff74819734a57175e9a63995d585aa2f410fad26d1a8",
+          "bytes": 105255
+        },
+        {
+          "sheet": "Chart Data",
+          "digest": "sha256:03c8ed21dba1a989e7dded7a4a0e2306944206125ab52a44917ea63fe7e416d2",
+          "bytes": 42018
+        }
+      ],
+      "builderDigest": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+      "builderMatchesSource": true,
+      "failedChecks": [],
+      "failedDetails": [],
+      "target": null
+    },
+    {
+      "id": "mutant-hardcoded",
+      "admitted": true,
+      "passed": false,
+      "workspace": "mutant-hardcoded",
+      "workbookDigest": "sha256:7d4344510fa67f5749acf3b25f1db8a683db8f65526114461ae9010c2da586bd",
+      "renderDigests": [],
+      "builderDigest": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        "workspace:formula-lineage:required-outputs",
+        "workspace:formula-lineage:dashboard-values"
+      ],
+      "failedDetails": [
+        {
+          "name": "workspace:formula-lineage:required-outputs",
+          "detail": "188/189 required outputs contain formulas."
+        },
+        {
+          "name": "workspace:formula-lineage:dashboard-values",
+          "detail": "Dashboard mismatch: dashboard_ltm_revenue."
+        }
+      ],
+      "target": "workspace:formula-lineage:required-outputs"
+    },
+    {
+      "id": "mutant-omitted-source",
+      "admitted": true,
+      "passed": false,
+      "workspace": "mutant-omitted-source",
+      "workbookDigest": "sha256:a4de4a13d9abd0b1d49dacecfccdbcdb1a0f118f83db23d9bc383972e094b7cd",
+      "renderDigests": [],
+      "builderDigest": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        "workspace:source-coverage:payments",
+        "workspace:source-coverage:payments-rows",
+        "workspace:historical-reconciliation:independent-values",
+        "workspace:formula-lineage:cell-references"
+      ],
+      "failedDetails": [
+        {
+          "name": "workspace:source-coverage:payments",
+          "detail": "14/15 canonical payments IDs found."
+        },
+        {
+          "name": "workspace:source-coverage:payments-rows",
+          "detail": "14/15 canonical payments rows preserve the exact header-bound row set."
+        },
+        {
+          "name": "workspace:historical-reconciliation:independent-values",
+          "detail": "Mismatched outputs: actual_collections_2025-02."
+        },
+        {
+          "name": "workspace:formula-lineage:cell-references",
+          "detail": "Outputs without cell/range lineage: actual_collections_2025-02."
+        }
+      ],
+      "target": "workspace:source-coverage:payments"
+    },
+    {
+      "id": "mutant-same-scenarios",
+      "admitted": true,
+      "passed": false,
+      "workspace": "mutant-same-scenarios",
+      "workbookDigest": "sha256:a772ce2769997dfa976179e1a9af92dfc9f92e02d23d3b775281ad1e0d12e057",
+      "renderDigests": [],
+      "builderDigest": "sha256:8a805833552d0838c32a0cc2084cf532d6bcaab37fe8f47a617bb4c70d952224",
+      "builderMatchesSource": true,
+      "failedChecks": [
+        "workspace:forecast-scenarios:materially-different",
+        "workspace:forecast-scenarios:independent-values"
+      ],
+      "failedDetails": [
+        {
+          "name": "workspace:forecast-scenarios:materially-different",
+          "detail": "0/12 forecast months have three distinct scenario revenues."
+        },
+        {
+          "name": "workspace:forecast-scenarios:independent-values",
+          "detail": "Mismatched scenario outputs: scenario_upside_revenue_2026-01, scenario_upside_ending_cash_2026-01, scenario_upside_revenue_2026-02, scenario_upside_ending_cash_2026-02, scenario_upside_revenue_2026-03, scenario_upside_ending_cash_2026-03, scenario_upside_revenue_2026-04, scenario_upside_ending_cash_2026-04, scenario_upside_revenue_2026-05, scenario_upside_ending_cash_2026-05, scenario_upside_revenue_2026-06, scenario_upside_ending_cash_2026-06."
+        }
+      ],
+      "target": "workspace:forecast-scenarios:materially-different"
+    }
+  ]
+}

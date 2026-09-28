@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "reviewer": {
+    "identity": "GPT-6 Codex /root/integration",
+    "role": "independent integration reviewer"
+  },
+  "reviewedAt": "2026-09-27T22:24:00Z",
+  "scopeDigest": "sha256:d04ffa560807fba306fd263810de66db8db3eff976c67d083e747417cd074642",
+  "files": {
+    "eval-cases/emergency-evacuation/admission/README.md": "sha256:95ece1d53a3766abf4ff781ddeb2b47bba85829d02d69cd939428e3a0328294c",
+    "packages/eval-runner/src/project-cases/emergency-evacuation-case.ts": "sha256:cbe90746f7ff922b0d4a783f9f179b3965008b365be02db84c20956cffc48db4",
+    "packages/eval-runner/test/emergency-evacuation-case.test.ts": "sha256:74877454dda1bf0ddcba40c5f8c084cd0fa609c9457f21b552634470b5b9a349",
+    "scripts/verify-emergency-evacuation-admission.mjs": "sha256:f439661a9a8a6ae0318a5df8750128f2220bd44a66fbdfa46b75ce4b671a3843"
+  },
+  "verdict": "pass",
+  "findings": [],
+  "assertions": [
+    "The exact Node executable bytes are authenticated before executing candidate code, followed by version/platform/architecture identity and sandbox preflight.",
+    "The built-ins-only dependency policy and contained regular-file checks fail closed before candidate CLI execution.",
+    "The declared runner requires all named baseline, two-green, mutant, containment, dependency, secret-boundary, and runtime-authority assertions to pass with zero skips and stable bound inputs."
+  ],
+  "evidence": {
+    "receipt": "/Volumes/2T-SSD/eval-evidence/2026-09-27/emergency-admission-v3/receipt.json",
+    "receiptDigest": "sha256:830a0d00f5f56e596285425f579ee030b99adea41846d1c460b6ab83f59bfa04",
+    "result": "20/20 assertions passed; zero skipped; inputs stable"
+  },
+  "limitations": [
+    "The receipt qualifies only its recorded source and runtime identities; it does not promote the candidate or certify the complete ten-case suite."
+  ]
+}

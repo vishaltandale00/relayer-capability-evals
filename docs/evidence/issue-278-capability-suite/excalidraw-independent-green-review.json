@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-09-27T19:02:00-04:00",
+  "reviewer": "/root/integration",
+  "reviewKind": "non-certifying independent source and evidence review",
+  "scope": {
+    "commandLogPatch": "eval-cases/excalidraw-scene-history/solution/green-command-log.patch",
+    "commandLogPatchSha256": "sha256:126d3a8ff0be2fdca2f6b3b622c0813ece0f077f5a4d26d414dcb11a40793378",
+    "functionalPatchSha256": "sha256:10305435708a7696d83a75df1fddb5f88423d05400440a9ec18c60d2f43e0c73",
+    "normalizedVerifierSourceSha256": "sha256:f32c3f7a8fdf698e1ba893e84d77ce55df678eeb2a3cc14ce16079e0a3bc94b6",
+    "referenceManifestSha256": "sha256:4577b6b3a4c08a247ebd64702e0354110cdfffca2cdb260a7577e20846ade5c4",
+    "productionGradeLog": "/Volumes/2T-SSD/eval-evidence/2026-09-27/excal-command-log-independent-grade.log"
+  },
+  "assertion": "The command-log green has an independent state authority: append-only commands and pure replay derive versions, snapshots, and current head; imports and operations append events instead of mutating the functional green snapshot-map authority. Shared canonical merge, integrity, and editor-adapter helpers do not erase the independent state model. The real production grade passed all 11 sealed predicates, native editor checks, build, and 117 upstream tests.",
+  "verdict": "pass",
+  "unresolvedFindings": []
+}

@@ -1,0 +1,6 @@
+953bfe0e448391a4a8579451f461d068378c6fb9f99cf85d48d95d258dd12f66  packages/eval-runner/src/project-cases/httpcore-cancellation.ts
+279733a17f7228881c18c96e96408572d3c2b62ca640f8fee7b19f39bc7d2137  packages/eval-runner/dist/project-cases/httpcore-cancellation.js
+b859fbcb32e8559203893b0a60857e9688697c24decab9b5cdce912070b878bc  eval-cases/httpcore-cancellation-pool/verifier/verify.py
+effced73865277136cba74126b263b0b4efcf276e0de81451dd0589628ae970e  eval-cases/httpcore-cancellation-pool/verifier/regression.py
+1574363aaad673aee0654c936447f11fa3ed09bcf582d5e75c3e743509c1a99b  eval-cases/httpcore-cancellation-pool/environment/requirements.lock
+4335e6a435acb0ddbd310daadae1d69acf4db587856cd5bc9cd876679adcd1ca  scripts/run-httpcore-admission.mjs

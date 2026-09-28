@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "GPT-6 Luna",
+  "reviewedAt": "2026-09-27",
+  "verdict": "pass-with-current-snapshot-freshness-caveat",
+  "scope": {
+    "productAuthority": "docs/prd/index.html §13.2.1",
+    "files": [
+      {
+        "path": "scripts/verify-jupyterlab-execution-bundles-admission.mjs",
+        "digest": "sha256:a4a5cd15c55652a463866ecbfa3ad75cbfaaf13fbb36d4e92f81950b4592cf0f"
+      },
+      {
+        "path": "scripts/lib/jupyterlab-admission-contract.mjs",
+        "digest": "sha256:70a1afe8acc7e609ff37637aa3d9af4029e3b4056a35f7e122d0c91448474afe"
+      },
+      {
+        "path": "eval-cases/jupyterlab-execution-bundles/solution/README.md",
+        "digest": "sha256:2fa56287e3b1e346ef9e56bb5680489490a6324a8bff089128f8f55a10f44118"
+      },
+      {
+        "path": "eval-cases/jupyterlab-execution-bundles/solution/green-recursive.patch",
+        "digest": "sha256:b57144296209076d665a01f1199836db5f56ff13df4d9dba026a74e87ae268e4"
+      },
+      {
+        "path": "eval-cases/jupyterlab-execution-bundles/solution/green-normalized.patch",
+        "digest": "sha256:baaae88d9483af3768ff65531cad90daabb22d7a40f0cd261d3441dfdb8fcc04"
+      },
+      {
+        "path": "packages/eval-runner/src/project-cases/jupyterlab-execution-bundles.ts",
+        "digest": "sha256:c81ef1b137beb7dc0ff770f07270ed25f4dea729614c8d6903e4ff0098904d61"
+      },
+      {
+        "path": "packages/eval-runner/test/jupyterlab-execution-bundles.test.ts",
+        "digest": "sha256:a6419bc6f6f1b54e3d8ff7af48ec60040b06ecba285ff95cda0e438f652e5161"
+      },
+      {
+        "path": "packages/eval-runner/dist/index.js",
+        "digest": "sha256:d35f3a6be17c4cb7da6ab2cb322cfc944a16e459467526cc312ac0b5a9f00c20"
+      },
+      {
+        "path": "packages/eval-runner/dist/project-cases/jupyterlab-execution-bundles.js",
+        "digest": "sha256:5eca150bc9729474eda9428060d869a74dfcbfad1dcafd3616fb20ca04f32d40"
+      },
+      {
+        "path": "packages/eval-runner/dist/cases/catalog.js",
+        "digest": "sha256:c7905a7f8f1bbb4b1895cb197ddc2b0886964959d6c746066355f161ef6d85bc"
+      },
+      {
+        "path": "packages/eval-runner/dist/cases/contracts.js",
+        "digest": "sha256:7244d4023d8ce25db396d1587fb5873bb0abd4321277e094d8cd6123f3f06023"
+      },
+      {
+        "path": "packages/eval-runner/package.json",
+        "digest": "sha256:5cef632ed2af845e653103f9bfa4772128ac5e86ddf35b93b00b045dd0052f5b"
+      },
+      {
+        "path": "packages/eval-runner/tsconfig.build.json",
+        "digest": "sha256:0db99c92e128103d23a5022be8c8a6da1a85c87829a4ff1f8f5a8611026c51df"
+      },
+      {
+        "path": "package.json",
+        "digest": "sha256:5c51815a0993f741f0e5806ce894cfbecb33ccc85c614a41c099238abc76a946"
+      },
+      {
+        "path": "package-lock.json",
+        "digest": "sha256:4b36c7f48d6c7d415f14df0acd1c04bf135f10ef35b6b97a80e020b60c620ba8"
+      }
+    ],
+    "currentSourceInputsDigest": "sha256:aac427939a43944bb45197467c2dff870ef89541532ccf69aafd68bb5a8ddffd",
+    "admissionReceipt": {
+      "path": "/Volumes/2T-SSD/eval-evidence/2026-09-27/jupyterlab-admission-v3/receipt.json",
+      "digest": "sha256:ac7ca7004790d35560bc5f3e5b7864bed7d40a6243df428b17cd6a7aaf13c76a",
+      "status": "passed",
+      "sourceInputsDigest": "sha256:d3203503b6d0ef3516711241d38a8d349fe65b9bd348dd990e90e17dc0df511b",
+      "caseSnapshotDigest": "sha256:82f15a703d24fd1a439762ddea29c090f27d0364a3b4cb78122b04d9618d8045",
+      "verifierDigest": "sha256:b32270aa329d5d67660a627d6152ec3bf75a9e3308281cca1119cea89ddd66bf",
+      "normalizedVerifierSourceSha256": "edb10b7b99d234859ba7bda99ccea925cc56a363a7341e12cd8a72daec5a3ea5",
+      "inputsStable": true
+    }
+  },
+  "reviewedClaims": {
+    "protectedConfiguration": "Pass: fixture verification checks pinned lockfile, Yarn runtime, .yarnrc, notebook/testing manifests and Jest/TS config before install and again after evaluator build/tests. Protected-config mutant aborts before candidate execution with the exact expected digest mismatch.",
+    "postTestDelta": "Pass: the candidate delta is recorded after pristine fixture verification and immutable install; after all build/tests the verifier rechecks the fixture, rejects unstaged/untracked drift and compares the staged binary delta digest. The v3 post-test mutation is observed as pristine-verification-integrity failure.",
+    "admissionPortfolio": "Pass for the recorded v3 snapshot: untouched delivery-ineligible baseline and committed missing-feature red control, two distinct green implementations, semantic/authority mutants for omitted executions, missing inputs, partial state, detached UI, protected config, and post-test source mutation all met exact per-entry expectations. All 10 entries report expectationsMet=true and rosterComplete=true.",
+    "verifierCoverage": "Pass: compiled public-submodule behavior checks bind environment/order/outputs/file bytes and per-file hashes/full bundle integrity, immutable import, rerun differences, missing inputs, tampering, partial execution, and six attached read-only UI states; a separate upstream test exercises the package root source barrel; independent build and focused tests run."
+  },
+  "unresolvedFindings": [
+    {
+      "severity": "qualification-freshness",
+      "detail": "The v3 receipt sourceInputsDigest is stable for its run, and all 15 captured inputs still match current files except root package.json. That file changed from sha256:d3203503b6d0ef3516711241d38a8d349fe65b9bd348dd990e90e17dc0df511b-captured package digest sha256:2d09457f1b2f8cd441982ef864fb18e83f282a58702640742272019a6caa157c to current sha256:5c51815a0993f741f0e5806ce894cfbecb33ccc85c614a41c099238abc76a946 due to the additional Excalidraw admission script; the Jupyter verifier, contract, tests, reference patches, and captured eval-runner dist files remain identical. The v3 Jupyter receipt is therefore not bound to the exact current 15-input composite snapshot, although the differing root-package change is unrelated to Jupyter behavior. Final exact-source Jupyter admission should replay after the shared build/check before a fresh admission claim."
+    }
+  ],
+  "nonCertification": "This review is read-only and does not promote the case or replace final exact-source admission."
+}

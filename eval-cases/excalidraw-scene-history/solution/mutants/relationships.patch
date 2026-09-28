@@ -1,0 +1,13 @@
+diff --git a/packages/excalidraw/scene-history.tsx b/packages/excalidraw/scene-history.tsx
+index 46ab9f3..db7afbf 100644
+--- a/packages/excalidraw/scene-history.tsx
++++ b/packages/excalidraw/scene-history.tsx
+@@ -50,7 +50,7 @@ function mergeValue(base, left, right, path, conflicts) {
+   return output;
+ }
+ 
+-function validateIntegrity(scene) {
++function validateIntegrity(scene) { return;
+   const ids = new Set(scene.elements.map(({ id }) => id));
+   for (const element of scene.elements) {
+     for (const binding of [element.startBinding, element.endBinding].filter(Boolean)) {
