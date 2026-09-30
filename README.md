@@ -19,10 +19,32 @@ npm run check
 
 Spreadsheet cases require `RELAYER_SPREADSHEET_NODE` and `RELAYER_SPREADSHEET_NODE_MODULES`. The emergency case accepts `RELAYER_EVAL_NODE` and otherwise validates the current Node executable. Catalog preflight marks a case unavailable before queueing when its platform or runtime is unsuitable.
 
-The root `catalog.mjs` exports `createEvalCatalog()`. It returns schema version 1, the exact ordered ten case registrations, and the pinned suite manifest. Each registration exposes its bound immutable case, public definition projection, availability, materializer, grader, and mandatory-gate evaluator.
+The root `catalog.mjs` exports the unchanged ten-case capability catalog. The `interactive-catalog.mjs` entrypoint composes those registrations with eight interactive everyday cases and a second pinned suite manifest using the same SDK contract. Each registration exposes its bound immutable case, public definition projection, availability, materializer, grader, and mandatory-gate evaluator.
 
 ## Verification
 
 `npm run check` runs TypeScript checking and the native focused package tests without paid inference. The `eval:admit:*` scripts are heavier deterministic macOS entry points. Evidence under `docs/evidence/issue-278-capability-suite` predates extraction and is historical until regenerated against an exact commit in this repository.
 
 Cross-repository CI remains pending until the GraphComplete SDK changes are merged and can be pinned by commit. Local verification must therefore record both the external catalog commit and selected GraphComplete SDK commit.
+
+
+## Interactive human exploration
+
+`interactive-catalog.mjs` exposes `interactive-human-exploration-v1`, a separate
+exploratory ten-task manifest:
+two unchanged coding cases and eight everyday cases. The optional private
+interactive contract requires the matching GraphComplete SDK and external Human
+Grader integration. Keep the original autonomous suite separate.
+
+Each everyday workspace requests a shareable `deliverable.md`. The restaurant
+workspace includes `restaurant-server.mjs`; start it with Node and use its printed
+loopback URL. Its records are fictional and persistent in that task workspace.
+Human review remains necessary for graph decisions, current research and intent
+fit. The deterministic artifact-presence check is not a quality judgment.
+
+`npm run test:interactive-restaurant` runs the real local website in Electron
+and verifies search, availability, booking, modification, restart and cancellation
+without inference or real reservations. Run it after changing this fixture.
+
+The earlier untracked `interactive-cases/` draft is not loaded or overwritten.
+This registered set does not mandate a correction or reuse its old holdout split.

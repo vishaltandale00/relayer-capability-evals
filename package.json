@@ -20,7 +20,8 @@
     "eval:admit:jupyterlab-execution-bundles": "node scripts/verify-jupyterlab-execution-bundles-admission.mjs",
     "eval:admit:emergency-evacuation": "node scripts/verify-emergency-evacuation-admission.mjs",
     "eval:admit:httpcore": "node scripts/run-httpcore-admission.mjs",
-    "eval:admit:excalidraw-scene-history": "node scripts/verify-excalidraw-scene-history-admission.mjs"
+    "eval:admit:excalidraw-scene-history": "node scripts/verify-excalidraw-scene-history-admission.mjs",
+    "test:interactive-restaurant": "electron scripts/test-interactive-restaurant.cjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

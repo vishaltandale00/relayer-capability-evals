@@ -1,0 +1,58 @@
+[
+  {
+    "id": "europe-trip",
+    "name": "Multi-city European trip",
+    "prompt": "Help me plan a Europe trip with some friends. Can we figure out a route and make a plan I can share with them?",
+    "brief": "Six friends leave from Boston for twelve nights next September. Budget is $4,500 each before international flights. One person cannot manage stairs or long walks. Two want museums and food, two want nightlife, and the others want relaxed mornings and cafés. You dislike changing hotels more than twice. Exact cities are undecided; you want to compare realistic rail routes. Reveal facts when relevant; do not invent a required correction.",
+    "endpoint": "A participant-approved dated route, realistic budget, accessible transport options, and shareable itinerary."
+  },
+  {
+    "id": "restaurant-celebration",
+    "name": "Group celebration and reservation",
+    "prompt": "Help me organize a birthday dinner for our group and reserve somewhere suitable using the fictional reservation site provided here. Let's decide together before booking.",
+    "brief": "Six adults need dinner in Cambridge on a date you choose together next month. You prefer 19:00, a quiet room, step-free entry and good vegan options. Budget is $65 per person before drinks. The guest name is Alex. You care more about conversation than prestige. Share these facts as needed and approve the choice before a fictional booking. Modification or cancellation is available if naturally needed; neither is a mandatory event.",
+    "endpoint": "A participant-approved fictional reservation with a confirmation record and a shareable dinner plan."
+  },
+  {
+    "id": "local-weekend",
+    "name": "Current local weekend",
+    "prompt": "Help me make a good plan for this coming weekend. I'd like something more interesting than my usual routine, but let's work out what fits.",
+    "brief": "You are in Boston with your partner, have a total $150 budget, use transit, enjoy live music and neighborhood food, dislike packed venues, and need Sunday afternoon free. You prefer outdoor time if the weather permits. The location, date range and priorities must be established through conversation. You want verified current opening hours, event dates and a rainy-weather alternative.",
+    "endpoint": "An agreed weekend schedule with current event details, transit, cost estimates, and a weather fallback."
+  },
+  {
+    "id": "discussion-evening",
+    "name": "Current-events discussion evening",
+    "prompt": "I'm hosting a small discussion evening about something in the news. Help me pick a topic and put together an evening people will enjoy.",
+    "brief": "Eight friends with mixed political views meet for 90 minutes. They are curious rather than specialists. You want a recent science or technology policy topic, no party campaigning, and a balanced short reading pack. Two guests do not have paid news subscriptions. You want a welcoming agenda and prompts that distinguish facts from opinions, not a debate with winners.",
+    "endpoint": "An agreed current topic, accessible sourced reading pack, balanced discussion prompts and a 90-minute agenda."
+  },
+  {
+    "id": "learning-plan",
+    "name": "Course selection and learning plan",
+    "prompt": "I want to learn something useful for my work, but I'm overwhelmed by courses. Help me choose and make a plan I'll actually follow.",
+    "brief": "You work in nonprofit operations and want basic data analysis for spreadsheets and reporting, not a programming career. You have three hours a week for eight weeks and a $200 budget. You learn best by doing a small real project, need captions, and dislike long lectures. You want current course pricing, prerequisites and format checked before choosing; no enrollment or payment.",
+    "endpoint": "An agreed course choice with verified prerequisites and costs, an eight-week schedule, and a practical project."
+  },
+  {
+    "id": "workspace-refresh",
+    "name": "Home workspace refresh",
+    "prompt": "My work-from-home setup isn't working well for me. Help me decide what to change and make a practical shopping and setup plan.",
+    "brief": "You rent a small apartment in Boston, have a 120 by 55 cm desk, a laptop and one monitor, and $450 to spend. Wall mounting is prohibited. You want warm light and a calm appearance, need to put the workspace away in the evening, and prefer reusing the monitor. You are not seeking a medical diagnosis. Check current dimensions, availability and prices; do not buy anything.",
+    "endpoint": "An agreed space-compatible improvement plan, researched shortlist within budget, and setup sequence."
+  },
+  {
+    "id": "community-workshop",
+    "name": "Community workshop",
+    "prompt": "I'd like to run a small community workshop. Can you help me shape the idea and turn it into something I can organize?",
+    "brief": "You volunteer at a Boston neighborhood library and want a beginner phone-photography workshop for twelve adults, including older participants. Budget is $120, duration 90 minutes, and the room has chairs but no projector. You need free accessible learning resources, printed instructions, a low-pressure practice activity and a clear invitation. You can choose a date with the librarian; do not claim a venue booking is confirmed.",
+    "endpoint": "An agreed workshop plan, current resource list, materials budget, accessible handout and invitation."
+  },
+  {
+    "id": "household-move",
+    "name": "Household move",
+    "prompt": "We're moving soon and I need help making it manageable. Can we work through the decisions and get a plan together?",
+    "brief": "Two adults move between apartments in Cambridge in six weeks. Budget is $1,800, you have one weekend available, no car, twenty boxes, a sofa and a desk. The old apartment is on the third floor without a lift; the destination has a lift. You want to compare movers against a hybrid option using current quotes or clearly labelled estimates, research relevant parking requirements, and divide responsibilities fairly. No service booking or payment.",
+    "endpoint": "An agreed moving approach, researched costs and requirements, dated checklist, and division of responsibilities."
+  }
+]
