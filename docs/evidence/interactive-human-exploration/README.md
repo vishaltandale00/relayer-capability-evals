@@ -22,3 +22,24 @@ Earlier check under Node 25 failed the existing Node-22-only reservation tests.
 An initial implementation also changed the sealed original catalog adapter;
 that was reverted and replaced with composition through the same SDK entrypoint.
 Neither failure is suppressed by updating original coding fixture identities.
+
+## Isolated everyday workspaces (2026-10-01)
+
+Live native session metadata revealed that plain task folders nested inside a
+Relayer checkout were consolidated into its parent project. All eight everyday
+runs from that batch are contaminated evidence, regardless of actor completion.
+The two coding workspaces were independently isolated.
+
+The everyday materializer now seeds a standalone Git root. It filters inherited
+Git environment overrides, fixes seed dates, disables seed hooks/signing, and
+returns the seed commit. The materializer/environment identity, eight case pins
+and suite digest changed; prompts, private profiles, endpoints and grading
+criteria did not. The coding case identities remain unchanged.
+
+The nested-checkout regression reproduces the original wrong root and verifies
+the repaired root, cloneable README artifact and unchanged parent index. A second
+red run injected Git directory/worktree/index/config overrides; filtering made
+the same production-seam scenario pass. GraphComplete separately checks the
+canonical returned project path before dispatch. Native cwd and instruction
+isolation still require live rerun evidence. Earlier outcome assessments are not
+promoted or rewritten.

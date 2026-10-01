@@ -1,8 +1,11 @@
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { bindAutonomousCaseSnapshot, canonicalJson, createAutonomousCaseSnapshot } from "@relayer/eval-runner";
 import { gradeInteractiveArtifact } from "../verifiers/interactive-artifact.mjs";
+const run = promisify(execFile);
 const verifierBytes = await readFile(new URL("../verifiers/interactive-artifact.mjs", import.meta.url));
 const verifierDigest = `sha256:${createHash("sha256").update(verifierBytes).digest("hex")}`;
 const digest = (value) => `sha256:${createHash("sha256").update(canonicalJson(value)).digest("hex")}`;
@@ -34,7 +37,7 @@ export const interactiveEverydayCases = content.map((item) => {
         interactive: { schemaVersion: 1, participantBrief: item.brief, reviewerRubric: { version: rubric.rubricVersion, criteria: reviewCriteria }, endpoint: item.endpoint, maxCompletions: 8, research: "current-sources-and-dates" },
         artifacts: {
             task: { kind: "visible-task", text: item.prompt, contentDigest: digest(item.prompt) },
-            workspace: { kind: "frozen-workspace", materializerId: "interactive-files-v1", source, revision, contentDigest: revision, environmentDigest: digest({ runtime: "node>=22.8", browser: "required", network: "current-research" }) },
+            workspace: { kind: "frozen-workspace", materializerId: "interactive-git-files-v2", source, revision, contentDigest: revision, environmentDigest: digest({ runtime: "node>=22.8", browser: "required", network: "current-research", workspace: "isolated-git-root-v1" }) },
             reference: { kind: "sealed-reference", artifactId: `${id}.participant`, format: "participant-profile", contentDigest: profileDigest, sealedPath: "packages/capability-evals/profiles/everyday-v1.json" },
             verifier: { kind: "sealed-verifier", artifactId: `${id}.evidence`, verifierId: "interactive-artifact-presence-v1", contentDigest: verifierDigest, sealedPath: "packages/capability-evals/verifiers/interactive-artifact.mjs", mandatoryGates: [{ id: "interactive-artifact", label: "Output artifact", description: "An output artifact exists; quality and intent fit require human review." }] },
             outcomeRubric: { ...rubric, contentDigest: digest(rubric) },
@@ -44,8 +47,17 @@ export const interactiveEverydayCases = content.map((item) => {
 });
 export const interactiveEverydayRegistrations = interactiveEverydayCases.map(({ boundCase, files }) => ({
     boundCase, definition: { ...boundCase.definition, caseSnapshot: boundCase.catalogSnapshot, caseSnapshotDigest: boundCase.snapshotDigest }, available: true, unavailableReason: null,
-    materialize: async ({ workspaceDirectory }) => { await mkdir(workspaceDirectory, { recursive: true }); for (const [path, text] of Object.entries(files))
-        await writeFile(join(workspaceDirectory, path), text, { flag: "wx" }); return { workspaceDirectory, repositoryUrl: boundCase.snapshot.artifacts.workspace.source, sourceRevision: boundCase.snapshot.artifacts.workspace.revision }; },
+    materialize: async ({ workspaceDirectory }) => {
+        await mkdir(workspaceDirectory, { recursive: true });
+        for (const [path, text] of Object.entries(files))
+            await writeFile(join(workspaceDirectory, path), text, { flag: "wx" });
+        const options = { cwd: workspaceDirectory, env: { ...Object.fromEntries(Object.entries(process.env).filter(([key]) => !key.startsWith("GIT_"))), GIT_AUTHOR_DATE: "2000-01-01T00:00:00Z", GIT_COMMITTER_DATE: "2000-01-01T00:00:00Z" } };
+        await run("git", ["init", "--quiet", "--initial-branch=main", "--template="], options);
+        await run("git", ["add", "--", ...Object.keys(files)], options);
+        await run("git", ["-c", "user.name=Relayer Eval", "-c", "user.email=eval@relayer.invalid", "-c", "commit.gpgsign=false", "-c", `core.hooksPath=${join(workspaceDirectory, ".git", "disabled-hooks")}`, "commit", "--quiet", "-m", "Seed isolated interactive task"], options);
+        const seededCommit = (await run("git", ["rev-parse", "HEAD"], options)).stdout.trim();
+        return { workspaceDirectory, repositoryUrl: boundCase.snapshot.artifacts.workspace.source, sourceRevision: boundCase.snapshot.artifacts.workspace.revision, seededCommit };
+    },
     grade: gradeInteractiveArtifact,
     evaluateMandatoryGate: (gate, checks) => { const matched = checks.filter(c => c.name === gate.id); return { complete: matched.length === 1, passed: matched.length === 1 && matched[0].passed, matched }; },
 }));

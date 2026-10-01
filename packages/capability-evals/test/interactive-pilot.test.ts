@@ -1,3 +1,5 @@
+import { execFileSync } from "node:child_process";
+import { realpath } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { afterEach, expect, it } from "vitest";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
@@ -59,4 +61,26 @@ it("reservation fixture persists booking, rejects overbooking, modifies, cancels
     expect((await request('DELETE','/api/bookings/'+booked.id)).status).toBe(200);
     const final=await (await request('GET','/api/bookings')).json();expect(final.events.map((e:{kind:string})=>e.kind)).toEqual(['booked','modified','cancelled']);expect(final.bookings[0].status).toBe('cancelled');
   } finally {await server.close();}
+});
+
+
+it("materializes an isolated repository beneath another checkout and supports artifact cloning", async () => {
+  const parent = await mkdtemp(join(tmpdir(), "interactive-nested-")); directories.push(parent);
+  execFileSync("git", ["init", "--quiet"], { cwd: parent });
+  await writeFile(join(parent, "AGENTS.md"), "Unrelated parent instructions");
+  const path = join(parent, "nested", "workspace");
+  const registration = interactiveEverydayRegistrations[0]!;
+  const injected = { GIT_DIR: join(parent, ".git"), GIT_WORK_TREE: parent, GIT_INDEX_FILE: join(parent, ".git", "foreign-index"), GIT_CONFIG_COUNT: "1", GIT_CONFIG_KEY_0: "core.worktree", GIT_CONFIG_VALUE_0: parent };
+  const previous = Object.fromEntries(Object.keys(injected).map(key => [key, process.env[key]]));
+  Object.assign(process.env, injected);
+  let fixture;
+  try { fixture = await registration.materialize({ caseId: registration.definition.id, workspaceDirectory: path, cacheDirectory: parent, platform: process.platform }); }
+  finally { for (const [key, value] of Object.entries(previous)) { if (value === undefined) delete process.env[key]; else process.env[key] = value; } }
+  expect(execFileSync("git", ["ls-files"], { cwd: parent, encoding: "utf8" }).trim()).toBe("");
+  expect(execFileSync("git", ["rev-parse", "--show-toplevel"], { cwd: path, encoding: "utf8" }).trim()).toBe(await realpath(path));
+  const clone = join(parent, "snapshot");
+  execFileSync("git", ["clone", "--quiet", path, clone]);
+  expect(await readFile(join(clone, "README.md"), "utf8")).toBe(await readFile(join(path, "README.md"), "utf8"));
+  expect(execFileSync("git", ["ls-files"], { cwd: path, encoding: "utf8" }).trim()).toBe("README.md");
+  expect(fixture).toMatchObject({ seededCommit: expect.stringMatching(/^[0-9a-f]{40}$/) });
 });
