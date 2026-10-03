@@ -58,3 +58,8 @@ exercise every restaurant action in one trajectory.
 GraphComplete owns external admission, subscription authority, rendering timing,
 case selection and human review. Backend state timestamps cannot prove when an
 updated graph visibly begins appearing. This case package makes no timing claim.
+
+On 2026-10-02, the user increased the interactive submission ceiling from 8 to 30.
+New everyday case snapshots and the exploration suite pin this ceiling. Existing
+run snapshots retain their original budgets. Actor action and time limits remain
+independent; this change does not raise them or require 30 submissions.

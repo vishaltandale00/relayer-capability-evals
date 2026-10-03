@@ -25,6 +25,7 @@ it("packages ten exploratory members without changing the coding contracts or ex
   expect(catalog.suites).toHaveLength(2);
   const publicText = JSON.stringify(catalog.cases.map(c=>c.definition));
   for(const c of interactiveEverydayCases) {
+    expect(c.boundCase.snapshot.interactive!.maxCompletions).toBe(30);
     expect(publicText).not.toContain(c.boundCase.snapshot.interactive!.participantBrief);
     for (const artifact of [c.boundCase.snapshot.artifacts.reference, c.boundCase.snapshot.artifacts.verifier]) {
       const bytes = await readFile(join(import.meta.dirname, "../../..", artifact.sealedPath));

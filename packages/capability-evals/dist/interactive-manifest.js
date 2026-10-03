@@ -31,60 +31,60 @@ export const interactiveHumanExplorationManifest = {
         },
         {
             "caseId": "interactive.everyday.europe-trip",
-            "expectedCaseSnapshotDigest": "sha256:54a82ef3b437e5bc1eb89d1e16eaed38a8b241a87134a2372c494c7172805a94",
+            "expectedCaseSnapshotDigest": "sha256:0c7d089f62942d8fe599befe550977958b22f15d66ca69aea6e13f3805e1a1da",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.restaurant-celebration",
-            "expectedCaseSnapshotDigest": "sha256:3fbcd707e5af18704935acb38cf9988c47f7e21452126c2b775b9ec41a67d80d",
+            "expectedCaseSnapshotDigest": "sha256:5de371210781a2748af6a3ce8078ea5980a23499be6f4b143e2e37abbc2a0a0f",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.local-weekend",
-            "expectedCaseSnapshotDigest": "sha256:9d5984ef572f0b32e42fb1adb3cdef4663a0754bb048d12e75d717eede13abea",
+            "expectedCaseSnapshotDigest": "sha256:1a727b213ee1bbd7ca163671ee58c2b167eb6e20684fb2d5af22e6877cf42cb0",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.discussion-evening",
-            "expectedCaseSnapshotDigest": "sha256:552a213585760a6c72764f676c61c58cdc453833439f6a19f77498bac4a58d08",
+            "expectedCaseSnapshotDigest": "sha256:0414fc59253ac6e007809c5201acf712931ae124c41ec99e068495f8c8115737",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.learning-plan",
-            "expectedCaseSnapshotDigest": "sha256:477b7e634826d6bc7cd85c38a1e42f28e97f3d3edfd6f2f23c05b21293aa007f",
+            "expectedCaseSnapshotDigest": "sha256:0aa6e385f74cd0b78188476b3509ca7c57613d9984e1ea2a17a700debb9a17cb",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.workspace-refresh",
-            "expectedCaseSnapshotDigest": "sha256:3082cc4f73239fcd57607c21f6f1ed13a8cfdd8629e4ef839a07e4b5287a6ae5",
+            "expectedCaseSnapshotDigest": "sha256:13fd8c2c7b7bf4ec603cc69b8444f6390af9a91105696105c05add0844a9a4de",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.community-workshop",
-            "expectedCaseSnapshotDigest": "sha256:2e05d27af12ee5ee81d7211e0236b3c52d332985ecfce7a00bb01cf92da1df64",
+            "expectedCaseSnapshotDigest": "sha256:e2feedddcd799feb606aabdcacf00e6367d3045b87ed8d609693d009b93a75d3",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         },
         {
             "caseId": "interactive.everyday.household-move",
-            "expectedCaseSnapshotDigest": "sha256:7a8d32357aea1d42cf015d74437ec5a4a6156b28961159152dbf2d6aa3d88b5c",
+            "expectedCaseSnapshotDigest": "sha256:b6bd857381d96fed2585b16a82443da6026ae60748db32cdb9a9bb5a083e16aa",
             "outcomeContractVersion": "interactive-human-review-v1",
             "outcomeContractDigest": "sha256:e3054002cfd6c2f0d9026250280916aed1c45c808e5b6ef4c7ee1be29191bc12",
             "presentationPolicyDigest": "sha256:0dcb1cb52bec5aa392f56cee38082284b994748845c049862acc0f2070aa1c08"
         }
     ],
-    "suiteDigest": "sha256:1e2366b4c77687af4dbfdf5ba572c29e1482ef6b21649efcd4be1b2880daf0be"
+    "suiteDigest": "sha256:313eb7e88f088cf291e672703262c670d547eabd48fea40e8ef51b87e9abcb87"
 };

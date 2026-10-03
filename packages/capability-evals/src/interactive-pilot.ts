@@ -37,7 +37,7 @@ export const interactiveEverydayCases = content.map((item) => {
     threads: [{ id: "task", name: item.name, permissionProfileId: "auto" as const, mutationPolicy: "writable" as const, prompts: [item.prompt], workspaceGrade: "implementation" as const }] };
   const rubric = { kind: "outcome-rubric" as const, rubricVersion: "interactive-human-review-v1", criteria: [{ id: "artifact", label: "Output artifact", description: "An output artifact exists; human review determines quality and personal fit.", weight: 1 }] };
   const boundCase = bindAutonomousCaseSnapshot(definition, createAutonomousCaseSnapshot({ ...definition, category: "work", taskType: "interactive-planning", authoringStatus: "candidate",
-    interactive: { schemaVersion: 1, participantBrief: item.brief, reviewerRubric: { version: rubric.rubricVersion, criteria: reviewCriteria }, endpoint: item.endpoint, maxCompletions: 8, research: "current-sources-and-dates" },
+    interactive: { schemaVersion: 1, participantBrief: item.brief, reviewerRubric: { version: rubric.rubricVersion, criteria: reviewCriteria }, endpoint: item.endpoint, maxCompletions: 30, research: "current-sources-and-dates" },
     artifacts: {
       task: { kind: "visible-task", text: item.prompt, contentDigest: digest(item.prompt) },
       workspace: { kind: "frozen-workspace", materializerId: "interactive-git-files-v2", source, revision, contentDigest: revision, environmentDigest: digest({ runtime: "node>=22.8", browser: "required", network: "current-research", workspace: "isolated-git-root-v1" }) },
