@@ -29,3 +29,37 @@ and regression checks use no inference.
 The external catalog registers case definitions and callbacks only. It does not
 schedule model work. Harness providers retain their native recursive execution;
 GraphComplete retains graph scope, acceptance, and completion semantics.
+
+
+## Exploratory interactive set (approved 2026-09-30)
+
+A separate candidate manifest contains Tournament Operations and Node Redis with
+their existing contracts, plus eight everyday interactive tasks: European trip,
+restaurant celebration, local weekend, news discussion, learning plan, workspace
+refresh, community workshop and household move. The original autonomous suite
+retains its exact membership and identities. This set is exploratory, not a
+comparative baseline or a promotion gate.
+
+Use the canonical SDK case snapshot's optional interactive contract. It pins
+participant facts, reviewer criteria, research requirements, endpoint and limits.
+Private facts and criteria remain outside the public projection and candidate
+workspace. Participant answers arise naturally; no mandatory correction sequence
+or fixed traversal is imposed. Cases require current research with sources and
+retrieval dates and a concrete final output. Human review assesses intent fit,
+answer incorporation and decisions throughout the graph; artifact existence is
+only an objective prerequisite and does not certify those qualities.
+
+The restaurant is an explicitly fictional loopback website. Its fixture supports
+search, availability, booking, modification, cancellation, and persistent
+confirmation/event records. It performs no real transaction. Other cases permit
+research and planning, not purchases or commitments. A participant need not
+exercise every restaurant action in one trajectory.
+
+GraphComplete owns external admission, subscription authority, rendering timing,
+case selection and human review. Backend state timestamps cannot prove when an
+updated graph visibly begins appearing. This case package makes no timing claim.
+
+On 2026-10-02, the user increased the interactive submission ceiling from 8 to 30.
+New everyday case snapshots and the exploration suite pin this ceiling. Existing
+run snapshots retain their original budgets. Actor action and time limits remain
+independent; this change does not raise them or require 30 submissions.

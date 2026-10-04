@@ -11,3 +11,5 @@ export * from "./project-cases/spreadsheet-artifact-inspector.js";
 export * from "./project-cases/spreadsheet-runtime.js";
 export * from "./project-cases/tournament-operations-case.js";
 export * from "./capability-pilot-v1.js";
+
+export * from "./interactive-pilot.js";
